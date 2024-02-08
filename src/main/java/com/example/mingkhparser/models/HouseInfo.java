@@ -23,6 +23,7 @@ import com.example.mingkhparser.models.hotwatersupplysystem.HotWaterSupplySystem
 import com.example.mingkhparser.models.roof.Roof;
 import com.example.mingkhparser.models.shutoffvalves.coldwater.ShutoffValvesColdWaterSupplySystem;
 import com.example.mingkhparser.models.shutoffvalves.heating.ShutoffValvesHeatingSystem;
+import com.example.mingkhparser.models.shutoffvalves.hotwater.ShutoffValvesHotWaterSupplySystem;
 import com.example.mingkhparser.models.windows.Windows;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
@@ -43,6 +44,7 @@ public class HouseInfo {
     private WallMaterial wallMaterial;
     private Boolean garbageChute;
     private Boolean isEmergency;
+    private String cadastralNumber;
     private String oktmoCode;
     private String managementCompany;
     private GeneralInfo generalInfo;
@@ -67,5 +69,6 @@ public class HouseInfo {
     private ColdWaterSystem coldWaterSystem;
     private ColdWaterSupplySystemRisers coldWaterSupplySystemRisers;
     private ShutoffValvesColdWaterSupplySystem shutoffValvesColdWaterSupplySystem;
+    private ShutoffValvesHotWaterSupplySystem shutoffValvesHotWaterSupplySystem;
 }
 

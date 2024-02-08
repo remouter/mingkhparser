@@ -1,5 +1,5 @@
 package com.example.mingkhparser.models.engineeringsystems;
 
 public enum WaterDisposal {
-    CENTRAL
+    CENTRAL, NONE
 }
