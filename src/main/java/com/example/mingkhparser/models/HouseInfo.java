@@ -6,6 +6,8 @@ import com.example.mingkhparser.models.constructionelements.ConstructionElements
 import com.example.mingkhparser.models.constructionelements.FloorType;
 import com.example.mingkhparser.models.doors.Doors;
 import com.example.mingkhparser.models.drainagesystem.DrainageSystem;
+import com.example.mingkhparser.models.electricitysupplysystem.ElectricitySupplySystem;
+import com.example.mingkhparser.models.engineeringsystems.ElectricitySupply;
 import com.example.mingkhparser.models.engineeringsystems.EngineeringSystems;
 import com.example.mingkhparser.models.facade.Facade;
 import com.example.mingkhparser.models.floors.Floors;
@@ -49,6 +51,7 @@ public class HouseInfo {
     private HotWaterSupplySystem hotWaterSupplySystem;
     private DrainageSystem drainageSystem;
     private GasSupplySystem gasSupplySystem;
+    private ElectricitySupplySystem electricitySupplySystem;
     private Foundation foundation;
     private InnerWalls innerWalls;
     private Facade facade;

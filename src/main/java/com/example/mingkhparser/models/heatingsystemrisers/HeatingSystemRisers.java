@@ -1,12 +1,12 @@
 package com.example.mingkhparser.models.heatingsystemrisers;
 
-import com.example.mingkhparser.models.heatingsystemrisers.ApartmentWiringType;
-import com.example.mingkhparser.models.heatingsystemrisers.MaterialType;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
+@ToString
 public class HeatingSystemRisers {
     private Integer physicalDeterioration;
     private ApartmentWiringType apartmentWiringType;

@@ -13,6 +13,7 @@ public class Application implements CommandLineRunner {
         dom.mingkh.ru parser
      */
 
+    private final String URL = "https://dom.mingkh.ru/ivanovskaya-oblast/furmanov/1150084";
 
     private Parser parser;
 
@@ -26,6 +27,6 @@ public class Application implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        parser.process();
+        parser.process(URL);
     }
 }

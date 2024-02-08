@@ -6,9 +6,11 @@ import com.example.mingkhparser.models.hotwatersupplysystem.NetworkThermalInsula
 import com.example.mingkhparser.models.hotwatersupplysystem.RisersMaterial;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
+@ToString
 public class HotWaterSupplySystem {
     private HotWaterSystemType hotWaterSystemType;
     private NetworkMaterial networkMaterial;

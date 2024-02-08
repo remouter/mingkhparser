@@ -2,9 +2,11 @@ package com.example.mingkhparser.models.engineeringsystems;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
+@ToString
 public class EngineeringSystems {
     private Ventilation ventilation;
     private WaterDisposal waterDisposal;
