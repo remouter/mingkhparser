@@ -10,7 +10,7 @@ import lombok.ToString;
 public class Foundation {
     private FoundationType foundationType;
     private FoundationMaterial foundationMaterial;
-    private Integer blindArea;
+    private Double blindArea;
     private Integer physicalDeterioration;
     private Integer lastOverhaulYear;
 }

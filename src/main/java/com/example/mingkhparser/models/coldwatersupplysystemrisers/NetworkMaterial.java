@@ -1,5 +1,5 @@
 package com.example.mingkhparser.models.coldwatersupplysystemrisers;
 
 public enum NetworkMaterial {
-    GALVANIZEDSTEEL, POLYMER, NONE, METALPOLYMER
+    GALVANIZEDSTEEL, POLYMER, NONE, STEEL, METALPOLYMER
 }

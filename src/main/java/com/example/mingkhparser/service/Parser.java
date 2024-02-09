@@ -224,6 +224,9 @@ public class Parser {
                     case "Металлополимер":
                         networkMaterial = com.example.mingkhparser.models.coldwatersupplysystemrisers.NetworkMaterial.METALPOLYMER;
                         break;
+                    case "Сталь":
+                        networkMaterial = com.example.mingkhparser.models.coldwatersupplysystemrisers.NetworkMaterial.STEEL;
+                        break;
                     default:
                         throw new IllegalArgumentException(value);
                 }
@@ -250,6 +253,9 @@ public class Parser {
                         break;
                     case "Нет":
                         networkMaterial = com.example.mingkhparser.models.coldwatersystem.NetworkMaterial.NONE;
+                        break;
+                    case "Сталь":
+                        networkMaterial = com.example.mingkhparser.models.coldwatersystem.NetworkMaterial.STEEL;
                         break;
                     default:
                         throw new IllegalArgumentException(value);
@@ -332,6 +338,9 @@ public class Parser {
                     case "Нет":
                         materialType = com.example.mingkhparser.models.heatingsystemrisers.MaterialType.NONE;
                         break;
+                    case "Сталь":
+                        materialType = com.example.mingkhparser.models.heatingsystemrisers.MaterialType.STEEL;
+                        break;
                     default:
                         throw new IllegalArgumentException(value);
                 }
@@ -358,6 +367,9 @@ public class Parser {
                         break;
                     case "Полимер":
                         networkMaterial = com.example.mingkhparser.models.heatingsystem.NetworkMaterial.POLYMER;
+                        break;
+                    case "Сталь":
+                        networkMaterial = com.example.mingkhparser.models.heatingsystem.NetworkMaterial.STEEL;
                         break;
                     default:
                         throw new IllegalArgumentException(value);
@@ -417,6 +429,9 @@ public class Parser {
                     case "Деревянные":
                         windowsType = WindowsType.WOODEN;
                         break;
+                    case "Пластиковые":
+                        windowsType = WindowsType.PLASTIC;
+                        break;
                     default:
                         throw new IllegalArgumentException(value);
                 }
@@ -434,6 +449,9 @@ public class Parser {
                 switch (value) {
                     case "Плоская":
                         roofShape = RoofShape.FLAT;
+                        break;
+                    case "Скатная":
+                        roofShape = RoofShape.SLOPING;
                         break;
                     case "Двускатная":
                         roofShape = RoofShape.GABLE;
@@ -463,6 +481,9 @@ public class Parser {
                     case "Деревянные":
                         bearingType = BearingType.WOODEN;
                         break;
+                    case "Стропильная":
+                        bearingType = BearingType.RAFTER;
+                        break;
                     default:
                         throw new IllegalArgumentException(value);
                 }
@@ -476,6 +497,9 @@ public class Parser {
                         break;
                     case "Волнистые листы":
                         roofType = RoofType.CORRUGATEDSHEETS;
+                        break;
+                    case "Шиферная":
+                        roofType = RoofType.SLATE;
                         break;
                     default:
                         throw new IllegalArgumentException(value);
@@ -698,7 +722,7 @@ public class Parser {
                 foundation.setFoundationMaterial(foundationMaterial);
                 break;
             case "Площадь отмостки":
-                foundation.setBlindArea(Integer.valueOf(value.split(" ")[0]));
+                foundation.setBlindArea(Double.valueOf(value.split(" ")[0]));
                 break;
             case "Физический износ":
                 foundation.setPhysicalDeterioration(Integer.valueOf(value.split(" ")[0]));
@@ -791,6 +815,9 @@ public class Parser {
                         break;
                     case "пластик":
                         networkMaterial = com.example.mingkhparser.models.drainagesystem.NetworkMaterial.PLASTIC;
+                        break;
+                    case "чугун, пластик":
+                        networkMaterial = com.example.mingkhparser.models.drainagesystem.NetworkMaterial.CASTIRONPLASTIC;
                         break;
                     default:
                         throw new IllegalArgumentException(value);
@@ -1023,6 +1050,7 @@ public class Parser {
                         WaterDisposal waterDisposal;
                         switch (value) {
                             case "Центральное":
+                            case "Централизованная канализация":
                                 waterDisposal = WaterDisposal.CENTRAL;
                                 break;
                             case "Нет":

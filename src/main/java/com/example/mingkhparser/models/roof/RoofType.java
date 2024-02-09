@@ -1,5 +1,6 @@
 package com.example.mingkhparser.models.roof;
 
 public enum RoofType {
-    ROLL, CORRUGATEDSHEETS
+    ROLL, CORRUGATEDSHEETS,
+    SLATE, //Шиферная
 }

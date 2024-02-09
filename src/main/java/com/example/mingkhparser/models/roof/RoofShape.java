@@ -1,5 +1,5 @@
 package com.example.mingkhparser.models.roof;
 
 public enum RoofShape {
-    FLAT, GABLE
+    FLAT, GABLE, SLOPING
 }
