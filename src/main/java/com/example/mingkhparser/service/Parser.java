@@ -673,6 +673,9 @@ public class Parser {
                     case "Стены деревянные, сборно-щитовые":
                         wallMaterial = WallMaterial.WOODENPREFABRICATEDPANELS;
                         break;
+                    case "Стены деревянные":
+                        wallMaterial = WallMaterial.WOODEN;
+                        break;
                     default:
                         throw new IllegalArgumentException(value);
                 }
@@ -1236,6 +1239,7 @@ public class Parser {
                                 heatSupply = HeatSupply.NONE;
                                 break;
                             case "Квартирное отопление (котел)":
+                            case "Квартирное отопление (квартирный котел)":
                                 heatSupply = HeatSupply.BOILER;
                                 break;
                             case "Домовая котельная":
@@ -1311,6 +1315,9 @@ public class Parser {
                             case "Стены деревянные, сборно-щитовые":
                                 loadBearingWalls = LoadBearingWalls.WOODENPREFABRICATEDPANELS;
                                 break;
+                            case "Стены деревянные":
+                                loadBearingWalls = LoadBearingWalls.WOODEN;
+                                break;
                             default:
                                 throw new IllegalArgumentException(value);
                         }
@@ -1347,6 +1354,9 @@ public class Parser {
                                 break;
                             case "Перекрытия деревянные оштукатуренные":
                                 floorType = FloorType.WOODENPLASTERED;
+                                break;
+                            case "Деревянные отепленные":
+                                floorType = FloorType.WOODENHEATED;
                                 break;
                             default:
                                 throw new IllegalArgumentException(value);
@@ -1466,6 +1476,9 @@ public class Parser {
                             case "Перекрытия деревянные оштукатуренные":
                                 floorType = FloorType.WOODENPLASTERED;
                                 break;
+                            case "Деревянные отепленные":
+                                floorType = FloorType.WOODENHEATED;
+                                break;
                             default:
                                 throw new IllegalArgumentException(value);
                         }
@@ -1485,6 +1498,9 @@ public class Parser {
                                 break;
                             case "Стены рубленные из бревен и брусчатые":
                                 wallMaterial = WallMaterial.LOGSTIMBER;
+                                break;
+                            case "Стены деревянные":
+                                wallMaterial = WallMaterial.WOODEN;
                                 break;
                             default:
                                 throw new IllegalArgumentException(value);

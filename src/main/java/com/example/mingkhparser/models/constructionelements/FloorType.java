@@ -1,5 +1,6 @@
 package com.example.mingkhparser.models.constructionelements;
 
 public enum FloorType {
-    REINFORCEDCONCRETESLABS, WOODENUNPLASTERED, WOODENPLASTERED
+    REINFORCEDCONCRETESLABS, WOODENUNPLASTERED, WOODENPLASTERED,
+    WOODENHEATED, //Деревянные отепленные
 }
