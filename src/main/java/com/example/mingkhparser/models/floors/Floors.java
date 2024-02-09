@@ -10,5 +10,5 @@ import lombok.ToString;
 @ToString
 public class Floors {
     private FloorType floorType;
-    private Integer physicalDeterioration;
+    private Double physicalDeterioration;
 }

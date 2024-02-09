@@ -8,6 +8,6 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Windows {
-    private Integer physicalDeterioration;
+    private Double physicalDeterioration;
     private WindowsType windowsType;
 }

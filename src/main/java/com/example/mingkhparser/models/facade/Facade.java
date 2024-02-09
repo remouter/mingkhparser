@@ -12,6 +12,6 @@ public class Facade {
     private WallMaterial outerWallsMaterial;
     private ExternalInsulationType externalInsulationType;
     private FacadeFinishingMaterial facadeFinishingMaterial;
-    private Integer physicalDeterioration;
+    private Double physicalDeterioration;
     private Integer lastOverhaulYear;
 }

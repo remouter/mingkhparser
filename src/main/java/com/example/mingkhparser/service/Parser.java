@@ -404,7 +404,7 @@ public class Parser {
     private void setCommonAreasFinishingCoatings(String tag, String value, CommonAreasFinishingCoatings commonAreasFinishingCoatings) {
         switch (tag) {
             case "Физический износ":
-                commonAreasFinishingCoatings.setPhysicalDeterioration(Integer.valueOf(value.split(" ")[0]));
+                commonAreasFinishingCoatings.setPhysicalDeterioration(Double.valueOf(value.split(" ")[0]));
                 break;
             default:
                 throw new IllegalArgumentException(tag);
@@ -414,7 +414,7 @@ public class Parser {
     private void setDoors(String tag, String value, Doors doors) {
         switch (tag) {
             case "Физический износ":
-                doors.setPhysicalDeterioration(Integer.valueOf(value.split(" ")[0]));
+                doors.setPhysicalDeterioration(Double.valueOf(value.split(" ")[0]));
                 break;
             default:
                 throw new IllegalArgumentException(tag);
@@ -424,7 +424,7 @@ public class Parser {
     private void setWindows(String tag, String value, Windows windows) {
         switch (tag) {
             case "Физический износ":
-                windows.setPhysicalDeterioration(Integer.valueOf(value.split(" ")[0]));
+                windows.setPhysicalDeterioration(Double.valueOf(value.split(" ")[0]));
                 break;
             case "Материал окон":
                 WindowsType windowsType;
@@ -543,7 +543,7 @@ public class Parser {
                 floors.setFloorType(floorType);
                 break;
             case "Физический износ":
-                floors.setPhysicalDeterioration(Integer.valueOf(value.split(" ")[0]));
+                floors.setPhysicalDeterioration(Double.valueOf(value.split(" ")[0]));
                 break;
             default:
                 throw new IllegalArgumentException(tag);
@@ -663,7 +663,7 @@ public class Parser {
                 facade.setFacadeFinishingMaterial(facadeFinishingMaterial);
                 break;
             case "Физический износ":
-                facade.setPhysicalDeterioration(Integer.valueOf(value.split(" ")[0]));
+                facade.setPhysicalDeterioration(Double.valueOf(value.split(" ")[0]));
                 break;
             case "Год проведения последнего капитального ремонта":
                 facade.setLastOverhaulYear(Integer.valueOf(value));
@@ -696,7 +696,7 @@ public class Parser {
                 innerWalls.setWallMaterial(wallMaterial);
                 break;
             case "Физический износ":
-                innerWalls.setPhysicalDeterioration(Integer.valueOf(value.split(" ")[0]));
+                innerWalls.setPhysicalDeterioration(Double.valueOf(value.split(" ")[0]));
                 break;
             default:
                 throw new IllegalArgumentException(tag);
@@ -746,7 +746,7 @@ public class Parser {
                 foundation.setBlindArea(Double.valueOf(value.split(" ")[0]));
                 break;
             case "Физический износ":
-                foundation.setPhysicalDeterioration(Integer.valueOf(value.split(" ")[0]));
+                foundation.setPhysicalDeterioration(Double.valueOf(value.split(" ")[0]));
                 break;
             case "Год проведения последнего капитального ремонта":
                 foundation.setLastOverhaulYear(Integer.valueOf(value));
@@ -876,6 +876,9 @@ public class Parser {
                     case "Металлополимер":
                         networkMaterial = NetworkMaterial.METALPOLYMER;
                         break;
+                    case "Сталь оцинкованная, Нет":
+                        networkMaterial = NetworkMaterial.GALVANIZEDSTEELNONE;
+                        break;
                     default:
                         throw new IllegalArgumentException(value);
                 }
@@ -964,6 +967,7 @@ public class Parser {
                         EnergyEfficiencyClass energyEfficiencyClass;
                         switch (value) {
                             case "Не присвоен":
+                            case "Нет":
                                 energyEfficiencyClass = EnergyEfficiencyClass.NOTASSIGNED;
                                 break;
                             default:
@@ -1021,7 +1025,7 @@ public class Parser {
                         generalInfo.setEmergencyDocumentNumber(value);
                         break;
                     case "Износ здания, %":
-                        generalInfo.setWearOfBuilding(Integer.valueOf(value));
+                        generalInfo.setWearOfBuilding(Double.valueOf(value));
                         break;
                     case "Дата, на которую установлен износ здания":
                         generalInfo.setWearCalculationDate(LocalDate.parse(value, DateTimeFormatter.ofPattern("dd.MM.yyyy")));

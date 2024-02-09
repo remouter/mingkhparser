@@ -9,5 +9,5 @@ import lombok.ToString;
 @ToString
 public class InnerWalls {
     private WallMaterial wallMaterial;
-    private Integer physicalDeterioration;
+    private Double physicalDeterioration;
 }

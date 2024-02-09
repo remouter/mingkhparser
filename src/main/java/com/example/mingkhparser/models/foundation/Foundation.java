@@ -11,6 +11,6 @@ public class Foundation {
     private FoundationType foundationType;
     private FoundationMaterial foundationMaterial;
     private Double blindArea;
-    private Integer physicalDeterioration;
+    private Double physicalDeterioration;
     private Integer lastOverhaulYear;
 }

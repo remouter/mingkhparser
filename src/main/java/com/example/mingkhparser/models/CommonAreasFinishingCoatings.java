@@ -8,5 +8,5 @@ import lombok.ToString;
 @Setter
 @ToString
 public class CommonAreasFinishingCoatings {
-    private Integer physicalDeterioration;
+    private Double physicalDeterioration;
 }

@@ -24,7 +24,7 @@ public class GeneralInfo {
     private RepairFormation repairFormation;
     private Boolean disablePeopleDevices;
     private HouseType houseType;
-    private Integer wearOfBuilding;
+    private Double wearOfBuilding;
     private LocalDate wearCalculationDate;
     private Double buildingSquare;
     private Double buildingResidentialSquare;
