@@ -27,6 +27,7 @@ import com.example.mingkhparser.models.heatingsystem.ThermalInsulationMaterial;
 import com.example.mingkhparser.models.heatingsystemrisers.ApartmentWiringType;
 import com.example.mingkhparser.models.heatingsystemrisers.HeatingSystemRisers;
 import com.example.mingkhparser.models.hotwatersupplysystem.*;
+import com.example.mingkhparser.models.hotwatersupplysystemrisers.HotWaterSupplySystemRisers;
 import com.example.mingkhparser.models.roof.*;
 import com.example.mingkhparser.models.shutoffvalves.coldwater.ShutoffValvesColdWaterSupplySystem;
 import com.example.mingkhparser.models.shutoffvalves.heating.ShutoffValvesHeatingSystem;
@@ -112,6 +113,7 @@ public class Parser {
         ColdWaterSystem coldWaterSystem = new ColdWaterSystem();
         ColdWaterSupplySystemRisers coldWaterSupplySystemRisers = new ColdWaterSupplySystemRisers();
         ShutoffValvesColdWaterSupplySystem shutoffValvesColdWaterSupplySystem = new ShutoffValvesColdWaterSupplySystem();
+        HotWaterSupplySystemRisers hotWaterSupplySystemRisers = new HotWaterSupplySystemRisers();
         ShutoffValvesHotWaterSupplySystem shutoffValvesHotWaterSupplySystem = new ShutoffValvesHotWaterSupplySystem();
 
         Elements table = doc.select("body .outer .main-block .container .margin-bottom-20");
@@ -160,6 +162,9 @@ public class Parser {
                     case "Запорная арматура системы холодного водоснабжения":
                         setShutoffValvesColdWaterSupplySystem(tag, value, shutoffValvesColdWaterSupplySystem);
                         break;
+                    case "Стояки системы горячего водоснабжения":
+                        setHotWaterSupplySystemRisers(tag, value, hotWaterSupplySystemRisers);
+                        break;
                     case "Запорная арматура системы горячего водоснабжения":
                         setShutoffValvesHotWaterSupplySystem(tag, value, shutoffValvesHotWaterSupplySystem);
                         break;
@@ -181,6 +186,7 @@ public class Parser {
         houseInfo.setColdWaterSystem(coldWaterSystem);
         houseInfo.setColdWaterSupplySystemRisers(coldWaterSupplySystemRisers);
         houseInfo.setShutoffValvesColdWaterSupplySystem(shutoffValvesColdWaterSupplySystem);
+        houseInfo.setHotWaterSupplySystemRisers(hotWaterSupplySystemRisers);
         houseInfo.setShutoffValvesHotWaterSupplySystem(shutoffValvesHotWaterSupplySystem);
     }
 
@@ -234,6 +240,16 @@ public class Parser {
                         throw new IllegalArgumentException(value);
                 }
                 coldWaterSupplySystemRisers.setNetworkMaterial(networkMaterial);
+                break;
+            default:
+                throw new IllegalArgumentException(tag);
+        }
+    }
+
+    private void setHotWaterSupplySystemRisers(String tag, String value, HotWaterSupplySystemRisers hotWaterSupplySystemRisers) {
+        switch (tag) {
+            case "Физический износ":
+                hotWaterSupplySystemRisers.setPhysicalDeterioration(Integer.valueOf(value.split(" ")[0]));
                 break;
             default:
                 throw new IllegalArgumentException(tag);
@@ -353,6 +369,9 @@ public class Parser {
                     case "Чугун":
                         materialType = com.example.mingkhparser.models.heatingsystemrisers.MaterialType.CASTIRON;
                         break;
+                    case "Металлополимер":
+                        materialType = com.example.mingkhparser.models.heatingsystemrisers.MaterialType.METALPOLYMER;
+                        break;
                     default:
                         throw new IllegalArgumentException(value);
                 }
@@ -399,6 +418,9 @@ public class Parser {
                         break;
                     case "Нет":
                         thermalInsulationMaterial = ThermalInsulationMaterial.NONE;
+                        break;
+                    case "Минеральная вата с покрытием из алюминиевой фольги":
+                        thermalInsulationMaterial = ThermalInsulationMaterial.MINERALWOOLCOATEDWITHALUMINUMFOIL;
                         break;
                     default:
                         throw new IllegalArgumentException(value);
@@ -888,6 +910,9 @@ public class Parser {
                     case "Сталь оцинкованная, Нет":
                         networkMaterial = NetworkMaterial.GALVANIZEDSTEELNONE;
                         break;
+                    case "Чугун":
+                        networkMaterial = NetworkMaterial.CASTIRON;
+                        break;
                     default:
                         throw new IllegalArgumentException(value);
                 }
@@ -902,6 +927,9 @@ public class Parser {
                     case "Минеральная вата с покрытием из алюминиевой фольги":
                         networkThermalInsulationMaterial = NetworkThermalInsulationMaterial.MINERALWOOLCOATEDWITHALUMINUMFOIL;
                         break;
+                    case "Вспененный полиэтилен (энергофлекс)":
+                        networkThermalInsulationMaterial = NetworkThermalInsulationMaterial.FOAMEDPOLYETHYLENE;
+                        break;
                     default:
                         throw new IllegalArgumentException(value);
                 }
@@ -912,6 +940,9 @@ public class Parser {
                 switch (value) {
                     case "Нет":
                         risersMaterial = RisersMaterial.NONE;
+                        break;
+                    case "Чугун":
+                        risersMaterial = RisersMaterial.CASTIRON;
                         break;
                     default:
                         throw new IllegalArgumentException(value);
@@ -1163,6 +1194,9 @@ public class Parser {
                                 break;
                             case "Квартирное отопление (котел)":
                                 heatSupply = HeatSupply.BOILER;
+                                break;
+                            case "Домовая котельная":
+                                heatSupply = HeatSupply.HOUSEBOILER;
                                 break;
                             default:
                                 throw new IllegalArgumentException(value);

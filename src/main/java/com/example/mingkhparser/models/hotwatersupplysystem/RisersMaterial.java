@@ -1,5 +1,6 @@
 package com.example.mingkhparser.models.hotwatersupplysystem;
 
 public enum RisersMaterial {
-    NONE
+    NONE,
+    CASTIRON, //Чугун
 }

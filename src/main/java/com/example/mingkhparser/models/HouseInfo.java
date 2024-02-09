@@ -20,6 +20,7 @@ import com.example.mingkhparser.models.heatingdevices.HeatingDevices;
 import com.example.mingkhparser.models.heatingsystem.HeatingSystem;
 import com.example.mingkhparser.models.heatingsystemrisers.HeatingSystemRisers;
 import com.example.mingkhparser.models.hotwatersupplysystem.HotWaterSupplySystem;
+import com.example.mingkhparser.models.hotwatersupplysystemrisers.HotWaterSupplySystemRisers;
 import com.example.mingkhparser.models.roof.Roof;
 import com.example.mingkhparser.models.shutoffvalves.coldwater.ShutoffValvesColdWaterSupplySystem;
 import com.example.mingkhparser.models.shutoffvalves.heating.ShutoffValvesHeatingSystem;
@@ -69,6 +70,7 @@ public class HouseInfo {
     private ColdWaterSystem coldWaterSystem;
     private ColdWaterSupplySystemRisers coldWaterSupplySystemRisers;
     private ShutoffValvesColdWaterSupplySystem shutoffValvesColdWaterSupplySystem;
+    private HotWaterSupplySystemRisers hotWaterSupplySystemRisers;
     private ShutoffValvesHotWaterSupplySystem shutoffValvesHotWaterSupplySystem;
 }
 
