@@ -101,7 +101,7 @@ public class Parser {
 
     private void setDetailedInfo2(HouseInfo houseInfo, Document doc) {
         Floors floors = houseInfo.getFloors() == null ? new Floors() : houseInfo.getFloors();
-        Roof roof = new Roof();
+        Roof roof = houseInfo.getRoof() == null ? new Roof() : houseInfo.getRoof();
         Windows windows = new Windows();
         Doors doors = new Doors();
         CommonAreasFinishingCoatings commonAreasFinishingCoatings = new CommonAreasFinishingCoatings();
@@ -221,6 +221,9 @@ public class Parser {
                     case "Нет":
                         networkMaterial = com.example.mingkhparser.models.coldwatersupplysystemrisers.NetworkMaterial.NONE;
                         break;
+                    case "Металлополимер":
+                        networkMaterial = com.example.mingkhparser.models.coldwatersupplysystemrisers.NetworkMaterial.METALPOLYMER;
+                        break;
                     default:
                         throw new IllegalArgumentException(value);
                 }
@@ -306,6 +309,9 @@ public class Parser {
                     case "Вертикальная":
                         apartmentWiringType = ApartmentWiringType.VERTICAL;
                         break;
+                    case "Горизонтальная":
+                        apartmentWiringType = ApartmentWiringType.HORIZONTAL;
+                        break;
                     case "Нет":
                         apartmentWiringType = ApartmentWiringType.NONE;
                         break;
@@ -319,6 +325,9 @@ public class Parser {
                 switch (value) {
                     case "Сталь оцинкованная":
                         materialType = com.example.mingkhparser.models.heatingsystemrisers.MaterialType.GALVANIZEDSTEEL;
+                        break;
+                    case "Полимер":
+                        materialType = com.example.mingkhparser.models.heatingsystemrisers.MaterialType.POLYMER;
                         break;
                     case "Нет":
                         materialType = com.example.mingkhparser.models.heatingsystemrisers.MaterialType.NONE;
@@ -346,6 +355,9 @@ public class Parser {
                         break;
                     case "Нет":
                         networkMaterial = com.example.mingkhparser.models.heatingsystem.NetworkMaterial.NONE;
+                        break;
+                    case "Полимер":
+                        networkMaterial = com.example.mingkhparser.models.heatingsystem.NetworkMaterial.POLYMER;
                         break;
                     default:
                         throw new IllegalArgumentException(value);
@@ -517,6 +529,7 @@ public class Parser {
         InnerWalls innerWalls = new InnerWalls();
         Facade facade = new Facade();
         Floors floors = new Floors();
+        Roof roof = new Roof();
 
         for (Element element : doc.select("body .outer .main-block .container .row").get(7).children().get(0).children()) {
             for (int i = 0; i < element.select(".col-md-6").size(); i++) {
@@ -549,6 +562,9 @@ public class Parser {
                     case "Перекрытия":
                         setFloors(tag, value, floors);
                         break;
+                    case "Крыша":
+                        setRoof(tag, value, roof);
+                        break;
                     default:
                         throw new IllegalArgumentException(partition);
                 }
@@ -562,6 +578,8 @@ public class Parser {
         houseInfo.setFoundation(foundation);
         houseInfo.setInnerWalls(innerWalls);
         houseInfo.setFacade(facade);
+        houseInfo.setFloors(floors);
+        houseInfo.setRoof(roof);
     }
 
     private void setFacade(String tag, String value, Facade facade) {
@@ -574,6 +592,9 @@ public class Parser {
                         break;
                     case "Стены деревянные каркасные":
                         wallMaterial = WallMaterial.WOODENFRAME;
+                        break;
+                    case "Стены рубленные из бревен и брусчатые":
+                        wallMaterial = WallMaterial.LOGSTIMBER;
                         break;
                     default:
                         throw new IllegalArgumentException(value);
@@ -627,6 +648,9 @@ public class Parser {
                     case "Стены деревянные каркасные":
                         wallMaterial = WallMaterial.WOODENFRAME;
                         break;
+                    case "Стены рубленные из бревен и брусчатые":
+                        wallMaterial = WallMaterial.LOGSTIMBER;
+                        break;
                     default:
                         throw new IllegalArgumentException(value);
                 }
@@ -664,6 +688,9 @@ public class Parser {
                         break;
                     case "Монолитный железобетон":
                         foundationMaterial = FoundationMaterial.REINFORCEDCONCRETESMONOLITHIC;
+                        break;
+                    case "Сборный железобетон":
+                        foundationMaterial = FoundationMaterial.PRECASTCONCRETE;
                         break;
                     default:
                         throw new IllegalArgumentException(value);
@@ -711,6 +738,9 @@ public class Parser {
                     case "центральное":
                         gasSupplySystemType = GasSupplySystemType.CENTRAL;
                         break;
+                    case "нет":
+                        gasSupplySystemType = GasSupplySystemType.NONE;
+                        break;
                     default:
                         throw new IllegalArgumentException(value);
                 }
@@ -742,6 +772,9 @@ public class Parser {
                     case "Нет":
                         drainageSystemType = DrainageSystemType.NONE;
                         break;
+                    case "Выгребная яма":
+                        drainageSystemType = DrainageSystemType.CESSPOOL;
+                        break;
                     default:
                         throw new IllegalArgumentException(value);
                 }
@@ -755,6 +788,9 @@ public class Parser {
                         break;
                     case "Нет":
                         networkMaterial = com.example.mingkhparser.models.drainagesystem.NetworkMaterial.NONE;
+                        break;
+                    case "пластик":
+                        networkMaterial = com.example.mingkhparser.models.drainagesystem.NetworkMaterial.PLASTIC;
                         break;
                     default:
                         throw new IllegalArgumentException(value);
@@ -837,6 +873,9 @@ public class Parser {
                             case "Нет":
                                 generalInfo.setIsEmergency(false);
                                 break;
+                            case "Да":
+                                generalInfo.setIsEmergency(true);
+                                break;
                             default:
                                 throw new IllegalArgumentException(value);
                         }
@@ -846,6 +885,9 @@ public class Parser {
                         switch (value) {
                             case "Исправный":
                                 houseCondition = HouseCondition.SERVICEABLE;
+                                break;
+                            case "Аварийный":
+                                houseCondition = HouseCondition.EMERGENCY;
                                 break;
                             default:
                                 throw new IllegalArgumentException(value);
@@ -915,6 +957,12 @@ public class Parser {
                         }
                         generalInfo.setHouseType(houseType);
                         break;
+                    case "Дата документа о признании дома аварийным":
+                        generalInfo.setEmergencyDate(LocalDate.parse(value, DateTimeFormatter.ofPattern("dd.MM.yyyy")));
+                        break;
+                    case "Номер документа о признании дома аварийным":
+                        generalInfo.setEmergencyDocumentNumber(value);
+                        break;
                     case "Износ здания, %":
                         generalInfo.setWearOfBuilding(Integer.valueOf(value));
                         break;
@@ -980,6 +1028,9 @@ public class Parser {
                             case "Нет":
                                 waterDisposal = WaterDisposal.NONE;
                                 break;
+                            case "Выгребная яма":
+                                waterDisposal = WaterDisposal.CESSPOOL;
+                                break;
                             default:
                                 throw new IllegalArgumentException(value);
                         }
@@ -1000,6 +1051,9 @@ public class Parser {
                             case "Центральное":
                             case "центральное":
                                 gasSupply = GasSupply.CENTRAL;
+                                break;
+                            case "нет":
+                                gasSupply = GasSupply.NONE;
                                 break;
                             default:
                                 throw new IllegalArgumentException(value);
@@ -1033,6 +1087,9 @@ public class Parser {
                             case "Нет":
                                 heatSupply = HeatSupply.NONE;
                                 break;
+                            case "Квартирное отопление (котел)":
+                                heatSupply = HeatSupply.BOILER;
+                                break;
                             default:
                                 throw new IllegalArgumentException(value);
                         }
@@ -1045,9 +1102,13 @@ public class Parser {
                                 coldWaterSupply = ColdWaterSupply.DEADEND;
                                 break;
                             case "Центральное":
+                            case "Централизованная (от городской сети)":
                                 coldWaterSupply = ColdWaterSupply.CENTRAL;
                                 break;
                             case "Нет":
+                                coldWaterSupply = ColdWaterSupply.NONE;
+                                break;
+                            case "Автономное":
                                 coldWaterSupply = ColdWaterSupply.NONE;
                                 break;
                             default:
@@ -1089,6 +1150,9 @@ public class Parser {
                             case "Стены деревянные каркасные":
                                 loadBearingWalls = LoadBearingWalls.WOODENFRAME;
                                 break;
+                            case "Стены рубленные из бревен и брусчатые":
+                                loadBearingWalls = LoadBearingWalls.LOGSTIMBER;
+                                break;
                             default:
                                 throw new IllegalArgumentException(value);
                         }
@@ -1102,6 +1166,9 @@ public class Parser {
                         switch (value) {
                             case "Ленточный":
                                 foundation = Foundation.TAPE;
+                                break;
+                            case "Нет":
+                                foundation = Foundation.NONE;
                                 break;
                             default:
                                 throw new IllegalArgumentException(value);
@@ -1246,6 +1313,9 @@ public class Parser {
                             case "Стены деревянные каркасные":
                                 wallMaterial = WallMaterial.WOODENFRAME;
                                 break;
+                            case "Стены рубленные из бревен и брусчатые":
+                                wallMaterial = WallMaterial.LOGSTIMBER;
+                                break;
                             default:
                                 throw new IllegalArgumentException(value);
                         }
@@ -1264,6 +1334,9 @@ public class Parser {
                         switch (value) {
                             case "Нет":
                                 houseInfo.setIsEmergency(false);
+                                break;
+                            case "Да":
+                                houseInfo.setIsEmergency(true);
                                 break;
                             default:
                                 throw new IllegalArgumentException(value);

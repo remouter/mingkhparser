@@ -28,7 +28,16 @@ public class Application implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         List<String> addresses = parser.getHouses("https://dom.mingkh.ru/ivanovskaya-oblast/furmanov/");
-        addresses = addresses.subList(2, addresses.size());
+
+        int index = addresses.size();
+        for (int i = 0; i < addresses.size(); i++) {
+            if (addresses.get(i).equals("https://dom.mingkh.ru/ivanovskaya-oblast/furmanov/1197855")) {
+                index = i;
+                break;
+            }
+        }
+
+        addresses = addresses.subList(index, addresses.size());
         addresses.forEach(a -> parser.process(a)); //1218
 
 

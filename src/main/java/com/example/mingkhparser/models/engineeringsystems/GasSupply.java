@@ -1,5 +1,5 @@
 package com.example.mingkhparser.models.engineeringsystems;
 
 public enum GasSupply {
-    CENTRAL
+    CENTRAL, NONE
 }

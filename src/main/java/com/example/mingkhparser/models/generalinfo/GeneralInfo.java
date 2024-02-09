@@ -1,6 +1,5 @@
 package com.example.mingkhparser.models.generalinfo;
 
-import com.example.mingkhparser.models.generalinfo.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -34,4 +33,6 @@ public class GeneralInfo {
     private Double landCommonPropertySquare;
     private MaterialType materialType;
     private Boolean isCulturalHeritage;
+    private LocalDate emergencyDate;
+    private String emergencyDocumentNumber;
 }
