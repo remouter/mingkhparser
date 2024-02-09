@@ -13,6 +13,7 @@ import lombok.ToString;
 @ToString
 public class HotWaterSupplySystem {
     private HotWaterSystemType hotWaterSystemType;
+    private Integer physicalDeterioration;
     private NetworkMaterial networkMaterial;
     private NetworkThermalInsulationMaterial networkThermalInsulationMaterial;
     private RisersMaterial risersMaterial;

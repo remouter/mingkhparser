@@ -257,6 +257,9 @@ public class Parser {
                     case "Сталь":
                         networkMaterial = com.example.mingkhparser.models.coldwatersystem.NetworkMaterial.STEEL;
                         break;
+                    case "Металлополимер":
+                        networkMaterial = com.example.mingkhparser.models.coldwatersystem.NetworkMaterial.METALPOLYMER;
+                        break;
                     default:
                         throw new IllegalArgumentException(value);
                 }
@@ -340,6 +343,9 @@ public class Parser {
                         break;
                     case "Сталь":
                         materialType = com.example.mingkhparser.models.heatingsystemrisers.MaterialType.STEEL;
+                        break;
+                    case "Чугун":
+                        materialType = com.example.mingkhparser.models.heatingsystemrisers.MaterialType.CASTIRON;
                         break;
                     default:
                         throw new IllegalArgumentException(value);
@@ -620,6 +626,9 @@ public class Parser {
                     case "Стены рубленные из бревен и брусчатые":
                         wallMaterial = WallMaterial.LOGSTIMBER;
                         break;
+                    case "Стены деревянные, сборно-щитовые":
+                        wallMaterial = WallMaterial.WOODENPREFABRICATEDPANELS;
+                        break;
                     default:
                         throw new IllegalArgumentException(value);
                 }
@@ -644,6 +653,9 @@ public class Parser {
                         break;
                     case "окраска":
                         facadeFinishingMaterial = FacadeFinishingMaterial.PAINTING;
+                        break;
+                    case "Иной":
+                        facadeFinishingMaterial = FacadeFinishingMaterial.OTHER;
                         break;
                     default:
                         throw new IllegalArgumentException(value);
@@ -675,6 +687,9 @@ public class Parser {
                     case "Стены рубленные из бревен и брусчатые":
                         wallMaterial = WallMaterial.LOGSTIMBER;
                         break;
+                    case "Стены деревянные, сборно-щитовые":
+                        wallMaterial = WallMaterial.WOODENPREFABRICATEDPANELS;
+                        break;
                     default:
                         throw new IllegalArgumentException(value);
                 }
@@ -696,6 +711,9 @@ public class Parser {
                     case "Ленточный":
                         foundationType = FoundationType.TAPE;
                         break;
+                    case "Ж/б крупноблочный":
+                        foundationType = FoundationType.REINFORCEDCONCRETELARGEBLOCK;
+                        break;
                     default:
                         throw new IllegalArgumentException(value);
                 }
@@ -715,6 +733,9 @@ public class Parser {
                         break;
                     case "Сборный железобетон":
                         foundationMaterial = FoundationMaterial.PRECASTCONCRETE;
+                        break;
+                    case "Нет":
+                        foundationMaterial = FoundationMaterial.NONE;
                         break;
                     default:
                         throw new IllegalArgumentException(value);
@@ -843,11 +864,17 @@ public class Parser {
                 }
                 hotWaterSupplySystem.setHotWaterSystemType(hotWaterSystemType);
                 break;
+            case "Физический износ":
+                hotWaterSupplySystem.setPhysicalDeterioration(Integer.valueOf(value.split(" ")[0]));
+                break;
             case "Материал сети":
                 NetworkMaterial networkMaterial;
                 switch (value) {
                     case "Нет":
                         networkMaterial = NetworkMaterial.NONE;
+                        break;
+                    case "Металлополимер":
+                        networkMaterial = NetworkMaterial.METALPOLYMER;
                         break;
                     default:
                         throw new IllegalArgumentException(value);
@@ -859,6 +886,9 @@ public class Parser {
                 switch (value) {
                     case "Нет":
                         networkThermalInsulationMaterial = NetworkThermalInsulationMaterial.NONE;
+                        break;
+                    case "Минеральная вата с покрытием из алюминиевой фольги":
+                        networkThermalInsulationMaterial = NetworkThermalInsulationMaterial.MINERALWOOLCOATEDWITHALUMINUMFOIL;
                         break;
                     default:
                         throw new IllegalArgumentException(value);
@@ -1019,6 +1049,9 @@ public class Parser {
                                 break;
                             case "нет":
                                 materialType = MaterialType.NONE;
+                                break;
+                            case "дом":
+                                materialType = MaterialType.HOUSE;
                                 break;
                             default:
                                 throw new IllegalArgumentException(value);
@@ -1181,6 +1214,9 @@ public class Parser {
                             case "Стены рубленные из бревен и брусчатые":
                                 loadBearingWalls = LoadBearingWalls.LOGSTIMBER;
                                 break;
+                            case "Стены деревянные, сборно-щитовые":
+                                loadBearingWalls = LoadBearingWalls.WOODENPREFABRICATEDPANELS;
+                                break;
                             default:
                                 throw new IllegalArgumentException(value);
                         }
@@ -1197,6 +1233,9 @@ public class Parser {
                                 break;
                             case "Нет":
                                 foundation = Foundation.NONE;
+                                break;
+                            case "Ж/б крупноблочный":
+                                foundation = Foundation.REINFORCEDCONCRETELARGEBLOCK;
                                 break;
                             default:
                                 throw new IllegalArgumentException(value);
@@ -1310,6 +1349,9 @@ public class Parser {
                             case "нет":
                                 materialType = MaterialType.NONE;
                                 break;
+                            case "дом":
+                                materialType = MaterialType.HOUSE;
+                                break;
                             default:
                                 throw new IllegalArgumentException(value);
                         }
@@ -1340,6 +1382,9 @@ public class Parser {
                                 break;
                             case "Стены деревянные каркасные":
                                 wallMaterial = WallMaterial.WOODENFRAME;
+                                break;
+                            case "Стены деревянные, сборно-щитовые":
+                                wallMaterial = WallMaterial.WOODENPREFABRICATEDPANELS;
                                 break;
                             case "Стены рубленные из бревен и брусчатые":
                                 wallMaterial = WallMaterial.LOGSTIMBER;

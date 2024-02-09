@@ -1,5 +1,6 @@
 package com.example.mingkhparser.models.generalinfo;
 
 public enum MaterialType {
-    BRICK, NONE
+    BRICK, NONE,
+    HOUSE, //дом
 }

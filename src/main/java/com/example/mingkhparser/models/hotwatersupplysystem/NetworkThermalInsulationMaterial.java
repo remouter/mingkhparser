@@ -1,5 +1,6 @@
 package com.example.mingkhparser.models.hotwatersupplysystem;
 
 public enum NetworkThermalInsulationMaterial {
-    NONE
+    NONE,
+    MINERALWOOLCOATEDWITHALUMINUMFOIL, //Минеральная вата с покрытием из алюминиевой фольги
 }
