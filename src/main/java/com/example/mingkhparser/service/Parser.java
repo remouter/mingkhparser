@@ -21,7 +21,7 @@ import com.example.mingkhparser.models.gassupplysystem.GasSupplySystem;
 import com.example.mingkhparser.models.gassupplysystem.GasSupplySystemType;
 import com.example.mingkhparser.models.generalinfo.*;
 import com.example.mingkhparser.models.heatingdevices.HeatingDevices;
-import com.example.mingkhparser.models.heatingdevices.HeatingDevicesTYpe;
+import com.example.mingkhparser.models.heatingdevices.HeatingDevicesType;
 import com.example.mingkhparser.models.heatingsystem.HeatingSystem;
 import com.example.mingkhparser.models.heatingsystem.ThermalInsulationMaterial;
 import com.example.mingkhparser.models.heatingsystemrisers.ApartmentWiringType;
@@ -44,41 +44,59 @@ import org.springframework.util.StringUtils;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.IntStream;
 
 @Service
 @Slf4j
 public class Parser {
-    private HttpURLConnection createConnection(String url) throws IOException {
-        HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
-        connection.setRequestMethod("GET");
-        connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11");
-        connection.connect();
-        return connection;
-    }
+    private static Integer COUNTER = 0;
 
-    public synchronized void process(String url) {
+    private InputStream getInputStream(String url) {
         try {
-            log.trace("working on {}", url);
-            HttpURLConnection connection = createConnection(url);
-            Scanner scanner = new Scanner(new BufferedInputStream(connection.getInputStream()));
-            Document doc = Jsoup.parseBodyFragment(scanner.nextLine());
-            HouseInfo houseInfo = new HouseInfo();
-
-            setInfo(houseInfo, doc);
-            setGeneralInfo(houseInfo, doc);
-            setDetailedInfo(houseInfo, doc);
-            setDetailedInfo2(houseInfo, doc);
-
-            connection.disconnect();
-            log.info("houseInfo: {}", houseInfo);
+            HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
+            connection.setRequestMethod("GET");
+            connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11");
+            connection.connect();
+            return connection.getInputStream();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public List<String> getHouses(String url) {
+        List<String> houses = new ArrayList<>();
+        IntStream.range(1, 18).forEach(i -> {
+            Scanner scanner = new Scanner(new BufferedInputStream(getInputStream(url + "?page=" + i)));
+            Document doc = Jsoup.parseBodyFragment(scanner.nextLine());
+            for (Element element : doc.select(".table-responsive").get(0).children().get(0).children().get(1).children()) {
+                String address = element.children().get(1).children().get(0).attribute("href").getValue();
+                houses.add("https://dom.mingkh.ru" + address);
+            }
+        });
+
+        return houses;
+    }
+
+    public synchronized void process(String url) {
+        log.trace("{}. working on {}", COUNTER++, url);
+        Scanner scanner = new Scanner(new BufferedInputStream(getInputStream(url)));
+        Document doc = Jsoup.parseBodyFragment(scanner.nextLine());
+        HouseInfo houseInfo = new HouseInfo();
+
+        setInfo(houseInfo, doc);
+        setGeneralInfo(houseInfo, doc);
+        setDetailedInfo(houseInfo, doc);
+        setDetailedInfo2(houseInfo, doc);
+
+        log.info("houseInfo: {}", houseInfo);
     }
 
     private void setDetailedInfo2(HouseInfo houseInfo, Document doc) {
@@ -200,6 +218,9 @@ public class Parser {
                     case "Полимер":
                         networkMaterial = com.example.mingkhparser.models.coldwatersupplysystemrisers.NetworkMaterial.POLYMER;
                         break;
+                    case "Нет":
+                        networkMaterial = com.example.mingkhparser.models.coldwatersupplysystemrisers.NetworkMaterial.NONE;
+                        break;
                     default:
                         throw new IllegalArgumentException(value);
                 }
@@ -224,6 +245,9 @@ public class Parser {
                     case "Полимер":
                         networkMaterial = com.example.mingkhparser.models.coldwatersystem.NetworkMaterial.POLYMER;
                         break;
+                    case "Нет":
+                        networkMaterial = com.example.mingkhparser.models.coldwatersystem.NetworkMaterial.NONE;
+                        break;
                     default:
                         throw new IllegalArgumentException(value);
                 }
@@ -240,18 +264,21 @@ public class Parser {
                 heatingDevices.setPhysicalDeterioration(Integer.valueOf(value.split(" ")[0]));
                 break;
             case "Тип отопительных приборов":
-                HeatingDevicesTYpe heatingDevicesTYpe;
+                HeatingDevicesType heatingDevicesType;
                 switch (value) {
                     case "Радиатор":
-                        heatingDevicesTYpe = HeatingDevicesTYpe.RADIATOR;
+                        heatingDevicesType = HeatingDevicesType.RADIATOR;
                         break;
                     case "Регистр":
-                        heatingDevicesTYpe = HeatingDevicesTYpe.REGISTER;
+                        heatingDevicesType = HeatingDevicesType.REGISTER;
+                        break;
+                    case "Нет":
+                        heatingDevicesType = HeatingDevicesType.NONE;
                         break;
                     default:
                         throw new IllegalArgumentException(value);
                 }
-                heatingDevices.setHeatingDevicesTYpe(heatingDevicesTYpe);
+                heatingDevices.setHeatingDevicesType(heatingDevicesType);
                 break;
             default:
                 throw new IllegalArgumentException(tag);
@@ -465,6 +492,9 @@ public class Parser {
                     case "Перекрытия деревянные неоштукатуренные":
                         floorType = FloorType.WOODENUNPLASTERED;
                         break;
+                    case "Перекрытия деревянные оштукатуренные":
+                        floorType = FloorType.WOODENPLASTERED;
+                        break;
                     default:
                         throw new IllegalArgumentException(value);
                 }
@@ -631,6 +661,9 @@ public class Parser {
                         break;
                     case "Кирпич керамический":
                         foundationMaterial = FoundationMaterial.CERAMICBRICK;
+                        break;
+                    case "Монолитный железобетон":
+                        foundationMaterial = FoundationMaterial.REINFORCEDCONCRETESMONOLITHIC;
                         break;
                     default:
                         throw new IllegalArgumentException(value);
@@ -1014,6 +1047,9 @@ public class Parser {
                             case "Центральное":
                                 coldWaterSupply = ColdWaterSupply.CENTRAL;
                                 break;
+                            case "Нет":
+                                coldWaterSupply = ColdWaterSupply.NONE;
+                                break;
                             default:
                                 throw new IllegalArgumentException(value);
                         }
@@ -1081,6 +1117,9 @@ public class Parser {
                             case "Перекрытия деревянные неоштукатуренные":
                                 floorType = FloorType.WOODENUNPLASTERED;
                                 break;
+                            case "Перекрытия деревянные оштукатуренные":
+                                floorType = FloorType.WOODENPLASTERED;
+                                break;
                             default:
                                 throw new IllegalArgumentException(value);
                         }
@@ -1147,6 +1186,7 @@ public class Parser {
                         houseInfo.setAddress(value);
                         break;
                     case "Год постройки":
+                    case "Год ввода в эксплуатацию":
                         houseInfo.setYear(Integer.valueOf(value));
                         break;
                     case "Количество этажей":
@@ -1188,6 +1228,9 @@ public class Parser {
                                 break;
                             case "Перекрытия деревянные неоштукатуренные":
                                 floorType = FloorType.WOODENUNPLASTERED;
+                                break;
+                            case "Перекрытия деревянные оштукатуренные":
+                                floorType = FloorType.WOODENPLASTERED;
                                 break;
                             default:
                                 throw new IllegalArgumentException(value);

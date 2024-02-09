@@ -9,5 +9,5 @@ import lombok.ToString;
 @ToString
 public class HeatingDevices {
     private Integer physicalDeterioration;
-    private HeatingDevicesTYpe heatingDevicesTYpe;
+    private HeatingDevicesType heatingDevicesType;
 }
