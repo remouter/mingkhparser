@@ -227,6 +227,9 @@ public class Parser {
                     case "Сталь":
                         networkMaterial = com.example.mingkhparser.models.coldwatersupplysystemrisers.NetworkMaterial.STEEL;
                         break;
+                    case "Чугун":
+                        networkMaterial = com.example.mingkhparser.models.coldwatersupplysystemrisers.NetworkMaterial.CASTIRON;
+                        break;
                     default:
                         throw new IllegalArgumentException(value);
                 }
@@ -259,6 +262,9 @@ public class Parser {
                         break;
                     case "Металлополимер":
                         networkMaterial = com.example.mingkhparser.models.coldwatersystem.NetworkMaterial.METALPOLYMER;
+                        break;
+                    case "Чугун":
+                        networkMaterial = com.example.mingkhparser.models.coldwatersystem.NetworkMaterial.CASTIRON;
                         break;
                     default:
                         throw new IllegalArgumentException(value);
@@ -376,6 +382,9 @@ public class Parser {
                         break;
                     case "Сталь":
                         networkMaterial = com.example.mingkhparser.models.heatingsystem.NetworkMaterial.STEEL;
+                        break;
+                    case "Чугун":
+                        networkMaterial = com.example.mingkhparser.models.heatingsystem.NetworkMaterial.CASTIRON;
                         break;
                     default:
                         throw new IllegalArgumentException(value);
