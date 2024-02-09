@@ -4,4 +4,5 @@ public enum NetworkMaterial {
     GALVANIZEDSTEEL, POLYMER, STEEL, NONE,
     METALPOLYMER, //Металлополимер
     CASTIRON, //Чугун
+    BLACKSTEEL, //Сталь черная
 }

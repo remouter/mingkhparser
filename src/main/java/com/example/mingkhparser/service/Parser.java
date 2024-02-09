@@ -236,6 +236,9 @@ public class Parser {
                     case "Чугун":
                         networkMaterial = com.example.mingkhparser.models.coldwatersupplysystemrisers.NetworkMaterial.CASTIRON;
                         break;
+                    case "Сталь черная":
+                        networkMaterial = com.example.mingkhparser.models.coldwatersupplysystemrisers.NetworkMaterial.BLACKSTEEL;
+                        break;
                     default:
                         throw new IllegalArgumentException(value);
                 }
@@ -281,6 +284,9 @@ public class Parser {
                         break;
                     case "Чугун":
                         networkMaterial = com.example.mingkhparser.models.coldwatersystem.NetworkMaterial.CASTIRON;
+                        break;
+                    case "Сталь черная":
+                        networkMaterial = com.example.mingkhparser.models.coldwatersystem.NetworkMaterial.BLACKSTEEL;
                         break;
                     default:
                         throw new IllegalArgumentException(value);
@@ -671,6 +677,9 @@ public class Parser {
                     case "Нет":
                         externalInsulationType = ExternalInsulationType.NONE;
                         break;
+                    case "Утепление с защитным штукатурным слоем":
+                        externalInsulationType = ExternalInsulationType.INSULATIONWITHAPROTECTIVEPLASTERLAYER;
+                        break;
                     default:
                         throw new IllegalArgumentException(value);
                 }
@@ -687,6 +696,9 @@ public class Parser {
                         break;
                     case "Иной":
                         facadeFinishingMaterial = FacadeFinishingMaterial.OTHER;
+                        break;
+                    case "окраска по штукатурке":
+                        facadeFinishingMaterial = FacadeFinishingMaterial.PAINTINGONPLASTER;
                         break;
                     default:
                         throw new IllegalArgumentException(value);
@@ -768,6 +780,9 @@ public class Parser {
                     case "Нет":
                         foundationMaterial = FoundationMaterial.NONE;
                         break;
+                    case "Железобетон":
+                        foundationMaterial = FoundationMaterial.REINFORCEDCONCRETE;
+                        break;
                     default:
                         throw new IllegalArgumentException(value);
                 }
@@ -816,6 +831,9 @@ public class Parser {
                         break;
                     case "нет":
                         gasSupplySystemType = GasSupplySystemType.NONE;
+                        break;
+                    case "Газопровод низкого давления – подача природного газа в крышную котельную":
+                        gasSupplySystemType = GasSupplySystemType.LOWPRESSUREGASPIPELINEROOFBOILERROOM;
                         break;
                     default:
                         throw new IllegalArgumentException(value);
@@ -1160,6 +1178,9 @@ public class Parser {
                             case "нет":
                                 gasSupply = GasSupply.NONE;
                                 break;
+                            case "Газопровод низкого давления – подача природного газа в крышную котельную":
+                                gasSupply = GasSupply.LOWPRESSUREGASPIPELINEROOFBOILERROOM;
+                                break;
                             default:
                                 throw new IllegalArgumentException(value);
                         }
@@ -1197,6 +1218,9 @@ public class Parser {
                                 break;
                             case "Домовая котельная":
                                 heatSupply = HeatSupply.HOUSEBOILER;
+                                break;
+                            case "Печная":
+                                heatSupply = HeatSupply.STOVE;
                                 break;
                             default:
                                 throw new IllegalArgumentException(value);
