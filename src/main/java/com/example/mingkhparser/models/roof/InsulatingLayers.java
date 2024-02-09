@@ -1,5 +1,6 @@
 package com.example.mingkhparser.models.roof;
 
 public enum InsulatingLayers {
-    EXPANDEDCLAYSLAG
+    EXPANDEDCLAYSLAG,
+    MINERALWOOL, //Минеральная вата
 }

@@ -475,6 +475,9 @@ public class Parser {
                     case "Пластиковые":
                         windowsType = WindowsType.PLASTIC;
                         break;
+                    case "нет":
+                        windowsType = WindowsType.NONE;
+                        break;
                     default:
                         throw new IllegalArgumentException(value);
                 }
@@ -494,6 +497,7 @@ public class Parser {
                         roofShape = RoofShape.FLAT;
                         break;
                     case "Скатная":
+                    case "Односкатная":
                         roofShape = RoofShape.SLOPING;
                         break;
                     case "Двускатная":
@@ -509,6 +513,9 @@ public class Parser {
                 switch (value) {
                     case "Керамзит или шлак":
                         insulatingLayers = InsulatingLayers.EXPANDEDCLAYSLAG;
+                        break;
+                    case "Минеральная вата":
+                        insulatingLayers = InsulatingLayers.MINERALWOOL;
                         break;
                     default:
                         throw new IllegalArgumentException(value);
@@ -689,6 +696,7 @@ public class Parser {
                 FacadeFinishingMaterial facadeFinishingMaterial;
                 switch (value) {
                     case "без отделки":
+                    case "Нет":
                         facadeFinishingMaterial = FacadeFinishingMaterial.WITHOUTFINISHING;
                         break;
                     case "окраска":
@@ -732,6 +740,9 @@ public class Parser {
                         break;
                     case "Стены деревянные, сборно-щитовые":
                         wallMaterial = WallMaterial.WOODENPREFABRICATEDPANELS;
+                        break;
+                    case "Стены деревянные":
+                        wallMaterial = WallMaterial.WOODEN;
                         break;
                     default:
                         throw new IllegalArgumentException(value);
@@ -1056,6 +1067,9 @@ public class Parser {
                         }
                         generalInfo.setRepairFormation(repairFormation);
                         break;
+                    case "Площадь парковки м2":
+                        generalInfo.setParkingArea(Double.parseDouble(value));
+                        break;
                     case "Наличие в подъездах приспособлений для нужд маломобильных групп населения":
                         switch (value) {
                             case "Нет":
@@ -1115,6 +1129,9 @@ public class Parser {
                             case "дом":
                                 materialType = MaterialType.HOUSE;
                                 break;
+                            case "информация отсутствует":
+                                materialType = MaterialType.UNKNOWN;
+                                break;
                             default:
                                 throw new IllegalArgumentException(value);
                         }
@@ -1136,6 +1153,9 @@ public class Parser {
                             case "Приточно-вытяжная вентиляция":
                                 ventilation = Ventilation.SUPPLYANDEXHAUSTVENTILATION;
                                 break;
+                            case "Вытяжная вентиляция":
+                                ventilation = Ventilation.EXHAUSTVENTILATION;
+                                break;
                             default:
                                 throw new IllegalArgumentException(value);
                         }
@@ -1149,6 +1169,7 @@ public class Parser {
                                 waterDisposal = WaterDisposal.CENTRAL;
                                 break;
                             case "Нет":
+                            case "Отсутствует":
                                 waterDisposal = WaterDisposal.NONE;
                                 break;
                             case "Выгребная яма":
@@ -1189,6 +1210,7 @@ public class Parser {
                     case "Горячее водоснабжение":
                         switch (value) {
                             case "Нет":
+                            case "Отсутствует":
                                 engineeringSystems.setHotWaterSupply(false);
                                 break;
                             default:
@@ -1238,6 +1260,7 @@ public class Parser {
                                 coldWaterSupply = ColdWaterSupply.CENTRAL;
                                 break;
                             case "Нет":
+                            case "Отсутствует":
                                 coldWaterSupply = ColdWaterSupply.NONE;
                                 break;
                             case "Автономное":
@@ -1422,6 +1445,9 @@ public class Parser {
                                 break;
                             case "дом":
                                 materialType = MaterialType.HOUSE;
+                                break;
+                            case "информация отсутствует":
+                                materialType = MaterialType.UNKNOWN;
                                 break;
                             default:
                                 throw new IllegalArgumentException(value);

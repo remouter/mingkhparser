@@ -22,6 +22,7 @@ public class GeneralInfo {
     private Integer minFloor;
     private Integer undergroundFloors;
     private RepairFormation repairFormation;
+    private Double parkingArea;
     private Boolean disablePeopleDevices;
     private HouseType houseType;
     private Double wearOfBuilding;
