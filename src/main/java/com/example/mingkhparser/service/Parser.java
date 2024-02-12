@@ -103,7 +103,7 @@ public class Parser {
     private void setDetailedInfo2(HouseInfo houseInfo, Document doc) {
         Floors floors = houseInfo.getFloors() == null ? new Floors() : houseInfo.getFloors();
         Roof roof = houseInfo.getRoof() == null ? new Roof() : houseInfo.getRoof();
-        Windows windows = new Windows();
+        Windows windows = houseInfo.getWindows() == null ? new Windows() : houseInfo.getWindows();
         Doors doors = new Doors();
         CommonAreasFinishingCoatings commonAreasFinishingCoatings = new CommonAreasFinishingCoatings();
         HeatingSystem heatingSystem = houseInfo.getHeatingSystem() == null ? new HeatingSystem() : houseInfo.getHeatingSystem();
@@ -115,6 +115,7 @@ public class Parser {
         ShutoffValvesColdWaterSupplySystem shutoffValvesColdWaterSupplySystem = new ShutoffValvesColdWaterSupplySystem();
         HotWaterSupplySystemRisers hotWaterSupplySystemRisers = new HotWaterSupplySystemRisers();
         ShutoffValvesHotWaterSupplySystem shutoffValvesHotWaterSupplySystem = new ShutoffValvesHotWaterSupplySystem();
+        HotWaterSupplySystem hotWaterSupplySystem = houseInfo.getHotWaterSupplySystem() == null ? new HotWaterSupplySystem() : houseInfo.getHotWaterSupplySystem();
 
         Elements table = doc.select("body .outer .main-block .container .margin-bottom-20");
         for (int i = 12; i < table.size(); i++) {
@@ -168,6 +169,9 @@ public class Parser {
                     case "Запорная арматура системы горячего водоснабжения":
                         setShutoffValvesHotWaterSupplySystem(tag, value, shutoffValvesHotWaterSupplySystem);
                         break;
+                    case "Cистема горячего водоснабжения":
+                        setHotWaterSupplySystem(tag, value, hotWaterSupplySystem);
+                        break;
                     default:
                         throw new IllegalArgumentException(partition);
                 }
@@ -188,6 +192,7 @@ public class Parser {
         houseInfo.setShutoffValvesColdWaterSupplySystem(shutoffValvesColdWaterSupplySystem);
         houseInfo.setHotWaterSupplySystemRisers(hotWaterSupplySystemRisers);
         houseInfo.setShutoffValvesHotWaterSupplySystem(shutoffValvesHotWaterSupplySystem);
+        houseInfo.setHotWaterSupplySystem(hotWaterSupplySystem);
     }
 
     private void setShutoffValvesHotWaterSupplySystem(String tag, String value, ShutoffValvesHotWaterSupplySystem shutoffValvesHotWaterSupplySystem) {
@@ -321,6 +326,9 @@ public class Parser {
                         break;
                     case "Нет, Регистр":
                         heatingDevicesType = HeatingDevicesType.NONEREGISTER;
+                        break;
+                    case "Конвектор":
+                        heatingDevicesType = HeatingDevicesType.CONVECTOR;
                         break;
                     default:
                         throw new IllegalArgumentException(value);
@@ -621,6 +629,9 @@ public class Parser {
                     case "Деревянные отепленные":
                         floorType = FloorType.WOODENHEATED;
                         break;
+                    case "Иные":
+                        floorType = FloorType.OTHER;
+                        break;
                     default:
                         throw new IllegalArgumentException(value);
                 }
@@ -645,6 +656,7 @@ public class Parser {
         Floors floors = new Floors();
         Roof roof = new Roof();
         HeatingSystem heatingSystem = new HeatingSystem();
+        Windows windows = new Windows();
 
         for (Element element : doc.select("body .outer .main-block .container .row").get(7).children().get(0).children()) {
             for (int i = 0; i < element.select(".col-md-6").size(); i++) {
@@ -683,6 +695,9 @@ public class Parser {
                     case "Система отопления":
                         setHeatingSystem(tag, value, heatingSystem);
                         break;
+                    case "Окна":
+                        setWindows(tag, value, windows);
+                        break;
                     default:
                         throw new IllegalArgumentException(partition);
                 }
@@ -699,6 +714,7 @@ public class Parser {
         houseInfo.setFloors(floors);
         houseInfo.setRoof(roof);
         houseInfo.setHeatingSystem(heatingSystem);
+        houseInfo.setWindows(windows);
     }
 
     private void setFacade(String tag, String value, Facade facade) {
@@ -1023,6 +1039,7 @@ public class Parser {
                         networkMaterial = NetworkMaterial.CASTIRON;
                         break;
                     case "Сталь":
+                    case "Сталь черная":
                         networkMaterial = NetworkMaterial.STEEL;
                         break;
                     default:
@@ -1438,6 +1455,7 @@ public class Parser {
                                 foundation = Foundation.NONE;
                                 break;
                             case "Ж/б крупноблочный":
+                            case "Ж/б":
                                 foundation = Foundation.REINFORCEDCONCRETELARGEBLOCK;
                                 break;
                             case "Монолитный ленточный железобетонный и столбчатый ростверк по свайному основанию":
@@ -1465,6 +1483,9 @@ public class Parser {
                                 break;
                             case "Деревянные":
                                 floorType = FloorType.WOODEN;
+                                break;
+                            case "Иные":
+                                floorType = FloorType.OTHER;
                                 break;
                             default:
                                 throw new IllegalArgumentException(value);
@@ -1621,6 +1642,9 @@ public class Parser {
                                 break;
                             case "Деревянные":
                                 floorType = FloorType.WOODEN;
+                                break;
+                            case "Иные":
+                                floorType = FloorType.OTHER;
                                 break;
                             default:
                                 throw new IllegalArgumentException(value);

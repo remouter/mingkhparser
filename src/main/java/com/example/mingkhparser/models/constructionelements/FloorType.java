@@ -4,4 +4,5 @@ public enum FloorType {
     REINFORCEDCONCRETESLABS, WOODENUNPLASTERED, WOODENPLASTERED,
     WOODENHEATED, //Деревянные отепленные
     WOODEN, //Деревянные
+    OTHER, //Иные
 }
