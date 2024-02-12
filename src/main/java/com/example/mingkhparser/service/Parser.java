@@ -570,6 +570,9 @@ public class Parser {
                     case "Стропильная":
                         bearingType = BearingType.RAFTER;
                         break;
+                    case "Нет":
+                        bearingType = BearingType.NONE;
+                        break;
                     default:
                         throw new IllegalArgumentException(value);
                 }
@@ -595,6 +598,9 @@ public class Parser {
                         break;
                     case "Стальная (металлическая)":
                         roofType = RoofType.STEELMETAL;
+                        break;
+                    case "Железо по деревянной обрешетке":
+                        roofType = RoofType.IRONONWOODSHEATHING;
                         break;
                     default:
                         throw new IllegalArgumentException(value);
@@ -828,6 +834,9 @@ public class Parser {
                     case "Железобетонные":
                         wallMaterial = WallMaterial.REINFORCEDCONCRETE;
                         break;
+                    case "Стены кирпичные, Стены деревянные каркасные":
+                        wallMaterial = WallMaterial.BRICKWOODENFRAME;
+                        break;
                     default:
                         throw new IllegalArgumentException(value);
                 }
@@ -850,6 +859,7 @@ public class Parser {
                         foundationType = FoundationType.TAPE;
                         break;
                     case "Ж/б крупноблочный":
+                    case "Ж/б":
                         foundationType = FoundationType.REINFORCEDCONCRETELARGEBLOCK;
                         break;
                     case "Монолитный ленточный железобетонный и столбчатый ростверк по свайному основанию":
@@ -1078,6 +1088,9 @@ public class Parser {
                         break;
                     case "Сталь, Полипропилен":
                         risersMaterial = RisersMaterial.STEELPOLYPROPYLENE;
+                        break;
+                    case "Полимер":
+                        risersMaterial = RisersMaterial.POLYMER;
                         break;
                     default:
                         throw new IllegalArgumentException(value);

@@ -6,4 +6,5 @@ public enum RoofType {
     METALSEAM, //Металлическая фальцевая
     IRON, //Железо
     STEELMETAL, //Стальная (металлическая)
+    IRONONWOODSHEATHING, //Железо по деревянной обрешетке
 }
