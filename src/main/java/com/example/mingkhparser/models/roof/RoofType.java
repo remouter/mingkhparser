@@ -9,4 +9,5 @@ public enum RoofType {
     IRONONWOODSHEATHING, //Железо по деревянной обрешетке
     METALPROFILEDSHEET, //Металлический профлист
     SOFT, //Мягкая
+    METALWAVY, //Металлическая волнистая
 }

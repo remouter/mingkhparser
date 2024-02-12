@@ -244,6 +244,10 @@ public class Parser {
                     case "Сталь черная":
                         networkMaterial = com.example.mingkhparser.models.coldwatersupplysystemrisers.NetworkMaterial.BLACKSTEEL;
                         break;
+                    case "Полимер, Сталь оцинкованная":
+                    case "Сталь оцинкованная, Полимер":
+                        networkMaterial = com.example.mingkhparser.models.coldwatersupplysystemrisers.NetworkMaterial.POLYMERGALVANIZEDSTEEL;
+                        break;
                     default:
                         throw new IllegalArgumentException(value);
                 }
@@ -295,6 +299,9 @@ public class Parser {
                         break;
                     case "Сталь, Полипропилен":
                         networkMaterial = com.example.mingkhparser.models.coldwatersystem.NetworkMaterial.STEELPOLYPROPYLENE;
+                        break;
+                    case "Сталь оцинкованная, Полимер":
+                        networkMaterial = com.example.mingkhparser.models.coldwatersystem.NetworkMaterial.GALVANIZEDSTEELPOLYMER;
                         break;
                     default:
                         throw new IllegalArgumentException(value);
@@ -547,6 +554,9 @@ public class Parser {
                     case "Вальмовая":
                         roofShape = RoofShape.HIP;
                         break;
+                    case "Шатровая":
+                        roofShape = RoofShape.TENT;
+                        break;
                     default:
                         throw new IllegalArgumentException(value);
                 }
@@ -622,6 +632,9 @@ public class Parser {
                         break;
                     case "Мягкая":
                         roofType = RoofType.SOFT;
+                        break;
+                    case "Металлическая волнистая":
+                        roofType = RoofType.METALWAVY;
                         break;
                     default:
                         throw new IllegalArgumentException(value);
@@ -1343,6 +1356,9 @@ public class Parser {
                             case "Внутренние водостоки":
                                 engineeringSystems.setGuttersSystem(GuttersSystem.INNER);
                                 break;
+                            case "Наружные водостоки":
+                                engineeringSystems.setGuttersSystem(GuttersSystem.EXTERNAL);
+                                break;
                             default:
                                 throw new IllegalArgumentException(value);
                         }
@@ -1374,6 +1390,7 @@ public class Parser {
                                 break;
                             case "Индивидуальный котел":
                             case "Индивидуальный котел, Нет":
+                            case "Квартирное (квартирный котел)":
                                 engineeringSystems.setHotWaterSystemType(HotWaterSystemType.INDIVIDUALBOILER);
                                 break;
                             case "Кольцевая или с закольцованными вводами":
