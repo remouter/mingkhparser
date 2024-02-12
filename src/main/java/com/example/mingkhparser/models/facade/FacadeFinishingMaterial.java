@@ -7,4 +7,5 @@ public enum FacadeFinishingMaterial {
     PLASTER, //Штукатурка
     PANELING, //Обшивка тёсом
     PANELINGPAINTING, //обшивочная доска окрашенная
+    WOOD, //Дерево
 }

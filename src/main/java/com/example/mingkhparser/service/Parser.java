@@ -106,7 +106,7 @@ public class Parser {
         Windows windows = new Windows();
         Doors doors = new Doors();
         CommonAreasFinishingCoatings commonAreasFinishingCoatings = new CommonAreasFinishingCoatings();
-        HeatingSystem heatingSystem = new HeatingSystem();
+        HeatingSystem heatingSystem = houseInfo.getHeatingSystem() == null ? new HeatingSystem() : houseInfo.getHeatingSystem();
         HeatingSystemRisers heatingSystemRisers = new HeatingSystemRisers();
         ShutoffValvesHeatingSystem shutoffValvesHeatingSystem = new ShutoffValvesHeatingSystem();
         HeatingDevices heatingDevices = new HeatingDevices();
@@ -446,6 +446,9 @@ public class Parser {
                     case "Минеральная вата с покрытием из алюминиевой фольги":
                         thermalInsulationMaterial = ThermalInsulationMaterial.MINERALWOOLCOATEDWITHALUMINUMFOIL;
                         break;
+                    case "Минеральная вата с покрытием":
+                        thermalInsulationMaterial = ThermalInsulationMaterial.MINERALWOOLCOATED;
+                        break;
                     case "Асбест под деревянной основой (устар.)":
                         thermalInsulationMaterial = ThermalInsulationMaterial.ASBESTOSUNDERWOODENBASE;
                         break;
@@ -536,6 +539,7 @@ public class Parser {
                 InsulatingLayers insulatingLayers;
                 switch (value) {
                     case "Керамзит или шлак":
+                    case "Керамзит или шлак, нет":
                         insulatingLayers = InsulatingLayers.EXPANDEDCLAYSLAG;
                         break;
                     case "Минеральная вата":
@@ -580,6 +584,9 @@ public class Parser {
                         break;
                     case "Железо":
                         roofType = RoofType.IRON;
+                        break;
+                    case "Стальная (металлическая)":
+                        roofType = RoofType.STEELMETAL;
                         break;
                     default:
                         throw new IllegalArgumentException(value);
@@ -637,6 +644,7 @@ public class Parser {
         Facade facade = new Facade();
         Floors floors = new Floors();
         Roof roof = new Roof();
+        HeatingSystem heatingSystem = new HeatingSystem();
 
         for (Element element : doc.select("body .outer .main-block .container .row").get(7).children().get(0).children()) {
             for (int i = 0; i < element.select(".col-md-6").size(); i++) {
@@ -672,6 +680,9 @@ public class Parser {
                     case "Крыша":
                         setRoof(tag, value, roof);
                         break;
+                    case "Система отопления":
+                        setHeatingSystem(tag, value, heatingSystem);
+                        break;
                     default:
                         throw new IllegalArgumentException(partition);
                 }
@@ -687,6 +698,7 @@ public class Parser {
         houseInfo.setFacade(facade);
         houseInfo.setFloors(floors);
         houseInfo.setRoof(roof);
+        houseInfo.setHeatingSystem(heatingSystem);
     }
 
     private void setFacade(String tag, String value, Facade facade) {
@@ -756,6 +768,9 @@ public class Parser {
                     case "обшивочная доска окрашенная":
                         facadeFinishingMaterial = FacadeFinishingMaterial.PANELINGPAINTING;
                         break;
+                    case "Дерево":
+                        facadeFinishingMaterial = FacadeFinishingMaterial.WOOD;
+                        break;
                     default:
                         throw new IllegalArgumentException(value);
                 }
@@ -784,6 +799,7 @@ public class Parser {
                         wallMaterial = WallMaterial.WOODENFRAME;
                         break;
                     case "Стены рубленные из бревен и брусчатые":
+                    case "Бревенчатые":
                         wallMaterial = WallMaterial.LOGSTIMBER;
                         break;
                     case "Стены деревянные, сборно-щитовые":
@@ -1398,6 +1414,7 @@ public class Parser {
                                 loadBearingWalls = LoadBearingWalls.WOODENPREFABRICATEDPANELS;
                                 break;
                             case "Стены деревянные":
+                            case "Деревянные":
                                 loadBearingWalls = LoadBearingWalls.WOODEN;
                                 break;
                             case "Стены железобетонные":
@@ -1445,6 +1462,9 @@ public class Parser {
                                 break;
                             case "Деревянные отепленные":
                                 floorType = FloorType.WOODENHEATED;
+                                break;
+                            case "Деревянные":
+                                floorType = FloorType.WOODEN;
                                 break;
                             default:
                                 throw new IllegalArgumentException(value);
@@ -1623,6 +1643,7 @@ public class Parser {
                                 wallMaterial = WallMaterial.LOGSTIMBER;
                                 break;
                             case "Стены деревянные":
+                            case "Деревянные":
                                 wallMaterial = WallMaterial.WOODEN;
                                 break;
                             case "Стены железобетонные":

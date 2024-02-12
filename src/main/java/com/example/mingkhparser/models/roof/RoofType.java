@@ -5,4 +5,5 @@ public enum RoofType {
     SLATE, //Шиферная
     METALSEAM, //Металлическая фальцевая
     IRON, //Железо
+    STEELMETAL, //Стальная (металлическая)
 }
