@@ -2,5 +2,6 @@ package com.example.mingkhparser.models.foundation;
 
 public enum FoundationMaterial {
     REINFORCEDCONCRETEBLOCKS, CERAMICBRICK, REINFORCEDCONCRETESMONOLITHIC, PRECASTCONCRETE, NONE,
-    REINFORCEDCONCRETE
+    REINFORCEDCONCRETE,
+    BRICK, //Кирпич
 }

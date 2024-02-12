@@ -4,4 +4,5 @@ public enum FacadeFinishingMaterial {
     WITHOUTFINISHING, PAINTING,
     OTHER, //Иной
     PAINTINGONPLASTER, //окраска по штукатурке
+    PLASTER, //Штукатурка
 }

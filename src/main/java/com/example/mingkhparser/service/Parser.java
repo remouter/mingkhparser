@@ -551,6 +551,9 @@ public class Parser {
                     case "Шиферная":
                         roofType = RoofType.SLATE;
                         break;
+                    case "Металлическая фальцевая":
+                        roofType = RoofType.METALSEAM;
+                        break;
                     default:
                         throw new IllegalArgumentException(value);
                 }
@@ -580,6 +583,9 @@ public class Parser {
                         break;
                     case "Перекрытия деревянные оштукатуренные":
                         floorType = FloorType.WOODENPLASTERED;
+                        break;
+                    case "Деревянные отепленные":
+                        floorType = FloorType.WOODENHEATED;
                         break;
                     default:
                         throw new IllegalArgumentException(value);
@@ -711,6 +717,9 @@ public class Parser {
                     case "окраска по штукатурке":
                         facadeFinishingMaterial = FacadeFinishingMaterial.PAINTINGONPLASTER;
                         break;
+                    case "Штукатурка":
+                        facadeFinishingMaterial = FacadeFinishingMaterial.PLASTER;
+                        break;
                     default:
                         throw new IllegalArgumentException(value);
                 }
@@ -742,6 +751,7 @@ public class Parser {
                         wallMaterial = WallMaterial.LOGSTIMBER;
                         break;
                     case "Стены деревянные, сборно-щитовые":
+                    case "Стены из сборно-щитовых панелей":
                         wallMaterial = WallMaterial.WOODENPREFABRICATEDPANELS;
                         break;
                     case "Стены деревянные":
@@ -796,6 +806,9 @@ public class Parser {
                         break;
                     case "Железобетон":
                         foundationMaterial = FoundationMaterial.REINFORCEDCONCRETE;
+                        break;
+                    case "Кирпич":
+                        foundationMaterial = FoundationMaterial.BRICK;
                         break;
                     default:
                         throw new IllegalArgumentException(value);
@@ -921,6 +934,9 @@ public class Parser {
                 switch (value) {
                     case "Нет":
                         hotWaterSystemType = HotWaterSystemType.NONE;
+                        break;
+                    case "Индивидуальный котел":
+                        hotWaterSystemType = HotWaterSystemType.INDIVIDUALBOILER;
                         break;
                     default:
                         throw new IllegalArgumentException(value);
@@ -1135,6 +1151,9 @@ public class Parser {
                             case "информация отсутствует":
                                 materialType = MaterialType.UNKNOWN;
                                 break;
+                            case "жилое":
+                                materialType = MaterialType.RESIDENTIAL;
+                                break;
                             default:
                                 throw new IllegalArgumentException(value);
                         }
@@ -1214,7 +1233,10 @@ public class Parser {
                         switch (value) {
                             case "Нет":
                             case "Отсутствует":
-                                engineeringSystems.setHotWaterSupply(false);
+                                engineeringSystems.setHotWaterSystemType(HotWaterSystemType.NONE);
+                                break;
+                            case "Индивидуальный котел":
+                                engineeringSystems.setHotWaterSystemType(HotWaterSystemType.INDIVIDUALBOILER);
                                 break;
                             default:
                                 throw new IllegalArgumentException(value);
@@ -1458,6 +1480,9 @@ public class Parser {
                                 break;
                             case "информация отсутствует":
                                 materialType = MaterialType.UNKNOWN;
+                                break;
+                            case "жилое":
+                                materialType = MaterialType.RESIDENTIAL;
                                 break;
                             default:
                                 throw new IllegalArgumentException(value);
