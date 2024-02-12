@@ -4,4 +4,5 @@ public enum RoofType {
     ROLL, CORRUGATEDSHEETS,
     SLATE, //Шиферная
     METALSEAM, //Металлическая фальцевая
+    IRON, //Железо
 }

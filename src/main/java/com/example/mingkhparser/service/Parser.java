@@ -370,6 +370,7 @@ public class Parser {
                         materialType = com.example.mingkhparser.models.heatingsystemrisers.MaterialType.NONE;
                         break;
                     case "Сталь":
+                    case "Сталь черная":
                         materialType = com.example.mingkhparser.models.heatingsystemrisers.MaterialType.STEEL;
                         break;
                     case "Чугун":
@@ -406,6 +407,7 @@ public class Parser {
                         networkMaterial = com.example.mingkhparser.models.heatingsystem.NetworkMaterial.POLYMER;
                         break;
                     case "Сталь":
+                    case "Сталь черная":
                         networkMaterial = com.example.mingkhparser.models.heatingsystem.NetworkMaterial.STEEL;
                         break;
                     case "Чугун":
@@ -553,6 +555,9 @@ public class Parser {
                         break;
                     case "Металлическая фальцевая":
                         roofType = RoofType.METALSEAM;
+                        break;
+                    case "Железо":
+                        roofType = RoofType.IRON;
                         break;
                     default:
                         throw new IllegalArgumentException(value);
