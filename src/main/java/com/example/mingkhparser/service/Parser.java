@@ -303,6 +303,9 @@ public class Parser {
                     case "Сталь оцинкованная, Полимер":
                         networkMaterial = com.example.mingkhparser.models.coldwatersystem.NetworkMaterial.GALVANIZEDSTEELPOLYMER;
                         break;
+                    case "Полипропилен":
+                        networkMaterial = com.example.mingkhparser.models.coldwatersystem.NetworkMaterial.POLYPROPYLENE;
+                        break;
                     default:
                         throw new IllegalArgumentException(value);
                 }
@@ -1169,6 +1172,9 @@ public class Parser {
                     case "Полимер":
                         risersMaterial = RisersMaterial.POLYMER;
                         break;
+                    case "Сталь":
+                        risersMaterial = RisersMaterial.STEEL;
+                        break;
                     default:
                         throw new IllegalArgumentException(value);
                 }
@@ -1320,6 +1326,7 @@ public class Parser {
                         MaterialType materialType;
                         switch (value) {
                             case "Кирпичный":
+                            case "жилой дом, Кирпичный":
                                 materialType = MaterialType.BRICK;
                                 break;
                             case "нет":
@@ -1738,6 +1745,7 @@ public class Parser {
                         MaterialType materialType;
                         switch (value) {
                             case "Кирпичный":
+                            case "жилой дом, Кирпичный":
                                 materialType = MaterialType.BRICK;
                                 break;
                             case "нет":

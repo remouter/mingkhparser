@@ -7,4 +7,5 @@ public enum NetworkMaterial {
     BLACKSTEEL, //Сталь черная
     STEELPOLYPROPYLENE, //Сталь, Полипропилен
     GALVANIZEDSTEELPOLYMER, //Сталь оцинкованная, Полимер
+    POLYPROPYLENE, //Полипропилен
 }

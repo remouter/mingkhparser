@@ -6,4 +6,5 @@ public enum RisersMaterial {
     BLACKSTEEL, //Сталь черная
     STEELPOLYPROPYLENE, //Сталь, Полипропилен
     POLYMER, //Полимер
+    STEEL, //Сталь
 }

@@ -31,7 +31,7 @@ public class Application implements CommandLineRunner {
 
         int index = addresses.size();
         for (int i = 0; i < addresses.size(); i++) {
-            if (addresses.get(i).equals("https://dom.mingkh.ru/ivanovskaya-oblast/furmanov/1118582")) {
+            if (addresses.get(i).equals("https://dom.mingkh.ru/ivanovskaya-oblast/furmanov/92799")) {
                 log.info("processed {}", i);
                 index = i;
                 break;
