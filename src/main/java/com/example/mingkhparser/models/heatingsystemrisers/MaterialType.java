@@ -4,4 +4,5 @@ public enum MaterialType {
     GALVANIZEDSTEEL, POLYMER, STEEL, NONE,
     CASTIRON, //Чугун
     METALPOLYMER, //Металлополимер
+    NONESTEEL, //Нет, Сталь черная
 }
