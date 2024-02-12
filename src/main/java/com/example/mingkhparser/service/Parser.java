@@ -408,6 +408,7 @@ public class Parser {
                         materialType = com.example.mingkhparser.models.heatingsystemrisers.MaterialType.STEELPOLYPROPYLENE;
                         break;
                     case "Полимер, Сталь оцинкованная":
+                    case "Сталь оцинкованная, Полимер":
                         materialType = com.example.mingkhparser.models.heatingsystemrisers.MaterialType.POLYMERGALVANIZEDSTEEL;
                         break;
                     default:
@@ -675,6 +676,9 @@ public class Parser {
                     case "Перекрытия из сборного железобетонного настила":
                         floorType = FloorType.PRECASTCONCRETESLABS;
                         break;
+                    case "Перекрытия из сборных и монолитных сплошных плит":
+                        floorType = FloorType.PREFABRICATEDANDMONOLITHICSOLIDSLABS;
+                        break;
                     default:
                         throw new IllegalArgumentException(value);
                 }
@@ -783,6 +787,9 @@ public class Parser {
                     case "Стены железобетонные":
                         wallMaterial = WallMaterial.REINFORCEDCONCRETE;
                         break;
+                    case "Стены панельные":
+                        wallMaterial = WallMaterial.PANEL;
+                        break;
                     default:
                         throw new IllegalArgumentException(value);
                 }
@@ -830,6 +837,9 @@ public class Parser {
                     case "Дерево":
                         facadeFinishingMaterial = FacadeFinishingMaterial.WOOD;
                         break;
+                    case "панель с заводской отделкой":
+                        facadeFinishingMaterial = FacadeFinishingMaterial.FACTORYFINISHED;
+                        break;
                     default:
                         throw new IllegalArgumentException(value);
                 }
@@ -873,6 +883,9 @@ public class Parser {
                         break;
                     case "Стены кирпичные, Стены деревянные каркасные":
                         wallMaterial = WallMaterial.BRICKWOODENFRAME;
+                        break;
+                    case "Стены из слоистых железобетонных панелей":
+                        wallMaterial = WallMaterial.LAMINATEDREINFORCEDCONCRETEPANELS;
                         break;
                     default:
                         throw new IllegalArgumentException(value);
@@ -923,7 +936,7 @@ public class Parser {
                         foundationMaterial = FoundationMaterial.REINFORCEDCONCRETESMONOLITHIC;
                         break;
                     case "Сборный железобетон":
-                        foundationMaterial = FoundationMaterial.PRECASTCONCRETE;
+                        foundationMaterial = FoundationMaterial.PRECASTREINFORCEDCONCRETE;
                         break;
                     case "Нет":
                         foundationMaterial = FoundationMaterial.NONE;
@@ -933,6 +946,9 @@ public class Parser {
                         break;
                     case "Кирпич":
                         foundationMaterial = FoundationMaterial.BRICK;
+                        break;
+                    case "Бутобетон":
+                        foundationMaterial = FoundationMaterial.RUBBLECONCRETE;
                         break;
                     default:
                         throw new IllegalArgumentException(value);
@@ -1038,6 +1054,7 @@ public class Parser {
                         networkMaterial = com.example.mingkhparser.models.drainagesystem.NetworkMaterial.PLASTIC;
                         break;
                     case "чугун, пластик":
+                    case "пластик, чугун":
                         networkMaterial = com.example.mingkhparser.models.drainagesystem.NetworkMaterial.CASTIRONPLASTIC;
                         break;
                     default:
@@ -1506,6 +1523,9 @@ public class Parser {
                             case "Смешанные":
                                 loadBearingWalls = LoadBearingWalls.MIXED;
                                 break;
+                            case "Стены панельные":
+                                loadBearingWalls = LoadBearingWalls.PANEL;
+                                break;
                             default:
                                 throw new IllegalArgumentException(value);
                         }
@@ -1561,6 +1581,9 @@ public class Parser {
                                 break;
                             case "Перекрытия из сборного железобетонного настила":
                                 floorType = FloorType.PRECASTCONCRETESLABS;
+                                break;
+                            case "Перекрытия из сборных и монолитных сплошных плит":
+                                floorType = FloorType.PREFABRICATEDANDMONOLITHICSOLIDSLABS;
                                 break;
                             default:
                                 throw new IllegalArgumentException(value);
@@ -1725,6 +1748,9 @@ public class Parser {
                             case "Перекрытия из сборного железобетонного настила":
                                 floorType = FloorType.PRECASTCONCRETESLABS;
                                 break;
+                            case "Перекрытия из сборных и монолитных сплошных плит":
+                                floorType = FloorType.PREFABRICATEDANDMONOLITHICSOLIDSLABS;
+                                break;
                             default:
                                 throw new IllegalArgumentException(value);
                         }
@@ -1754,6 +1780,9 @@ public class Parser {
                                 break;
                             case "Смешанные":
                                 wallMaterial = WallMaterial.MIXED;
+                                break;
+                            case "Стены панельные":
+                                wallMaterial = WallMaterial.PANEL;
                                 break;
                             default:
                                 throw new IllegalArgumentException(value);

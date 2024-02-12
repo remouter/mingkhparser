@@ -8,4 +8,5 @@ public enum FacadeFinishingMaterial {
     PANELING, //Обшивка тёсом
     PANELINGPAINTING, //обшивочная доска окрашенная
     WOOD, //Дерево
+    FACTORYFINISHED, //панель с заводской отделкой
 }
