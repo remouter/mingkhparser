@@ -7,4 +7,5 @@ public enum FloorType {
     OTHER, //Иные
     PRECASTCONCRETESLABS, //Перекрытия из сборного железобетонного настила
     PREFABRICATEDANDMONOLITHICSOLIDSLABS, //Перекрытия из сборных и монолитных сплошных плит
+    FLATREINFORCEDCONCRETE, //Плоские железобетонные плиты
 }

@@ -4,4 +4,5 @@ public enum HotWaterSystemType {
     NONE,
     INDIVIDUALBOILER, //Индивидуальный котел
     RINGORWITHLOOPEDINPUTS, //Кольцевая или с закольцованными вводами
+    CENTRAL, //Центральное
 }

@@ -5,4 +5,5 @@ public enum BearingType {
     RAFTER, //Стропильная
     NONE, //Нет
     COMBINEDPRECASTCONCRETELAMINATEDPANELS, //Совмещенные из сборных железобетонных слоистых панелей
+    REINFORCEDCONCRETESLABS, //Ж/б плиты
 }

@@ -15,9 +15,11 @@ public class GeneralInfo {
     private HouseCondition houseCondition;
     private Integer apartmentsCount;
     private Integer nonResidentialPremises;
-    private Integer balconyCount;
+    private Integer loggiasNumber;
+    private Integer balconyNumber;
     private EnergyEfficiencyClass energyEfficiencyClass;
     private Integer numberOfEntrances;
+    private Integer elevatorsNumber;
     private Integer maxFloor;
     private Integer minFloor;
     private Integer undergroundFloors;

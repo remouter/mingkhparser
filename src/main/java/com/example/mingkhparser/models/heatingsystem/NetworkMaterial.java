@@ -5,4 +5,5 @@ public enum NetworkMaterial {
     CASTIRON, //Чугун
     METALPOLYMER, //Металлополимер
     POLYMERGALVANIZEDSTEEL, //Полимер, Сталь оцинкованная
+    POLYPROPYLENE, //Полипропилен
 }

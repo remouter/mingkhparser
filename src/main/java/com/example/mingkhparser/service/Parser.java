@@ -451,6 +451,9 @@ public class Parser {
                     case "Полимер, Сталь оцинкованная":
                         networkMaterial = com.example.mingkhparser.models.heatingsystem.NetworkMaterial.POLYMERGALVANIZEDSTEEL;
                         break;
+                    case "Полипропилен":
+                        networkMaterial = com.example.mingkhparser.models.heatingsystem.NetworkMaterial.POLYPROPYLENE;
+                        break;
                     default:
                         throw new IllegalArgumentException(value);
                 }
@@ -568,6 +571,7 @@ public class Parser {
                 switch (value) {
                     case "Керамзит или шлак":
                     case "Керамзит или шлак, нет":
+                    case "нет, Керамзит или шлак":
                         insulatingLayers = InsulatingLayers.EXPANDEDCLAYSLAG;
                         break;
                     case "Минеральная вата":
@@ -575,6 +579,9 @@ public class Parser {
                         break;
                     case "нет":
                         insulatingLayers = InsulatingLayers.NONE;
+                        break;
+                    case "Пенобетон":
+                        insulatingLayers = InsulatingLayers.FOAMCONCRETE;
                         break;
                     default:
                         throw new IllegalArgumentException(value);
@@ -598,6 +605,9 @@ public class Parser {
                         break;
                     case "Совмещенные из сборных железобетонных слоистых панелей":
                         bearingType = BearingType.COMBINEDPRECASTCONCRETELAMINATEDPANELS;
+                        break;
+                    case "Ж/б плиты":
+                        bearingType = BearingType.REINFORCEDCONCRETESLABS;
                         break;
                     default:
                         throw new IllegalArgumentException(value);
@@ -678,6 +688,9 @@ public class Parser {
                         break;
                     case "Перекрытия из сборных и монолитных сплошных плит":
                         floorType = FloorType.PREFABRICATEDANDMONOLITHICSOLIDSLABS;
+                        break;
+                    case "Плоские железобетонные плиты":
+                        floorType = FloorType.FLATREINFORCEDCONCRETE;
                         break;
                     default:
                         throw new IllegalArgumentException(value);
@@ -1086,6 +1099,9 @@ public class Parser {
                     case "не известен":
                         hotWaterSystemType = HotWaterSystemType.RINGORWITHLOOPEDINPUTS;
                         break;
+                    case "Центральное":
+                        hotWaterSystemType = HotWaterSystemType.CENTRAL;
+                        break;
                     default:
                         throw new IllegalArgumentException(value);
                 }
@@ -1210,7 +1226,7 @@ public class Parser {
                         generalInfo.setNonResidentialPremises(Integer.valueOf(value));
                         break;
                     case "Количество балконов":
-                        generalInfo.setBalconyCount(Integer.valueOf(value));
+                        generalInfo.setBalconyNumber(Integer.valueOf(value));
                         break;
                     case "Класс энергетической эффективности":
                         EnergyEfficiencyClass energyEfficiencyClass;
@@ -1254,6 +1270,9 @@ public class Parser {
                         switch (value) {
                             case "Нет":
                                 generalInfo.setDisablePeopleDevices(false);
+                                break;
+                            case "Да":
+                                generalInfo.setDisablePeopleDevices(true);
                                 break;
                             default:
                                 throw new IllegalArgumentException(value);
@@ -1310,6 +1329,7 @@ public class Parser {
                                 materialType = MaterialType.HOUSE;
                                 break;
                             case "информация отсутствует":
+                            case "byajhvfwbz jncencndetn":
                             case "не известен":
                                 materialType = MaterialType.UNKNOWN;
                                 break;
@@ -1412,6 +1432,9 @@ public class Parser {
                                 break;
                             case "Кольцевая или с закольцованными вводами":
                                 engineeringSystems.setHotWaterSystemType(HotWaterSystemType.RINGORWITHLOOPEDINPUTS);
+                                break;
+                            case "Центральное":
+                                engineeringSystems.setHotWaterSystemType(HotWaterSystemType.CENTRAL);
                                 break;
                             default:
                                 throw new IllegalArgumentException(value);
@@ -1585,13 +1608,24 @@ public class Parser {
                             case "Перекрытия из сборных и монолитных сплошных плит":
                                 floorType = FloorType.PREFABRICATEDANDMONOLITHICSOLIDSLABS;
                                 break;
+                            case "Плоские железобетонные плиты":
+                                floorType = FloorType.FLATREINFORCEDCONCRETE;
+                                break;
                             default:
                                 throw new IllegalArgumentException(value);
                         }
                         constructionElements.setFloorType(floorType);
                         break;
                     case "Вид услуги (работы)":
+                    case "Подъезд":
                         //todo skip - https://dom.mingkh.ru/ivanovskaya-oblast/furmanov/92788
+                        //todo skip - https://dom.mingkh.ru/ivanovskaya-oblast/furmanov/1148044
+                        break;
+                    case "Количество лоджий":
+                        generalInfo.setLoggiasNumber(Integer.valueOf(value));
+                        break;
+                    case "Количество лифтов":
+                        generalInfo.setElevatorsNumber(Integer.valueOf(value));
                         break;
                     default:
                         throw new IllegalArgumentException(tag);
@@ -1713,6 +1747,7 @@ public class Parser {
                                 materialType = MaterialType.HOUSE;
                                 break;
                             case "информация отсутствует":
+                            case "byajhvfwbz jncencndetn":
                             case "не известен":
                                 materialType = MaterialType.UNKNOWN;
                                 break;
@@ -1750,6 +1785,9 @@ public class Parser {
                                 break;
                             case "Перекрытия из сборных и монолитных сплошных плит":
                                 floorType = FloorType.PREFABRICATEDANDMONOLITHICSOLIDSLABS;
+                                break;
+                            case "Плоские железобетонные плиты":
+                                floorType = FloorType.FLATREINFORCEDCONCRETE;
                                 break;
                             default:
                                 throw new IllegalArgumentException(value);
