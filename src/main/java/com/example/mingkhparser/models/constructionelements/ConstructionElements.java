@@ -11,7 +11,7 @@ import lombok.ToString;
 public class ConstructionElements {
     private Boolean garbageChute;
     private LoadBearingWalls loadBearingWalls;
-    private Integer basementArea;
+    private Double basementArea;
     private Foundation foundation;
     private FloorType floorType;
 }

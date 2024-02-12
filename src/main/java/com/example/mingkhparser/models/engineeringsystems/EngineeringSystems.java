@@ -11,7 +11,7 @@ import lombok.ToString;
 public class EngineeringSystems {
     private Ventilation ventilation;
     private WaterDisposal waterDisposal;
-    private Boolean guttersSystem;
+    private GuttersSystem guttersSystem;
     private GasSupply gasSupply;
     private HotWaterSystemType hotWaterSystemType;
     private Boolean fireExtinguishingSystem;

@@ -5,4 +5,5 @@ public enum MaterialType {
     CASTIRON, //Чугун
     METALPOLYMER, //Металлополимер
     NONESTEEL, //Нет, Сталь черная
+    STEELPOLYPROPYLENE, //Сталь, Полипропилен
 }

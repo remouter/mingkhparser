@@ -5,4 +5,5 @@ public enum LoadBearingWalls {
     LOGSTIMBER, //Стены рубленные из бревен и брусчатые
     WOODENPREFABRICATEDPANELS, //Стены деревянные, сборно-щитовые
     WOODEN, //Стены деревянные
+    REINFORCEDCONCRETE, //Стены железобетонные
 }

@@ -40,6 +40,7 @@ public class HouseInfo {
     private Integer floor;
     private HouseType houseType;
     private Integer apartmentsCount;
+    private String majorRenovation;
     private MaterialType materialType;
     private FloorType floorType;
     private WallMaterial wallMaterial;
