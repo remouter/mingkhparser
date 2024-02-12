@@ -5,4 +5,6 @@ public enum FacadeFinishingMaterial {
     OTHER, //Иной
     PAINTINGONPLASTER, //окраска по штукатурке
     PLASTER, //Штукатурка
+    PANELING, //Обшивка тёсом
+    PANELINGPAINTING, //обшивочная доска окрашенная
 }

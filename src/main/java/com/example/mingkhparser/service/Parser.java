@@ -720,6 +720,12 @@ public class Parser {
                     case "Штукатурка":
                         facadeFinishingMaterial = FacadeFinishingMaterial.PLASTER;
                         break;
+                    case "Обшивка тёсом":
+                        facadeFinishingMaterial = FacadeFinishingMaterial.PANELING;
+                        break;
+                    case "обшивочная доска окрашенная":
+                        facadeFinishingMaterial = FacadeFinishingMaterial.PANELINGPAINTING;
+                        break;
                     default:
                         throw new IllegalArgumentException(value);
                 }
