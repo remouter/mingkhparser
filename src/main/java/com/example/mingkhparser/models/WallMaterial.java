@@ -6,4 +6,5 @@ public enum WallMaterial {
     WOODEN, //Стены деревянные
     REINFORCEDCONCRETE, //Стены железобетонные
     BRICKWOODENFRAME, //Стены кирпичные, Стены деревянные каркасные
+    MIXED, //Смешанные
 }

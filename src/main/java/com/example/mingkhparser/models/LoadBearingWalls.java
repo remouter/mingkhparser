@@ -6,4 +6,5 @@ public enum LoadBearingWalls {
     WOODENPREFABRICATEDPANELS, //Стены деревянные, сборно-щитовые
     WOODEN, //Стены деревянные
     REINFORCEDCONCRETE, //Стены железобетонные
+    MIXED, //Смешанные
 }

@@ -4,4 +4,5 @@ public enum FoundationType {
     TAPE,
     REINFORCEDCONCRETELARGEBLOCK, //Ж/б крупноблочный
     MONOLITHICSTRIPREINFORCEDCONCRETEANDCOLUMNARGRILLAGEONAPILE, //Монолитный ленточный железобетонный и столбчатый ростверк по свайному основанию
+    COLUMNARPILLAR, //Столбчатый (столбовой)
 }

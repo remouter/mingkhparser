@@ -5,4 +5,5 @@ public enum FloorType {
     WOODENHEATED, //Деревянные отепленные
     WOODEN, //Деревянные
     OTHER, //Иные
+    PRECASTCONCRETESLABS, //Перекрытия из сборного железобетонного настила
 }
