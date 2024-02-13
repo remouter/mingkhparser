@@ -6,4 +6,5 @@ public enum MaterialType {
     UNKNOWN, //информация отсутствует
     PANEL, //Панельный
     PROJECT0613, //проект на строительство 06/13-с-ПЗ
+    WOODEN, //Деревянные
 }

@@ -5,4 +5,5 @@ public enum FoundationMaterial {
     REINFORCEDCONCRETE,
     BRICK, //Кирпич
     RUBBLECONCRETE, //Бутобетон
+    RUBBLESTONE, //Бутовый камень
 }

@@ -4,4 +4,5 @@ public enum WaterDisposal {
     CENTRAL, //Центральное
     NONE, //Нет
     CESSPOOL, //Выгребная яма
+    AUTONOMOUS, //Автономное
 }

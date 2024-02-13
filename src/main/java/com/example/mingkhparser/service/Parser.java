@@ -251,6 +251,9 @@ public class Parser {
                     case "Полипропилен":
                         networkMaterial = com.example.mingkhparser.models.coldwatersupplysystemrisers.NetworkMaterial.POLYPROPYLENE;
                         break;
+                    case "Сталь, Полипропилен":
+                        networkMaterial = com.example.mingkhparser.models.coldwatersupplysystemrisers.NetworkMaterial.STEELPOLYPROPYLENE;
+                        break;
                     default:
                         throw new IllegalArgumentException(value);
                 }
@@ -838,6 +841,9 @@ public class Parser {
                     case "Утепление с защитным штукатурным слоем":
                         externalInsulationType = ExternalInsulationType.INSULATIONWITHAPROTECTIVEPLASTERLAYER;
                         break;
+                    case "Минвата":
+                        externalInsulationType = ExternalInsulationType.MINERALWOOL;
+                        break;
                     default:
                         throw new IllegalArgumentException(value);
                 }
@@ -989,6 +995,9 @@ public class Parser {
                     case "Бутобетон":
                         foundationMaterial = FoundationMaterial.RUBBLECONCRETE;
                         break;
+                    case "Бутовый камень":
+                        foundationMaterial = FoundationMaterial.RUBBLESTONE;
+                        break;
                     default:
                         throw new IllegalArgumentException(value);
                 }
@@ -1040,6 +1049,9 @@ public class Parser {
                         break;
                     case "Газопровод низкого давления – подача природного газа в крышную котельную":
                         gasSupplySystemType = GasSupplySystemType.LOWPRESSUREGASPIPELINEROOFBOILERROOM;
+                        break;
+                    case "баллонный газ":
+                        gasSupplySystemType = GasSupplySystemType.BOTTLEDGAS;
                         break;
                     default:
                         throw new IllegalArgumentException(value);
@@ -1317,10 +1329,14 @@ public class Parser {
                         RepairFormation repairFormation;
                         switch (value) {
                             case "На счете регионального оператора":
+                            case "На специальном счете у регионального оператора":
                                 repairFormation = RepairFormation.REGIONALOPERATORACCOUNT;
                                 break;
                             case "На специальном счете организации":
                                 repairFormation = RepairFormation.ORGANIZATIONSPECIALACCOUNT;
+                                break;
+                            case "Не определен":
+                                repairFormation = RepairFormation.INDEFINED;
                                 break;
                             default:
                                 throw new IllegalArgumentException(value);
@@ -1398,6 +1414,7 @@ public class Parser {
                                 break;
                             case "информация отсутствует":
                             case "byajhvfwbz jncencndetn":
+                            case "информация отсутсвует":
                             case "не известен":
                                 materialType = MaterialType.UNKNOWN;
                                 break;
@@ -1406,6 +1423,9 @@ public class Parser {
                                 break;
                             case "проект на строительство 06/13-с-ПЗ":
                                 materialType = MaterialType.PROJECT0613;
+                                break;
+                            case "Деревянные":
+                                materialType = MaterialType.WOODEN;
                                 break;
                             default:
                                 throw new IllegalArgumentException(value);
@@ -1450,6 +1470,9 @@ public class Parser {
                                 break;
                             case "Выгребная яма":
                                 waterDisposal = WaterDisposal.CESSPOOL;
+                                break;
+                            case "Автономное":
+                                waterDisposal = WaterDisposal.AUTONOMOUS;
                                 break;
                             default:
                                 throw new IllegalArgumentException(value);
@@ -1841,6 +1864,7 @@ public class Parser {
                                 break;
                             case "информация отсутствует":
                             case "byajhvfwbz jncencndetn":
+                            case "информация отсутсвует":
                             case "не известен":
                                 materialType = MaterialType.UNKNOWN;
                                 break;
@@ -1849,6 +1873,9 @@ public class Parser {
                                 break;
                             case "проект на строительство 06/13-с-ПЗ":
                                 materialType = MaterialType.PROJECT0613;
+                                break;
+                            case "Деревянные":
+                                materialType = MaterialType.WOODEN;
                                 break;
                             default:
                                 throw new IllegalArgumentException(value);
