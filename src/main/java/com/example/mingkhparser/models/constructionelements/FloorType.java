@@ -9,4 +9,5 @@ public enum FloorType {
     PREFABRICATEDANDMONOLITHICSOLIDSLABS, //Перекрытия из сборных и монолитных сплошных плит
     FLATREINFORCEDCONCRETE, //Плоские железобетонные плиты
     NONE, //Нет
+    MIXED, //Смешанные
 }

@@ -5,12 +5,14 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.Set;
+
 @Getter
 @Setter
 @ToString
 public class ConstructionElements {
     private Boolean garbageChute;
-    private LoadBearingWalls loadBearingWalls;
+    private Set<LoadBearingWalls> loadBearingWalls;
     private Double basementArea;
     private Foundation foundation;
     private FloorType floorType;

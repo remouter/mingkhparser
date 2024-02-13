@@ -31,6 +31,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.Set;
+
 @Setter
 @Getter
 @ToString
@@ -43,7 +45,7 @@ public class HouseInfo {
     private String majorRenovation;
     private MaterialType materialType;
     private FloorType floorType;
-    private WallMaterial wallMaterial;
+    private Set<WallMaterial> wallMaterials;
     private Boolean garbageChute;
     private Boolean isEmergency;
     private String cadastralNumber;

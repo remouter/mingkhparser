@@ -50,9 +50,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.IntStream;
 
 @Service
@@ -818,39 +816,43 @@ public class Parser {
     private void setFacade(String tag, String value, Facade facade) {
         switch (tag) {
             case "Тип наружных стен":
-                WallMaterial wallMaterial;
-                switch (value) {
-                    case "Стены кирпичные":
-                        wallMaterial = WallMaterial.BRICK;
-                        break;
-                    case "Стены деревянные каркасные":
-                        wallMaterial = WallMaterial.WOODENFRAME;
-                        break;
-                    case "Стены рубленные из бревен и брусчатые":
-                        wallMaterial = WallMaterial.LOGSTIMBER;
-                        break;
-                    case "Стены деревянные, сборно-щитовые":
-                        wallMaterial = WallMaterial.WOODENPREFABRICATEDPANELS;
-                        break;
-                    case "Стены деревянные":
-                        wallMaterial = WallMaterial.WOODEN;
-                        break;
-                    case "Стены железобетонные":
-                    case "Железобетонные панели":
-                        wallMaterial = WallMaterial.REINFORCEDCONCRETE;
-                        break;
-                    case "Стены панельные":
-                    case "Стены из несущих панелей":
-                    case "Крупнопанельные":
-                        wallMaterial = WallMaterial.PANEL;
-                        break;
-                    case "Стены из крупноразмерных блоков и однослойных несущих панелей":
-                        wallMaterial = WallMaterial.LARGEBLOCKSANDSINGLELAYERLOADBEARINGPANELS;
-                        break;
-                    default:
-                        throw new IllegalArgumentException(value);
+                Set<WallMaterial> wallMaterials = new HashSet<>();
+                String[] values = value.split(", ");
+                for (String string : values) {
+                    switch (string) {
+                        case "Стены кирпичные":
+                            wallMaterials.add(WallMaterial.BRICK);
+                            break;
+                        case "Стены деревянные каркасные":
+                            wallMaterials.add(WallMaterial.WOODENFRAME);
+                            break;
+                        case "Стены рубленные из бревен и брусчатые":
+                            wallMaterials.add(WallMaterial.LOGSTIMBER);
+                            break;
+                        case "сборно-щитовые":
+                            wallMaterials.add(WallMaterial.PREFABRICATEDPANELS);
+                            break;
+                        case "Стены деревянные":
+                            wallMaterials.add(WallMaterial.WOODEN);
+                            break;
+                        case "Стены железобетонные":
+                        case "Железобетонные панели":
+                            wallMaterials.add(WallMaterial.REINFORCEDCONCRETE);
+                            break;
+                        case "Стены панельные":
+                        case "Стены из несущих панелей":
+                        case "Крупнопанельные":
+                            wallMaterials.add(WallMaterial.PANEL);
+                            break;
+                        case "Стены из крупноразмерных блоков и однослойных несущих панелей":
+                            wallMaterials.add(WallMaterial.LARGEBLOCKSANDSINGLELAYERLOADBEARINGPANELS);
+                            break;
+                        default:
+                            throw new IllegalArgumentException(value);
+                    }
                 }
-                facade.setOuterWallsMaterial(wallMaterial);
+
+                facade.setOuterWallsMaterials(wallMaterials);
                 break;
             case "Тип наружного утепления фасада":
                 ExternalInsulationType externalInsulationType;
@@ -922,47 +924,47 @@ public class Parser {
     private void setInnerWalls(String tag, String value, InnerWalls innerWalls) {
         switch (tag) {
             case "Тип внутренних стен":
-                WallMaterial wallMaterial;
-                switch (value) {
-                    case "Стены кирпичные":
-                        wallMaterial = WallMaterial.BRICK;
-                        break;
-                    case "Стены деревянные каркасные":
-                        wallMaterial = WallMaterial.WOODENFRAME;
-                        break;
-                    case "Стены рубленные из бревен и брусчатые":
-                    case "Бревенчатые":
-                        wallMaterial = WallMaterial.LOGSTIMBER;
-                        break;
-                    case "Стены деревянные, сборно-щитовые":
-                    case "Стены из сборно-щитовых панелей":
-                        wallMaterial = WallMaterial.WOODENPREFABRICATEDPANELS;
-                        break;
-                    case "Стены деревянные":
-                        wallMaterial = WallMaterial.WOODEN;
-                        break;
-                    case "Железобетонные":
-                        wallMaterial = WallMaterial.REINFORCEDCONCRETE;
-                        break;
-                    case "Стены кирпичные, Стены деревянные каркасные":
-                        wallMaterial = WallMaterial.BRICKWOODENFRAME;
-                        break;
-                    case "Стены из слоистых железобетонных панелей":
-                    case "Стены из ж/б панелей":
-                        wallMaterial = WallMaterial.LAMINATEDREINFORCEDCONCRETEPANELS;
-                        break;
-                    case "Панельные":
-                    case "Стены из несущих панелей":
-                    case "Стены крупнопанельные":
-                        wallMaterial = WallMaterial.PANEL;
-                        break;
-                    case "Стены из крупноразмерных блоков и однослойных несущих панелей":
-                        wallMaterial = WallMaterial.LARGEBLOCKSANDSINGLELAYERLOADBEARINGPANELS;
-                        break;
-                    default:
-                        throw new IllegalArgumentException(value);
+                Set<WallMaterial> wallMaterials = new HashSet<>();
+                String[] values = value.split(", ");
+                for (String string : values) {
+                    switch (string) {
+                        case "Стены кирпичные":
+                            wallMaterials.add(WallMaterial.BRICK);
+                            break;
+                        case "Стены деревянные каркасные":
+                            wallMaterials.add(WallMaterial.WOODENFRAME);
+                            break;
+                        case "Стены рубленные из бревен и брусчатые":
+                        case "Бревенчатые":
+                            wallMaterials.add(WallMaterial.LOGSTIMBER);
+                            break;
+                        case "сборно-щитовые":
+                        case "Стены из сборно-щитовых панелей":
+                            wallMaterials.add(WallMaterial.PREFABRICATEDPANELS);
+                            break;
+                        case "Стены деревянные":
+                            wallMaterials.add(WallMaterial.WOODEN);
+                            break;
+                        case "Железобетонные":
+                            wallMaterials.add(WallMaterial.REINFORCEDCONCRETE);
+                            break;
+                        case "Стены из слоистых железобетонных панелей":
+                        case "Стены из ж/б панелей":
+                            wallMaterials.add(WallMaterial.LAMINATEDREINFORCEDCONCRETEPANELS);
+                            break;
+                        case "Панельные":
+                        case "Стены из несущих панелей":
+                        case "Стены крупнопанельные":
+                            wallMaterials.add(WallMaterial.PANEL);
+                            break;
+                        case "Стены из крупноразмерных блоков и однослойных несущих панелей":
+                            wallMaterials.add(WallMaterial.LARGEBLOCKSANDSINGLELAYERLOADBEARINGPANELS);
+                            break;
+                        default:
+                            throw new IllegalArgumentException(string);
+                    }
                 }
-                innerWalls.setWallMaterial(wallMaterial);
+                innerWalls.setWallMaterials(wallMaterials);
                 break;
             case "Физический износ":
                 innerWalls.setPhysicalDeterioration(Double.valueOf(value.split(" ")[0]));
@@ -1673,43 +1675,46 @@ public class Parser {
                         }
                         break;
                     case "Несущие стены":
-                        LoadBearingWalls loadBearingWalls;
-                        switch (value) {
-                            case "Стены кирпичные":
-                            case "Кирпич":
-                                loadBearingWalls = LoadBearingWalls.BRICK;
-                                break;
-                            case "Стены деревянные каркасные":
-                                loadBearingWalls = LoadBearingWalls.WOODENFRAME;
-                                break;
-                            case "Стены рубленные из бревен и брусчатые":
-                                loadBearingWalls = LoadBearingWalls.LOGSTIMBER;
-                                break;
-                            case "Стены деревянные, сборно-щитовые":
-                                loadBearingWalls = LoadBearingWalls.WOODENPREFABRICATEDPANELS;
-                                break;
-                            case "Стены деревянные":
-                            case "Деревянные":
-                                loadBearingWalls = LoadBearingWalls.WOODEN;
-                                break;
-                            case "Стены железобетонные":
-                            case "Железобетонные панели":
-                                loadBearingWalls = LoadBearingWalls.REINFORCEDCONCRETE;
-                                break;
-                            case "Смешанные":
-                                loadBearingWalls = LoadBearingWalls.MIXED;
-                                break;
-                            case "Стены панельные":
-                            case "Панельные":
-                            case "Стены из несущих панелей":
-                            case "Крупнопанельные":
-                                loadBearingWalls = LoadBearingWalls.PANEL;
-                                break;
-                            case "Стены из крупноразмерных блоков и однослойных несущих панелей":
-                                loadBearingWalls = LoadBearingWalls.LARGEBLOCKSANDSINGLELAYERLOADBEARINGPANELS;
-                                break;
-                            default:
-                                throw new IllegalArgumentException(value);
+                        Set<LoadBearingWalls> loadBearingWalls = new HashSet<>();
+                        String[] values = value.split(", ");
+                        for (String string : values) {
+                            switch (string) {
+                                case "Стены кирпичные":
+                                case "Кирпич":
+                                    loadBearingWalls.add(LoadBearingWalls.BRICK);
+                                    break;
+                                case "Стены деревянные каркасные":
+                                    loadBearingWalls.add(LoadBearingWalls.WOODENFRAME);
+                                    break;
+                                case "Стены рубленные из бревен и брусчатые":
+                                    loadBearingWalls.add(LoadBearingWalls.LOGSTIMBER);
+                                    break;
+                                case "сборно-щитовые":
+                                    loadBearingWalls.add(LoadBearingWalls.PREFABRICATEDPANELS);
+                                    break;
+                                case "Стены деревянные":
+                                case "Деревянные":
+                                    loadBearingWalls.add(LoadBearingWalls.WOODEN);
+                                    break;
+                                case "Стены железобетонные":
+                                case "Железобетонные панели":
+                                    loadBearingWalls.add(LoadBearingWalls.REINFORCEDCONCRETE);
+                                    break;
+                                case "Смешанные":
+                                    loadBearingWalls.add(LoadBearingWalls.MIXED);
+                                    break;
+                                case "Стены панельные":
+                                case "Панельные":
+                                case "Стены из несущих панелей":
+                                case "Крупнопанельные":
+                                    loadBearingWalls.add(LoadBearingWalls.PANEL);
+                                    break;
+                                case "Стены из крупноразмерных блоков и однослойных несущих панелей":
+                                    loadBearingWalls.add(LoadBearingWalls.LARGEBLOCKSANDSINGLELAYERLOADBEARINGPANELS);
+                                    break;
+                                default:
+                                    throw new IllegalArgumentException(value);
+                            }
                         }
                         constructionElements.setLoadBearingWalls(loadBearingWalls);
                         break;
@@ -1978,51 +1983,57 @@ public class Parser {
                             case "Нет":
                                 floorType = FloorType.NONE;
                                 break;
+                            case "Смешанные":
+                                floorType = FloorType.MIXED;
+                                break;
                             default:
                                 throw new IllegalArgumentException(value);
                         }
                         houseInfo.setFloorType(floorType);
                         break;
                     case "Материал несущих стен":
-                        WallMaterial wallMaterial;
-                        switch (value) {
-                            case "Стены кирпичные":
-                            case "Кирпич":
-                                wallMaterial = WallMaterial.BRICK;
-                                break;
-                            case "Стены деревянные каркасные":
-                                wallMaterial = WallMaterial.WOODENFRAME;
-                                break;
-                            case "Стены деревянные, сборно-щитовые":
-                                wallMaterial = WallMaterial.WOODENPREFABRICATEDPANELS;
-                                break;
-                            case "Стены рубленные из бревен и брусчатые":
-                                wallMaterial = WallMaterial.LOGSTIMBER;
-                                break;
-                            case "Стены деревянные":
-                            case "Деревянные":
-                                wallMaterial = WallMaterial.WOODEN;
-                                break;
-                            case "Стены железобетонные":
-                            case "Железобетонные панели":
-                                wallMaterial = WallMaterial.REINFORCEDCONCRETE;
-                                break;
-                            case "Смешанные":
-                                wallMaterial = WallMaterial.MIXED;
-                                break;
-                            case "Стены панельные":
-                            case "Панельные":
-                            case "Стены из несущих панелей":
-                            case "Крупнопанельные":
-                                wallMaterial = WallMaterial.PANEL;
-                                break;
-                            case "Стены из крупноразмерных блоков и однослойных несущих панелей":
-                                wallMaterial = WallMaterial.LARGEBLOCKSANDSINGLELAYERLOADBEARINGPANELS;
-                                break;
-                            default:
-                                throw new IllegalArgumentException(value);
+                        Set<WallMaterial> wallMaterials = new HashSet<>();
+                        String[] values = value.split(", ");
+                        for (String str : values) {
+                            switch (str) {
+                                case "Стены кирпичные":
+                                case "Кирпич":
+                                    wallMaterials.add(WallMaterial.BRICK);
+                                    break;
+                                case "Стены деревянные каркасные":
+                                    wallMaterials.add(WallMaterial.WOODENFRAME);
+                                    break;
+                                case "сборно-щитовые":
+                                    wallMaterials.add(WallMaterial.PREFABRICATEDPANELS);
+                                    break;
+                                case "Стены рубленные из бревен и брусчатые":
+                                    wallMaterials.add(WallMaterial.LOGSTIMBER);
+                                    break;
+                                case "Стены деревянные":
+                                case "Деревянные":
+                                    wallMaterials.add(WallMaterial.WOODEN);
+                                    break;
+                                case "Стены железобетонные":
+                                case "Железобетонные панели":
+                                    wallMaterials.add(WallMaterial.REINFORCEDCONCRETE);
+                                    break;
+                                case "Смешанные":
+                                    wallMaterials.add(WallMaterial.MIXED);
+                                    break;
+                                case "Стены панельные":
+                                case "Панельные":
+                                case "Стены из несущих панелей":
+                                case "Крупнопанельные":
+                                    wallMaterials.add(WallMaterial.PANEL);
+                                    break;
+                                case "Стены из крупноразмерных блоков и однослойных несущих панелей":
+                                    wallMaterials.add(WallMaterial.LARGEBLOCKSANDSINGLELAYERLOADBEARINGPANELS);
+                                    break;
+                                default:
+                                    throw new IllegalArgumentException(value);
+                            }
                         }
-                        houseInfo.setWallMaterial(wallMaterial);
+                        houseInfo.setWallMaterials(wallMaterials);
                         break;
                     case "Тип мусоропровода":
                         switch (value) {
