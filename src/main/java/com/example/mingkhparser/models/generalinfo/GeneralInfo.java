@@ -29,6 +29,7 @@ public class GeneralInfo {
     private HouseType houseType;
     private Double wearOfBuilding;
     private LocalDate wearCalculationDate;
+    private String unsafeRecognizingReason;
     private Double buildingSquare;
     private Double buildingResidentialSquare;
     private Double buildingNonResidentialSquare;

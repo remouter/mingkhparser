@@ -313,6 +313,9 @@ public class Parser {
                     case "Полипропилен":
                         networkMaterial = com.example.mingkhparser.models.coldwatersystem.NetworkMaterial.POLYPROPYLENE;
                         break;
+                    case "Полиэтилен":
+                        networkMaterial = com.example.mingkhparser.models.coldwatersystem.NetworkMaterial.POLYETHYLENE;
+                        break;
                     default:
                         throw new IllegalArgumentException(value);
                 }
@@ -721,6 +724,9 @@ public class Parser {
                     case "Перекрытия из сборных и монолитных сплошных плит":
                         floorType = FloorType.PREFABRICATEDANDMONOLITHICSOLIDSLABS;
                         break;
+                    case "Нет":
+                        floorType = FloorType.NONE;
+                        break;
                     default:
                         throw new IllegalArgumentException(value);
                 }
@@ -971,6 +977,9 @@ public class Parser {
                         break;
                     case "Столбчатый (столбовой)":
                         foundationType = FoundationType.COLUMNARPILLAR;
+                        break;
+                    case "Нет":
+                        foundationType = FoundationType.NONE;
                         break;
                     default:
                         throw new IllegalArgumentException(value);
@@ -1393,6 +1402,9 @@ public class Parser {
                     case "Дата, на которую установлен износ здания":
                         generalInfo.setWearCalculationDate(LocalDate.parse(value, DateTimeFormatter.ofPattern("dd.MM.yyyy")));
                         break;
+                    case "Основание признания дома аварийным":
+                        generalInfo.setUnsafeRecognizingReason(value);
+                        break;
                     case "Площадь многоквартирного дома, кв.м":
                         generalInfo.setBuildingSquare(Double.valueOf(value));
                         break;
@@ -1428,9 +1440,12 @@ public class Parser {
                             case "byajhvfwbz jncencndetn":
                             case "информация отсутсвует":
                             case "не известен":
+                            case "нет информации":
+                            case "нет данных":
                                 materialType = MaterialType.UNKNOWN;
                                 break;
                             case "жилой дом, Панельный":
+                            case "жилой дом, панельный":
                                 materialType = MaterialType.PANEL;
                                 break;
                             case "проект на строительство 06/13-с-ПЗ":
@@ -1739,6 +1754,9 @@ public class Parser {
                             case "Плоские железобетонные плиты":
                                 floorType = FloorType.FLATREINFORCEDCONCRETE;
                                 break;
+                            case "Нет":
+                                floorType = FloorType.NONE;
+                                break;
                             default:
                                 throw new IllegalArgumentException(value);
                         }
@@ -1882,9 +1900,12 @@ public class Parser {
                             case "byajhvfwbz jncencndetn":
                             case "информация отсутсвует":
                             case "не известен":
+                            case "нет информации":
+                            case "нет данных":
                                 materialType = MaterialType.UNKNOWN;
                                 break;
                             case "жилой дом, Панельный":
+                            case "жилой дом, панельный":
                                 materialType = MaterialType.PANEL;
                                 break;
                             case "проект на строительство 06/13-с-ПЗ":
@@ -1931,6 +1952,9 @@ public class Parser {
                             case "Плоские железобетонные плиты":
                                 floorType = FloorType.FLATREINFORCEDCONCRETE;
                                 break;
+                            case "Нет":
+                                floorType = FloorType.NONE;
+                                break;
                             default:
                                 throw new IllegalArgumentException(value);
                         }
@@ -1968,6 +1992,9 @@ public class Parser {
                             case "Стены из несущих панелей":
                             case "Крупнопанельные":
                                 wallMaterial = WallMaterial.PANEL;
+                                break;
+                            case "Стены из крупноразмерных блоков и однослойных несущих панелей":
+                                wallMaterial = WallMaterial.LARGEBLOCKSANDSINGLELAYERLOADBEARINGPANELS;
                                 break;
                             default:
                                 throw new IllegalArgumentException(value);

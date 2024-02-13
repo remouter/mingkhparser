@@ -5,4 +5,5 @@ public enum FoundationType {
     REINFORCEDCONCRETELARGEBLOCK, //Ж/б крупноблочный
     MONOLITHICSTRIPREINFORCEDCONCRETEANDCOLUMNARGRILLAGEONAPILE, //Монолитный ленточный железобетонный и столбчатый ростверк по свайному основанию
     COLUMNARPILLAR, //Столбчатый (столбовой)
+    NONE, //Нет
 }

@@ -9,4 +9,5 @@ public enum WallMaterial {
     MIXED, //Смешанные
     PANEL, //Стены панельные
     LAMINATEDREINFORCEDCONCRETEPANELS, //Стены из слоистых железобетонных панелей
+    LARGEBLOCKSANDSINGLELAYERLOADBEARINGPANELS, //Стены из крупноразмерных блоков и однослойных несущих панелей
 }

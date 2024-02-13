@@ -8,4 +8,5 @@ public enum NetworkMaterial {
     STEELPOLYPROPYLENE, //Сталь, Полипропилен
     GALVANIZEDSTEELPOLYMER, //Сталь оцинкованная, Полимер
     POLYPROPYLENE, //Полипропилен
+    POLYETHYLENE, //Полиэтилен
 }
