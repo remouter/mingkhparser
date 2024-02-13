@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.Set;
+
 @Getter
 @Setter
 @ToString
@@ -13,7 +15,7 @@ public class EngineeringSystems {
     private WaterDisposal waterDisposal;
     private GuttersSystem guttersSystem;
     private GasSupply gasSupply;
-    private HotWaterSystemType hotWaterSystemType;
+    private Set<HotWaterSystemType> hotWaterSystemTypes;
     private Boolean fireExtinguishingSystem;
     private HeatSupply heatSupply;
     private ColdWaterSupply coldWaterSupply;

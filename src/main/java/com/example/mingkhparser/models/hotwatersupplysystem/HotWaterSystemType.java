@@ -8,5 +8,7 @@ public enum HotWaterSystemType {
     GASWATERHEATERS, //Газовые колонки (ВДГО)
     CLOSEDWITHPREPARATIONATTHECENTRALHEATINGSTATION, //Закрытая с приготовлением горячей воды на ЦТП
     DEADEND, //Тупиковая
-    USHAPEDLOWERROUTINGOFHIGHWAYS, //П-образная, с нижней разводкой магистралей
+    UNKNOWN, //не известен
+    USHAPED, //П-образная
+    LOWERROUTINGOFHIGHWAYS, //с нижней разводкой магистралей
 }

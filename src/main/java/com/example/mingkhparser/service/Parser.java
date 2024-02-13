@@ -1176,38 +1176,42 @@ public class Parser {
         switch (tag) {
 //Cистема горячего водоснабжения
             case "Тип системы горячего водоснабжения":
-                HotWaterSystemType hotWaterSystemType;
-                switch (value) {
-                    case "Нет":
-                        hotWaterSystemType = HotWaterSystemType.NONE;
-                        break;
-                    case "Индивидуальный котел":
-                    case "Индивидуальный котел, Нет":
-                        hotWaterSystemType = HotWaterSystemType.INDIVIDUALBOILER;
-                        break;
-                    case "Кольцевая или с закольцованными вводами":
-                        hotWaterSystemType = HotWaterSystemType.RINGORWITHLOOPEDINPUTS;
-                        break;
-                    case "не известен":
-                        hotWaterSystemType = HotWaterSystemType.RINGORWITHLOOPEDINPUTS;
-                        break;
-                    case "Центральное":
-                    case "Центральное (закрытая система)":
-                        hotWaterSystemType = HotWaterSystemType.CENTRAL;
-                        break;
-                    case "Газовые колонки (ВДГО)":
-                        hotWaterSystemType = HotWaterSystemType.GASWATERHEATERS;
-                        break;
-                    case "Тупиковая":
-                        hotWaterSystemType = HotWaterSystemType.DEADEND;
-                        break;
-                    case "П-образная, с нижней разводкой магистралей":
-                        hotWaterSystemType = HotWaterSystemType.USHAPEDLOWERROUTINGOFHIGHWAYS;
-                        break;
-                    default:
-                        throw new IllegalArgumentException(value);
+                Set<HotWaterSystemType> hotWaterSystemTypes = new HashSet<>();
+                for(String string : value.split(", ")) {
+                    switch (string) {
+                        case "Нет":
+                            hotWaterSystemTypes.add(HotWaterSystemType.NONE);
+                            break;
+                        case "Индивидуальный котел":
+                            hotWaterSystemTypes.add(HotWaterSystemType.INDIVIDUALBOILER);
+                            break;
+                        case "Кольцевая или с закольцованными вводами":
+                            hotWaterSystemTypes.add(HotWaterSystemType.RINGORWITHLOOPEDINPUTS);
+                            break;
+                        case "не известен":
+                            hotWaterSystemTypes.add(HotWaterSystemType.UNKNOWN);
+                            break;
+                        case "Центральное":
+                        case "Центральное (закрытая система)":
+                            hotWaterSystemTypes.add(HotWaterSystemType.CENTRAL);
+                            break;
+                        case "Газовые колонки (ВДГО)":
+                            hotWaterSystemTypes.add(HotWaterSystemType.GASWATERHEATERS);
+                            break;
+                        case "Тупиковая":
+                            hotWaterSystemTypes.add(HotWaterSystemType.DEADEND);
+                            break;
+                        case "П-образная":
+                            hotWaterSystemTypes.add(HotWaterSystemType.USHAPED);
+                            break;
+                        case "с нижней разводкой магистралей":
+                            hotWaterSystemTypes.add(HotWaterSystemType.LOWERROUTINGOFHIGHWAYS);
+                            break;
+                        default:
+                            throw new IllegalArgumentException(string);
+                    }
                 }
-                hotWaterSupplySystem.setHotWaterSystemType(hotWaterSystemType);
+                hotWaterSupplySystem.setHotWaterSystemTypes(hotWaterSystemTypes);
                 break;
             case "Физический износ":
                 hotWaterSupplySystem.setPhysicalDeterioration(Double.valueOf(value.split(" ")[0]));
@@ -1594,38 +1598,45 @@ public class Parser {
                         engineeringSystems.setGasSupply(gasSupply);
                         break;
                     case "Горячее водоснабжение":
-                        switch (value) {
-                            case "Нет":
-                            case "Отсутствует":
-                                engineeringSystems.setHotWaterSystemType(HotWaterSystemType.NONE);
-                                break;
-                            case "Индивидуальный котел":
-                            case "Индивидуальный котел, Нет":
-                            case "Квартирное (квартирный котел)":
-                                engineeringSystems.setHotWaterSystemType(HotWaterSystemType.INDIVIDUALBOILER);
-                                break;
-                            case "Кольцевая или с закольцованными вводами":
-                                engineeringSystems.setHotWaterSystemType(HotWaterSystemType.RINGORWITHLOOPEDINPUTS);
-                                break;
-                            case "Центральное":
-                            case "Центральное (закрытая система)":
-                                engineeringSystems.setHotWaterSystemType(HotWaterSystemType.CENTRAL);
-                                break;
-                            case "Газовые колонки (ВДГО)":
-                                engineeringSystems.setHotWaterSystemType(HotWaterSystemType.GASWATERHEATERS);
-                                break;
-                            case "Закрытая с приготовлением горячей воды на ЦТП":
-                                engineeringSystems.setHotWaterSystemType(HotWaterSystemType.CLOSEDWITHPREPARATIONATTHECENTRALHEATINGSTATION);
-                                break;
-                            case "Тупиковая":
-                                engineeringSystems.setHotWaterSystemType(HotWaterSystemType.DEADEND);
-                                break;
-                            case "П-образная, с нижней разводкой магистралей":
-                                engineeringSystems.setHotWaterSystemType(HotWaterSystemType.USHAPEDLOWERROUTINGOFHIGHWAYS);
-                                break;
-                            default:
-                                throw new IllegalArgumentException(value);
+                        String[] values = value.split(", ");
+                        Set<HotWaterSystemType> hotWaterSystemTypes = new HashSet<>();
+                        for (String string : values) {
+                            switch (string) {
+                                case "Нет":
+                                case "Отсутствует":
+                                    hotWaterSystemTypes.add(HotWaterSystemType.NONE);
+                                    break;
+                                case "Индивидуальный котел":
+                                case "Квартирное (квартирный котел)":
+                                    hotWaterSystemTypes.add(HotWaterSystemType.INDIVIDUALBOILER);
+                                    break;
+                                case "Кольцевая или с закольцованными вводами":
+                                    hotWaterSystemTypes.add(HotWaterSystemType.RINGORWITHLOOPEDINPUTS);
+                                    break;
+                                case "Центральное":
+                                case "Центральное (закрытая система)":
+                                    hotWaterSystemTypes.add(HotWaterSystemType.CENTRAL);
+                                    break;
+                                case "Газовые колонки (ВДГО)":
+                                    hotWaterSystemTypes.add(HotWaterSystemType.GASWATERHEATERS);
+                                    break;
+                                case "Закрытая с приготовлением горячей воды на ЦТП":
+                                    hotWaterSystemTypes.add(HotWaterSystemType.CLOSEDWITHPREPARATIONATTHECENTRALHEATINGSTATION);
+                                    break;
+                                case "Тупиковая":
+                                    hotWaterSystemTypes.add(HotWaterSystemType.DEADEND);
+                                    break;
+                                case "П-образная":
+                                    hotWaterSystemTypes.add(HotWaterSystemType.USHAPED);
+                                    break;
+                                case "с нижней разводкой магистралей":
+                                    hotWaterSystemTypes.add(HotWaterSystemType.LOWERROUTINGOFHIGHWAYS);
+                                    break;
+                                default:
+                                    throw new IllegalArgumentException(value);
+                            }
                         }
+                        engineeringSystems.setHotWaterSystemTypes(hotWaterSystemTypes);
                         break;
                     case "Система пожаротушения":
                         switch (value) {
@@ -1714,9 +1725,9 @@ public class Parser {
                         break;
                     case "Несущие стены":
                         Set<LoadBearingWalls> loadBearingWalls = new HashSet<>();
-                        String[] values = value.split(", ");
-                        for (String string : values) {
-                            switch (string) {
+                        String[] string = value.split(", ");
+                        for (String str : string) {
+                            switch (str) {
                                 case "Стены кирпичные":
                                 case "Кирпич":
                                     loadBearingWalls.add(LoadBearingWalls.BRICK);
@@ -1751,7 +1762,7 @@ public class Parser {
                                     loadBearingWalls.add(LoadBearingWalls.LARGEBLOCKSANDSINGLELAYERLOADBEARINGPANELS);
                                     break;
                                 default:
-                                    throw new IllegalArgumentException(value);
+                                    throw new IllegalArgumentException(str);
                             }
                         }
                         constructionElements.setLoadBearingWalls(loadBearingWalls);
