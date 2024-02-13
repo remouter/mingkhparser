@@ -10,4 +10,5 @@ public enum FacadeFinishingMaterial {
     PANELINGUNPAINTING, //обшивочная доска не окрашенная
     WOOD, //Дерево
     FACTORYFINISHED, //панель с заводской отделкой
+    SIDING, //Сайдинг
 }

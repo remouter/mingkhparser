@@ -680,6 +680,9 @@ public class Parser {
                     case "Рулонная по железобетонным плитам":
                         roofType = RoofType.ROLLEDONREINFORCEDCONCRETESLABS;
                         break;
+                    case "Оцинкованный профлист":
+                        roofType = RoofType.GALVANIZEDCORRUGATEDSHEET;
+                        break;
                     default:
                         throw new IllegalArgumentException(value);
                 }
@@ -905,6 +908,9 @@ public class Parser {
                     case "панель с заводской отделкой":
                         facadeFinishingMaterial = FacadeFinishingMaterial.FACTORYFINISHED;
                         break;
+                    case "Сайдинг":
+                        facadeFinishingMaterial = FacadeFinishingMaterial.SIDING;
+                        break;
                     default:
                         throw new IllegalArgumentException(value);
                 }
@@ -959,6 +965,9 @@ public class Parser {
                             break;
                         case "Стены из крупноразмерных блоков и однослойных несущих панелей":
                             wallMaterials.add(WallMaterial.LARGEBLOCKSANDSINGLELAYERLOADBEARINGPANELS);
+                            break;
+                        case "Каркасно-засыпные":
+                            wallMaterials.add(WallMaterial.FRAMEFILL);
                             break;
                         default:
                             throw new IllegalArgumentException(string);
@@ -1440,6 +1449,7 @@ public class Parser {
                             case "Кирпичный":
                             case "кирпичный":
                             case "жилой дом, Кирпичный":
+                            case "Жилой дом кирпичный":
                                 materialType = MaterialType.BRICK;
                                 break;
                             case "нет":
@@ -1496,6 +1506,9 @@ public class Parser {
                                 break;
                             case "Вытяжная вентиляция":
                                 ventilation = Ventilation.EXHAUSTVENTILATION;
+                                break;
+                            case "Отсутствует":
+                                ventilation = Ventilation.NONE;
                                 break;
                             default:
                                 throw new IllegalArgumentException(value);
@@ -1781,6 +1794,9 @@ public class Parser {
                             case "Нет":
                                 floorType = FloorType.NONE;
                                 break;
+                            case "Смешанные":
+                                floorType = FloorType.MIXED;
+                                break;
                             default:
                                 throw new IllegalArgumentException(value);
                         }
@@ -1910,6 +1926,7 @@ public class Parser {
                             case "Кирпичный":
                             case "кирпичный":
                             case "жилой дом, Кирпичный":
+                            case "Жилой дом кирпичный":
                                 materialType = MaterialType.BRICK;
                                 break;
                             case "нет":

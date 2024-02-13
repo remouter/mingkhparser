@@ -9,4 +9,5 @@ public enum WallMaterial {
     LAMINATEDREINFORCEDCONCRETEPANELS, //Стены из слоистых железобетонных панелей
     LARGEBLOCKSANDSINGLELAYERLOADBEARINGPANELS, //Стены из крупноразмерных блоков и однослойных несущих панелей
     PREFABRICATEDPANELS, //сборно-щитовые
+    FRAMEFILL, //Каркасно-засыпные
 }
