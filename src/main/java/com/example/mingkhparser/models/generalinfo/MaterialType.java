@@ -7,4 +7,5 @@ public enum MaterialType {
     PANEL, //Панельный
     PROJECT0613, //проект на строительство 06/13-с-ПЗ
     WOODEN, //Деревянные
+    INDIVIDUAL, //индивидуальный
 }

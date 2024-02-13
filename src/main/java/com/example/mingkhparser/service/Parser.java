@@ -894,6 +894,9 @@ public class Parser {
                     case "обшивочная доска окрашенная":
                         facadeFinishingMaterial = FacadeFinishingMaterial.PANELINGPAINTING;
                         break;
+                    case "обшивочная доска не окрашенная":
+                        facadeFinishingMaterial = FacadeFinishingMaterial.PANELINGUNPAINTING;
+                        break;
                     case "Дерево":
                         facadeFinishingMaterial = FacadeFinishingMaterial.WOOD;
                         break;
@@ -1463,6 +1466,10 @@ public class Parser {
                             case "Деревянные":
                                 materialType = MaterialType.WOODEN;
                                 break;
+                            case "индивидуальный":
+                            case "индивидуальное":
+                                materialType = MaterialType.INDIVIDUAL;
+                                break;
                             default:
                                 throw new IllegalArgumentException(value);
                         }
@@ -1925,6 +1932,10 @@ public class Parser {
                                 break;
                             case "Деревянные":
                                 materialType = MaterialType.WOODEN;
+                                break;
+                            case "индивидуальный":
+                            case "индивидуальное":
+                                materialType = MaterialType.INDIVIDUAL;
                                 break;
                             default:
                                 throw new IllegalArgumentException(value);
