@@ -38,6 +38,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.nodes.Node;
 import org.jsoup.nodes.TextNode;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
@@ -692,6 +693,9 @@ public class Parser {
                         break;
                     case "Профнастил":
                         roofType = RoofType.CORRUGATEDSHEET;
+                        break;
+                    case "Нет":
+                        roofType = RoofType.NONE;
                         break;
                     default:
                         throw new IllegalArgumentException(value);
@@ -1505,6 +1509,7 @@ public class Parser {
                                 case "нет данных":
                                 case "нет сведений":
                                 case "информация отсутвует":
+                                case "-":
                                     materialTypes.add(MaterialType.UNKNOWN);
                                     break;
                                 case "Панельный":
@@ -1948,14 +1953,19 @@ public class Parser {
                                 .trim();
                     }
                 } else {
-                    value = ((TextNode) doc
-                            .select(".col-md-7")
-                            .get(1)
-                            .select("dl")
-                            .get(0)
-                            .children()
-                            .get(index)
-                            .childNode(0))
+                    Node node = Optional.ofNullable(doc
+                                    .select(".col-md-7")
+                                    .get(1)
+                                    .select("dl")
+                                    .get(0)
+                                    .children()
+                                    .get(index))
+                            .filter(v -> v.childNodes().size() > 0)
+                            .map(Element::childNodes)
+                            .map(v -> v.get(0))
+                            .orElse(null);
+
+                    value = node == null ? null : ((TextNode) node)
                             .text()
                             .trim();
                 }
@@ -1989,6 +1999,10 @@ public class Parser {
                         houseInfo.setMajorRenovation(value);
                         break;
                     case "Серия, тип постройки":
+                        if (value == null) {
+                            houseInfo.setMaterialTypes(null);
+                            break;
+                        }
                         Set<MaterialType> materialTypes = new HashSet<>();
                         for (String str : value.split(", ")) {
                             switch (str) {

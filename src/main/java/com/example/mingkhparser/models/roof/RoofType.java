@@ -15,4 +15,5 @@ public enum RoofType {
     ROLLEDONREINFORCEDCONCRETESLABS, //Рулонная по железобетонным плитам
     GALVANIZEDCORRUGATEDSHEET, //Оцинкованный профлист
     CORRUGATEDSHEET, //Профнастил
+    NONE, //Нет
 }
