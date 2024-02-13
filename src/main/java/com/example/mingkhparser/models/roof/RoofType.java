@@ -10,4 +10,6 @@ public enum RoofType {
     METALPROFILEDSHEET, //Металлический профлист
     SOFT, //Мягкая
     METALWAVY, //Металлическая волнистая
+    RUBEROID, //Рубероид
+    CORRUGATEDSHEETSSLATE, //Волнистые листы, Шиферная
 }

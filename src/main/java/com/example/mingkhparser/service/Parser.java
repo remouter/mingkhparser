@@ -639,6 +639,9 @@ public class Parser {
                     case "Шиферная":
                         roofType = RoofType.SLATE;
                         break;
+                    case "Волнистые листы, Шиферная":
+                        roofType = RoofType.CORRUGATEDSHEETSSLATE;
+                        break;
                     case "Металлическая фальцевая":
                         roofType = RoofType.METALSEAM;
                         break;
@@ -659,6 +662,9 @@ public class Parser {
                         break;
                     case "Металлическая волнистая":
                         roofType = RoofType.METALWAVY;
+                        break;
+                    case "Рубероид":
+                        roofType = RoofType.RUBEROID;
                         break;
                     default:
                         throw new IllegalArgumentException(value);
@@ -683,6 +689,8 @@ public class Parser {
                 switch (value) {
                     case "Перекрытия из железобетонных плит":
                     case "Перекрытия железобетонные":
+                    case "Железобетон":
+                    case "Плоские железобетонные плиты":
                         floorType = FloorType.REINFORCEDCONCRETESLABS;
                         break;
                     case "Перекрытия деревянные неоштукатуренные":
@@ -702,9 +710,6 @@ public class Parser {
                         break;
                     case "Перекрытия из сборных и монолитных сплошных плит":
                         floorType = FloorType.PREFABRICATEDANDMONOLITHICSOLIDSLABS;
-                        break;
-                    case "Плоские железобетонные плиты":
-                        floorType = FloorType.FLATREINFORCEDCONCRETE;
                         break;
                     default:
                         throw new IllegalArgumentException(value);
@@ -816,6 +821,7 @@ public class Parser {
                         wallMaterial = WallMaterial.REINFORCEDCONCRETE;
                         break;
                     case "Стены панельные":
+                    case "Стены из несущих панелей":
                         wallMaterial = WallMaterial.PANEL;
                         break;
                     default:
@@ -1120,6 +1126,7 @@ public class Parser {
                         hotWaterSystemType = HotWaterSystemType.RINGORWITHLOOPEDINPUTS;
                         break;
                     case "Центральное":
+                    case "Центральное (закрытая система)":
                         hotWaterSystemType = HotWaterSystemType.CENTRAL;
                         break;
                     case "Газовые колонки (ВДГО)":
@@ -1161,6 +1168,9 @@ public class Parser {
                         break;
                     case "Сталь оцинкованная":
                         networkMaterial = NetworkMaterial.GALVANIZEDSTEEL;
+                        break;
+                    case "Полипропилен":
+                        networkMaterial = NetworkMaterial.POLYPROPYLENE;
                         break;
                     default:
                         throw new IllegalArgumentException(value);
@@ -1307,7 +1317,10 @@ public class Parser {
                         RepairFormation repairFormation;
                         switch (value) {
                             case "На счете регионального оператора":
-                                repairFormation = RepairFormation.REGIONAL;
+                                repairFormation = RepairFormation.REGIONALOPERATORACCOUNT;
+                                break;
+                            case "На специальном счете организации":
+                                repairFormation = RepairFormation.ORGANIZATIONSPECIALACCOUNT;
                                 break;
                             default:
                                 throw new IllegalArgumentException(value);
@@ -1371,6 +1384,7 @@ public class Parser {
                         MaterialType materialType;
                         switch (value) {
                             case "Кирпичный":
+                            case "кирпичный":
                             case "жилой дом, Кирпичный":
                                 materialType = MaterialType.BRICK;
                                 break;
@@ -1378,18 +1392,20 @@ public class Parser {
                                 materialType = MaterialType.NONE;
                                 break;
                             case "дом":
-                                materialType = MaterialType.HOUSE;
+                            case "жилое":
+                            case "жилой дом":
+                                materialType = MaterialType.HOUSERESIDENTIAL;
                                 break;
                             case "информация отсутствует":
                             case "byajhvfwbz jncencndetn":
                             case "не известен":
                                 materialType = MaterialType.UNKNOWN;
                                 break;
-                            case "жилое":
-                                materialType = MaterialType.RESIDENTIAL;
-                                break;
                             case "жилой дом, Панельный":
                                 materialType = MaterialType.PANEL;
+                                break;
+                            case "проект на строительство 06/13-с-ПЗ":
+                                materialType = MaterialType.PROJECT0613;
                                 break;
                             default:
                                 throw new IllegalArgumentException(value);
@@ -1489,6 +1505,7 @@ public class Parser {
                                 engineeringSystems.setHotWaterSystemType(HotWaterSystemType.RINGORWITHLOOPEDINPUTS);
                                 break;
                             case "Центральное":
+                            case "Центральное (закрытая система)":
                                 engineeringSystems.setHotWaterSystemType(HotWaterSystemType.CENTRAL);
                                 break;
                             case "Газовые колонки (ВДГО)":
@@ -1590,6 +1607,7 @@ public class Parser {
                         LoadBearingWalls loadBearingWalls;
                         switch (value) {
                             case "Стены кирпичные":
+                            case "Кирпич":
                                 loadBearingWalls = LoadBearingWalls.BRICK;
                                 break;
                             case "Стены деревянные каркасные":
@@ -1614,6 +1632,7 @@ public class Parser {
                                 break;
                             case "Стены панельные":
                             case "Панельные":
+                            case "Стены из несущих панелей":
                                 loadBearingWalls = LoadBearingWalls.PANEL;
                                 break;
                             default:
@@ -1653,6 +1672,8 @@ public class Parser {
                         switch (value) {
                             case "Перекрытия из железобетонных плит":
                             case "Перекрытия железобетонные":
+                            case "Железобетонные":
+                            case "Железобетон":
                                 floorType = FloorType.REINFORCEDCONCRETESLABS;
                                 break;
                             case "Перекрытия деревянные неоштукатуренные":
@@ -1806,6 +1827,7 @@ public class Parser {
                         MaterialType materialType;
                         switch (value) {
                             case "Кирпичный":
+                            case "кирпичный":
                             case "жилой дом, Кирпичный":
                                 materialType = MaterialType.BRICK;
                                 break;
@@ -1813,18 +1835,20 @@ public class Parser {
                                 materialType = MaterialType.NONE;
                                 break;
                             case "дом":
-                                materialType = MaterialType.HOUSE;
+                            case "жилой дом":
+                            case "жилое":
+                                materialType = MaterialType.HOUSERESIDENTIAL;
                                 break;
                             case "информация отсутствует":
                             case "byajhvfwbz jncencndetn":
                             case "не известен":
                                 materialType = MaterialType.UNKNOWN;
                                 break;
-                            case "жилое":
-                                materialType = MaterialType.RESIDENTIAL;
-                                break;
                             case "жилой дом, Панельный":
                                 materialType = MaterialType.PANEL;
+                                break;
+                            case "проект на строительство 06/13-с-ПЗ":
+                                materialType = MaterialType.PROJECT0613;
                                 break;
                             default:
                                 throw new IllegalArgumentException(value);
@@ -1836,6 +1860,8 @@ public class Parser {
                         switch (value) {
                             case "Перекрытия из железобетонных плит":
                             case "Перекрытия железобетонные":
+                            case "Железобетонные":
+                            case "Железобетон":
                                 floorType = FloorType.REINFORCEDCONCRETESLABS;
                                 break;
                             case "Перекрытия деревянные неоштукатуренные":
@@ -1871,6 +1897,7 @@ public class Parser {
                         WallMaterial wallMaterial;
                         switch (value) {
                             case "Стены кирпичные":
+                            case "Кирпич":
                                 wallMaterial = WallMaterial.BRICK;
                                 break;
                             case "Стены деревянные каркасные":
@@ -1895,6 +1922,7 @@ public class Parser {
                                 break;
                             case "Стены панельные":
                             case "Панельные":
+                            case "Стены из несущих панелей":
                                 wallMaterial = WallMaterial.PANEL;
                                 break;
                             default:
