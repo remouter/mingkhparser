@@ -583,6 +583,9 @@ public class Parser {
                     case "Шатровая":
                         roofShape = RoofShape.TENT;
                         break;
+                    case "Нет":
+                        roofShape = RoofShape.NONE;
+                        break;
                     default:
                         throw new IllegalArgumentException(value);
                 }
@@ -597,6 +600,7 @@ public class Parser {
                         insulatingLayers = InsulatingLayers.EXPANDEDCLAYSLAG;
                         break;
                     case "Минеральная вата":
+                    case "Минераловатные плиты":
                         insulatingLayers = InsulatingLayers.MINERALWOOL;
                         break;
                     case "нет":
@@ -869,6 +873,9 @@ public class Parser {
                     case "Минвата":
                         externalInsulationType = ExternalInsulationType.MINERALWOOL;
                         break;
+                    case "Навесной вентилируемый фасад":
+                        externalInsulationType = ExternalInsulationType.HINGEDVENTILATEDFACADE;
+                        break;
                     default:
                         throw new IllegalArgumentException(value);
                 }
@@ -1128,6 +1135,9 @@ public class Parser {
                     case "Выгребная яма":
                         drainageSystemType = DrainageSystemType.CESSPOOL;
                         break;
+                    case "Локальная канализация (септик)":
+                        drainageSystemType = DrainageSystemType.LOCALSEWERAGESEPTIC;
+                        break;
                     default:
                         throw new IllegalArgumentException(value);
                 }
@@ -1148,6 +1158,9 @@ public class Parser {
                     case "чугун, пластик":
                     case "пластик, чугун":
                         networkMaterial = com.example.mingkhparser.models.drainagesystem.NetworkMaterial.CASTIRONPLASTIC;
+                        break;
+                    case "асбестоцемент":
+                        networkMaterial = com.example.mingkhparser.models.drainagesystem.NetworkMaterial.ASBESTOSCEMENT;
                         break;
                     default:
                         throw new IllegalArgumentException(value);
@@ -1453,6 +1466,7 @@ public class Parser {
                                 materialType = MaterialType.BRICK;
                                 break;
                             case "нет":
+                            case "ytn":
                                 materialType = MaterialType.NONE;
                                 break;
                             case "дом":
@@ -1533,6 +1547,9 @@ public class Parser {
                                 break;
                             case "Автономное":
                                 waterDisposal = WaterDisposal.AUTONOMOUS;
+                                break;
+                            case "Локальная канализация (септик)":
+                                waterDisposal = WaterDisposal.LOCALSEWERAGESEPTIC;
                                 break;
                             default:
                                 throw new IllegalArgumentException(value);
@@ -1938,6 +1955,7 @@ public class Parser {
                                 materialType = MaterialType.BRICK;
                                 break;
                             case "нет":
+                            case "ytn":
                                 materialType = MaterialType.NONE;
                                 break;
                             case "дом":

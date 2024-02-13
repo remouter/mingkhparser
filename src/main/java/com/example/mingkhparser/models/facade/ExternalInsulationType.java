@@ -4,4 +4,5 @@ public enum ExternalInsulationType {
     NONE,
     INSULATIONWITHAPROTECTIVEPLASTERLAYER, //Утепление с защитным штукатурным слоем
     MINERALWOOL, //Минвата
+    HINGEDVENTILATEDFACADE, //Навесной вентилируемый фасад
 }

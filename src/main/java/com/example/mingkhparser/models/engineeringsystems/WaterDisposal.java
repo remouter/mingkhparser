@@ -5,4 +5,5 @@ public enum WaterDisposal {
     NONE, //Нет
     CESSPOOL, //Выгребная яма
     AUTONOMOUS, //Автономное
+    LOCALSEWERAGESEPTIC, //Локальная канализация (септик)
 }
