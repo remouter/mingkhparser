@@ -5,4 +5,5 @@ public enum MaterialType {
     HOUSE, //дом
     UNKNOWN, //информация отсутствует
     RESIDENTIAL, //жилое
+    PANEL, //Панельный
 }
