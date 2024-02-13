@@ -989,6 +989,9 @@ public class Parser {
                         case "Арболитовые панели":
                             wallMaterials.add(WallMaterial.ARBOLITEPANELS);
                             break;
+                        case "null":
+                            wallMaterials.add(WallMaterial.NULL);
+                            break;
                         default:
                             throw new IllegalArgumentException(string);
                     }
@@ -1190,7 +1193,7 @@ public class Parser {
 //Cистема горячего водоснабжения
             case "Тип системы горячего водоснабжения":
                 Set<HotWaterSystemType> hotWaterSystemTypes = new HashSet<>();
-                for(String string : value.split(", ")) {
+                for (String string : value.split(", ")) {
                     switch (string) {
                         case "Нет":
                             hotWaterSystemTypes.add(HotWaterSystemType.NONE);
@@ -1474,56 +1477,65 @@ public class Parser {
                         generalInfo.setLandCommonPropertySquare(Double.valueOf(value));
                         break;
                     case "Серия, тип постройки здания":
-                        MaterialType materialType;
-                        switch (value) {
-                            case "Кирпичный":
-                            case "кирпичный":
-                            case "жилой дом, Кирпичный":
-                            case "Жилой дом кирпичный":
-                                materialType = MaterialType.BRICK;
-                                break;
-                            case "нет":
-                            case "ytn":
-                                materialType = MaterialType.NONE;
-                                break;
-                            case "дом":
-                            case "жилое":
-                            case "жилой дом":
-                                materialType = MaterialType.HOUSERESIDENTIAL;
-                                break;
-                            case "информация отсутствует":
-                            case "byajhvfwbz jncencndetn":
-                            case "информация отсутсвует":
-                            case "не известен":
-                            case "нет информации":
-                            case "нет данных":
-                            case "нет сведений":
-                                materialType = MaterialType.UNKNOWN;
-                                break;
-                            case "жилой дом, Панельный":
-                            case "жилой дом, панельный":
-                            case "Панельный":
-                                materialType = MaterialType.PANEL;
-                                break;
-                            case "проект на строительство 06/13-с-ПЗ":
-                                materialType = MaterialType.PROJECT0613;
-                                break;
-                            case "Деревянные":
-                                materialType = MaterialType.WOODEN;
-                                break;
-                            case "индивидуальный":
-                            case "индивидуальное":
-                                materialType = MaterialType.INDIVIDUAL;
-                                break;
-                            default:
-                                throw new IllegalArgumentException(value);
+                        Set<MaterialType> materialTypes = new HashSet<>();
+                        for (String str : value.split(", ")) {
+                            switch (str) {
+                                case "Кирпичный":
+                                case "кирпичный":
+                                case "Жилой дом кирпичный":
+                                    materialTypes.add(MaterialType.BRICK);
+                                    break;
+                                case "нет":
+                                case "ytn":
+                                    materialTypes.add(MaterialType.NONE);
+                                    break;
+                                case "дом":
+                                case "жилое":
+                                case "жилой дом":
+                                    materialTypes.add(MaterialType.HOUSERESIDENTIAL);
+                                    break;
+                                case "информация отсутствует":
+                                case "byajhvfwbz jncencndetn":
+                                case "информация отсутсвует":
+                                case "не известен":
+                                case "нет информации":
+                                case "нет данных":
+                                case "нет сведений":
+                                    materialTypes.add(MaterialType.UNKNOWN);
+                                    break;
+                                case "Панельный":
+                                    materialTypes.add(MaterialType.PANEL);
+                                    break;
+                                case "проект на строительство 06/13-с-ПЗ":
+                                    materialTypes.add(MaterialType.PROJECT0613);
+                                    break;
+                                case "Деревянные":
+                                    materialTypes.add(MaterialType.WOODEN);
+                                    break;
+                                case "индивидуальный":
+                                case "индивидуальное":
+                                    materialTypes.add(MaterialType.INDIVIDUAL);
+                                    break;
+                                case "многоквартирный дом блокированной застройки":
+                                case "дом блокированной застройки":
+                                    materialTypes.add(MaterialType.BLOCKOFFLATS);
+                                    break;
+                                case "двухквартирный жилой дом блокированной застройки":
+                                    materialTypes.add(MaterialType.TWOBLOCKOFFLATS);
+                                    break;
+                                default:
+                                    throw new IllegalArgumentException(str);
+                            }
                         }
-                        generalInfo.setMaterialType(materialType);
+                        generalInfo.setMaterialTypes(materialTypes);
                         break;
                     case "Статус объекта культурного наследия":
                         switch (value) {
                             case "Нет":
                                 generalInfo.setIsCulturalHeritage(false);
+                                break;
+                            case "Да":
+                                generalInfo.setIsCulturalHeritage(true);
                                 break;
                             default:
                                 throw new IllegalArgumentException(value);
@@ -1970,51 +1982,57 @@ public class Parser {
                         houseInfo.setMajorRenovation(value);
                         break;
                     case "Серия, тип постройки":
-                        MaterialType materialType;
-                        switch (value) {
-                            case "Кирпичный":
-                            case "кирпичный":
-                            case "жилой дом, Кирпичный":
-                            case "Жилой дом кирпичный":
-                                materialType = MaterialType.BRICK;
-                                break;
-                            case "нет":
-                            case "ytn":
-                                materialType = MaterialType.NONE;
-                                break;
-                            case "дом":
-                            case "жилой дом":
-                            case "жилое":
-                                materialType = MaterialType.HOUSERESIDENTIAL;
-                                break;
-                            case "информация отсутствует":
-                            case "byajhvfwbz jncencndetn":
-                            case "информация отсутсвует":
-                            case "не известен":
-                            case "нет информации":
-                            case "нет данных":
-                            case "нет сведений":
-                                materialType = MaterialType.UNKNOWN;
-                                break;
-                            case "жилой дом, Панельный":
-                            case "жилой дом, панельный":
-                            case "Панельный":
-                                materialType = MaterialType.PANEL;
-                                break;
-                            case "проект на строительство 06/13-с-ПЗ":
-                                materialType = MaterialType.PROJECT0613;
-                                break;
-                            case "Деревянные":
-                                materialType = MaterialType.WOODEN;
-                                break;
-                            case "индивидуальный":
-                            case "индивидуальное":
-                                materialType = MaterialType.INDIVIDUAL;
-                                break;
-                            default:
-                                throw new IllegalArgumentException(value);
+                        Set<MaterialType> materialTypes = new HashSet<>();
+                        for (String str : value.split(", ")) {
+                            switch (str) {
+                                case "Кирпичный":
+                                case "кирпичный":
+                                case "Жилой дом кирпичный":
+                                    materialTypes.add(MaterialType.BRICK);
+                                    break;
+                                case "нет":
+                                case "ytn":
+                                    materialTypes.add(MaterialType.NONE);
+                                    break;
+                                case "дом":
+                                case "жилой дом":
+                                case "жилое":
+                                    materialTypes.add(MaterialType.HOUSERESIDENTIAL);
+                                    break;
+                                case "информация отсутствует":
+                                case "byajhvfwbz jncencndetn":
+                                case "информация отсутсвует":
+                                case "не известен":
+                                case "нет информации":
+                                case "нет данных":
+                                case "нет сведений":
+                                    materialTypes.add(MaterialType.UNKNOWN);
+                                    break;
+                                case "Панельный":
+                                    materialTypes.add(MaterialType.PANEL);
+                                    break;
+                                case "проект на строительство 06/13-с-ПЗ":
+                                    materialTypes.add(MaterialType.PROJECT0613);
+                                    break;
+                                case "Деревянные":
+                                    materialTypes.add(MaterialType.WOODEN);
+                                    break;
+                                case "индивидуальный":
+                                case "индивидуальное":
+                                    materialTypes.add(MaterialType.INDIVIDUAL);
+                                    break;
+                                case "многоквартирный дом блокированной застройки":
+                                case "дом блокированной застройки":
+                                    materialTypes.add(MaterialType.BLOCKOFFLATS);
+                                    break;
+                                case "двухквартирный жилой дом блокированной застройки":
+                                    materialTypes.add(MaterialType.TWOBLOCKOFFLATS);
+                                    break;
+                                default:
+                                    throw new IllegalArgumentException(str);
+                            }
                         }
-                        houseInfo.setMaterialType(materialType);
+                        houseInfo.setMaterialTypes(materialTypes);
                         break;
                     case "Тип перекрытий":
                         FloorType floorType;

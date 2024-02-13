@@ -5,6 +5,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 @Setter
 @Getter
@@ -35,7 +36,7 @@ public class GeneralInfo {
     private Double buildingNonResidentialSquare;
     private Double buildingCommonPropertySquare;
     private Double landCommonPropertySquare;
-    private MaterialType materialType;
+    private Set<MaterialType> materialTypes;
     private Boolean isCulturalHeritage;
     private LocalDate emergencyDate;
     private String emergencyDocumentNumber;

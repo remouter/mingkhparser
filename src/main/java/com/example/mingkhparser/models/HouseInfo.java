@@ -43,7 +43,7 @@ public class HouseInfo {
     private HouseType houseType;
     private Integer apartmentsCount;
     private String majorRenovation;
-    private MaterialType materialType;
+    private Set<MaterialType> materialTypes;
     private FloorType floorType;
     private Set<WallMaterial> wallMaterials;
     private Boolean garbageChute;

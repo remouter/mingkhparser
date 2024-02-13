@@ -11,4 +11,5 @@ public enum WallMaterial {
     PREFABRICATEDPANELS, //сборно-щитовые
     FRAMEFILL, //Каркасно-засыпные
     ARBOLITEPANELS, //Арболитовые панели
+    NULL, //null
 }
