@@ -581,6 +581,9 @@ public class Parser {
                     case "Вальмовая":
                         roofShape = RoofShape.HIP;
                         break;
+                    case "Вальмовая сложной формы":
+                        roofShape = RoofShape.HIPCOMPLEXSHAPE;
+                        break;
                     case "Полувальмовая":
                         roofShape = RoofShape.HALFHIP;
                         break;
@@ -939,6 +942,9 @@ public class Parser {
                         case "наружная облицовка кирпичом":
                             facadeFinishingMaterials.add(FacadeFinishingMaterial.BRICK);
                             break;
+                        case "облицовка керамической плиткой":
+                            facadeFinishingMaterials.add(FacadeFinishingMaterial.CERAMICTILE);
+                            break;
                         default:
                             throw new IllegalArgumentException(str);
                     }
@@ -985,6 +991,7 @@ public class Parser {
                             break;
                         case "Стены из слоистых железобетонных панелей":
                         case "Стены из ж/б панелей":
+                        case "Железобетонные плиты":
                             wallMaterials.add(WallMaterial.LAMINATEDREINFORCEDCONCRETEPANELS);
                             break;
                         case "Панельные":
@@ -1845,6 +1852,9 @@ public class Parser {
                                 break;
                             case "Столбчатый (столбовой)":
                                 foundation = Foundation.COLUMNARPILLAR;
+                                break;
+                            case "Иной":
+                                foundation = Foundation.OTHER;
                                 break;
                             default:
                                 throw new IllegalArgumentException(value);
