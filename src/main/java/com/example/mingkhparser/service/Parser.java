@@ -277,7 +277,7 @@ public class Parser {
     private void setColdWaterSystem(String tag, String value, ColdWaterSystem coldWaterSystem) {
         switch (tag) {
             case "Физический износ":
-                coldWaterSystem.setPhysicalDeterioration(Integer.valueOf(value.split(" ")[0]));
+                coldWaterSystem.setPhysicalDeterioration(Double.valueOf(value.split(" ")[0]));
                 break;
             case "Материал сети":
                 com.example.mingkhparser.models.coldwatersystem.NetworkMaterial networkMaterial;
@@ -437,7 +437,7 @@ public class Parser {
     private void setHeatingSystem(String tag, String value, HeatingSystem heatingSystem) {
         switch (tag) {
             case "Физический износ":
-                heatingSystem.setPhysicalDeterioration(Integer.valueOf(value.split(" ")[0]));
+                heatingSystem.setPhysicalDeterioration(Double.valueOf(value.split(" ")[0]));
                 break;
             case "Материал сети":
                 com.example.mingkhparser.models.heatingsystem.NetworkMaterial networkMaterial;
@@ -468,6 +468,9 @@ public class Parser {
                     case "Полипропилен":
                         networkMaterial = com.example.mingkhparser.models.heatingsystem.NetworkMaterial.POLYPROPYLENE;
                         break;
+                    case "Сталь, Полипропилен":
+                        networkMaterial = com.example.mingkhparser.models.heatingsystem.NetworkMaterial.STEELPOLYPROPYLENE;
+                        break;
                     default:
                         throw new IllegalArgumentException(value);
                 }
@@ -484,6 +487,9 @@ public class Parser {
                         break;
                     case "Минеральная вата с покрытием из алюминиевой фольги":
                         thermalInsulationMaterial = ThermalInsulationMaterial.MINERALWOOLCOATEDWITHALUMINUMFOIL;
+                        break;
+                    case "Минеральная вата с покрытием из оцинкованной стали":
+                        thermalInsulationMaterial = ThermalInsulationMaterial.MINERALWOOLCOATEDWITHGALVANIZEDSTEEL;
                         break;
                     case "Минеральная вата с покрытием":
                         thermalInsulationMaterial = ThermalInsulationMaterial.MINERALWOOLCOATED;
@@ -619,6 +625,7 @@ public class Parser {
                         bearingType = BearingType.NONE;
                         break;
                     case "Совмещенные из сборных железобетонных слоистых панелей":
+                    case "Совмещенные из сборных железобетонных слоистых панелей, Нет":
                     case "Железобетонная совмещенная":
                         bearingType = BearingType.COMBINEDPRECASTCONCRETELAMINATEDPANELS;
                         break;
@@ -825,6 +832,7 @@ public class Parser {
                         break;
                     case "Стены панельные":
                     case "Стены из несущих панелей":
+                    case "Крупнопанельные":
                         wallMaterial = WallMaterial.PANEL;
                         break;
                     default:
@@ -930,6 +938,7 @@ public class Parser {
                         break;
                     case "Панельные":
                     case "Стены из несущих панелей":
+                    case "Стены крупнопанельные":
                         wallMaterial = WallMaterial.PANEL;
                         break;
                     default:
@@ -1147,13 +1156,16 @@ public class Parser {
                     case "Тупиковая":
                         hotWaterSystemType = HotWaterSystemType.DEADEND;
                         break;
+                    case "П-образная, с нижней разводкой магистралей":
+                        hotWaterSystemType = HotWaterSystemType.USHAPEDLOWERROUTINGOFHIGHWAYS;
+                        break;
                     default:
                         throw new IllegalArgumentException(value);
                 }
                 hotWaterSupplySystem.setHotWaterSystemType(hotWaterSystemType);
                 break;
             case "Физический износ":
-                hotWaterSupplySystem.setPhysicalDeterioration(Integer.valueOf(value.split(" ")[0]));
+                hotWaterSupplySystem.setPhysicalDeterioration(Double.valueOf(value.split(" ")[0]));
                 break;
             case "Материал сети":
                 NetworkMaterial networkMaterial;
@@ -1540,6 +1552,9 @@ public class Parser {
                             case "Тупиковая":
                                 engineeringSystems.setHotWaterSystemType(HotWaterSystemType.DEADEND);
                                 break;
+                            case "П-образная, с нижней разводкой магистралей":
+                                engineeringSystems.setHotWaterSystemType(HotWaterSystemType.USHAPEDLOWERROUTINGOFHIGHWAYS);
+                                break;
                             default:
                                 throw new IllegalArgumentException(value);
                         }
@@ -1656,6 +1671,7 @@ public class Parser {
                             case "Стены панельные":
                             case "Панельные":
                             case "Стены из несущих панелей":
+                            case "Крупнопанельные":
                                 loadBearingWalls = LoadBearingWalls.PANEL;
                                 break;
                             default:
@@ -1950,6 +1966,7 @@ public class Parser {
                             case "Стены панельные":
                             case "Панельные":
                             case "Стены из несущих панелей":
+                            case "Крупнопанельные":
                                 wallMaterial = WallMaterial.PANEL;
                                 break;
                             default:

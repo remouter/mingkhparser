@@ -8,7 +8,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class ColdWaterSystem {
-    private Integer physicalDeterioration;
+    private Double physicalDeterioration;
 
     private NetworkMaterial networkMaterial;
 }
