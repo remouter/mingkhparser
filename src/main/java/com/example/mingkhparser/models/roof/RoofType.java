@@ -14,4 +14,5 @@ public enum RoofType {
     CORRUGATEDSHEETSSLATE, //Волнистые листы, Шиферная
     ROLLEDONREINFORCEDCONCRETESLABS, //Рулонная по железобетонным плитам
     GALVANIZEDCORRUGATEDSHEET, //Оцинкованный профлист
+    CORRUGATEDSHEET, //Профнастил
 }

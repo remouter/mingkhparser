@@ -10,4 +10,5 @@ public enum WallMaterial {
     LARGEBLOCKSANDSINGLELAYERLOADBEARINGPANELS, //Стены из крупноразмерных блоков и однослойных несущих панелей
     PREFABRICATEDPANELS, //сборно-щитовые
     FRAMEFILL, //Каркасно-засыпные
+    ARBOLITEPANELS, //Арболитовые панели
 }

@@ -580,6 +580,9 @@ public class Parser {
                     case "Вальмовая":
                         roofShape = RoofShape.HIP;
                         break;
+                    case "Полувальмовая":
+                        roofShape = RoofShape.HALFHIP;
+                        break;
                     case "Шатровая":
                         roofShape = RoofShape.TENT;
                         break;
@@ -686,6 +689,9 @@ public class Parser {
                         break;
                     case "Оцинкованный профлист":
                         roofType = RoofType.GALVANIZEDCORRUGATEDSHEET;
+                        break;
+                    case "Профнастил":
+                        roofType = RoofType.CORRUGATEDSHEET;
                         break;
                     default:
                         throw new IllegalArgumentException(value);
@@ -871,6 +877,7 @@ public class Parser {
                         externalInsulationType = ExternalInsulationType.INSULATIONWITHAPROTECTIVEPLASTERLAYER;
                         break;
                     case "Минвата":
+                    case "Слой из минеральных плит":
                         externalInsulationType = ExternalInsulationType.MINERALWOOL;
                         break;
                     case "Навесной вентилируемый фасад":
@@ -917,6 +924,9 @@ public class Parser {
                         break;
                     case "Сайдинг":
                         facadeFinishingMaterial = FacadeFinishingMaterial.SIDING;
+                        break;
+                    case "наружная облицовка кирпичом":
+                        facadeFinishingMaterial = FacadeFinishingMaterial.BRICK;
                         break;
                     default:
                         throw new IllegalArgumentException(value);
@@ -975,6 +985,9 @@ public class Parser {
                             break;
                         case "Каркасно-засыпные":
                             wallMaterials.add(WallMaterial.FRAMEFILL);
+                            break;
+                        case "Арболитовые панели":
+                            wallMaterials.add(WallMaterial.ARBOLITEPANELS);
                             break;
                         default:
                             throw new IllegalArgumentException(string);

@@ -11,4 +11,5 @@ public enum FacadeFinishingMaterial {
     WOOD, //Дерево
     FACTORYFINISHED, //панель с заводской отделкой
     SIDING, //Сайдинг
+    BRICK, //наружная облицовка кирпичом
 }
