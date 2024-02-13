@@ -7,4 +7,5 @@ public enum MaterialType {
     NONESTEEL, //Нет, Сталь черная
     STEELPOLYPROPYLENE, //Сталь, Полипропилен
     POLYMERGALVANIZEDSTEEL, //Полимер, Сталь оцинкованная
+    POLYPROPYLENE, //Полипропилен
 }

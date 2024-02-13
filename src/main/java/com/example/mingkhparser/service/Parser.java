@@ -418,6 +418,9 @@ public class Parser {
                     case "Сталь оцинкованная, Полимер":
                         materialType = com.example.mingkhparser.models.heatingsystemrisers.MaterialType.POLYMERGALVANIZEDSTEEL;
                         break;
+                    case "Полипропилен":
+                        materialType = com.example.mingkhparser.models.heatingsystemrisers.MaterialType.POLYPROPYLENE;
+                        break;
                     default:
                         throw new IllegalArgumentException(value);
                 }
@@ -613,6 +616,7 @@ public class Parser {
                         bearingType = BearingType.NONE;
                         break;
                     case "Совмещенные из сборных железобетонных слоистых панелей":
+                    case "Железобетонная совмещенная":
                         bearingType = BearingType.COMBINEDPRECASTCONCRETELAMINATEDPANELS;
                         break;
                     case "Ж/б плиты":
@@ -808,6 +812,7 @@ public class Parser {
                         wallMaterial = WallMaterial.WOODEN;
                         break;
                     case "Стены железобетонные":
+                    case "Железобетонные панели":
                         wallMaterial = WallMaterial.REINFORCEDCONCRETE;
                         break;
                     case "Стены панельные":
@@ -912,6 +917,7 @@ public class Parser {
                         wallMaterial = WallMaterial.LAMINATEDREINFORCEDCONCRETEPANELS;
                         break;
                     case "Панельные":
+                    case "Стены из несущих панелей":
                         wallMaterial = WallMaterial.PANEL;
                         break;
                     default:
@@ -1207,6 +1213,12 @@ public class Parser {
                         break;
                     case "Полимер, Чугун":
                         risersMaterial = RisersMaterial.POLYMERCASTIRON;
+                        break;
+                    case "Сталь оцинкованная":
+                        risersMaterial = RisersMaterial.GALVANIZEDSTEEL;
+                        break;
+                    case "Полипропилен":
+                        risersMaterial = RisersMaterial.POLYPROPYLENE;
                         break;
                     default:
                         throw new IllegalArgumentException(value);
@@ -1594,6 +1606,7 @@ public class Parser {
                                 loadBearingWalls = LoadBearingWalls.WOODEN;
                                 break;
                             case "Стены железобетонные":
+                            case "Железобетонные панели":
                                 loadBearingWalls = LoadBearingWalls.REINFORCEDCONCRETE;
                                 break;
                             case "Смешанные":
@@ -1874,6 +1887,7 @@ public class Parser {
                                 wallMaterial = WallMaterial.WOODEN;
                                 break;
                             case "Стены железобетонные":
+                            case "Железобетонные панели":
                                 wallMaterial = WallMaterial.REINFORCEDCONCRETE;
                                 break;
                             case "Смешанные":

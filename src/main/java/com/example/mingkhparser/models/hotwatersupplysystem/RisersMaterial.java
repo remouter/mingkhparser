@@ -9,4 +9,6 @@ public enum RisersMaterial {
     STEEL, //Сталь
     POLYMERGALVANIZEDSTEEL, //Полимер, Сталь оцинкованная
     POLYMERCASTIRON, //Полимер, Чугун
+    GALVANIZEDSTEEL, //Сталь оцинкованная
+    POLYPROPYLENE, //Полипропилен
 }
