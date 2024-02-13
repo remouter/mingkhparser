@@ -1466,10 +1466,12 @@ public class Parser {
                             case "не известен":
                             case "нет информации":
                             case "нет данных":
+                            case "нет сведений":
                                 materialType = MaterialType.UNKNOWN;
                                 break;
                             case "жилой дом, Панельный":
                             case "жилой дом, панельный":
+                            case "Панельный":
                                 materialType = MaterialType.PANEL;
                                 break;
                             case "проект на строительство 06/13-с-ПЗ":
@@ -1566,6 +1568,9 @@ public class Parser {
                             case "Газопровод низкого давления – подача природного газа в крышную котельную":
                                 gasSupply = GasSupply.LOWPRESSUREGASPIPELINEROOFBOILERROOM;
                                 break;
+                            case "баллонный газ":
+                                gasSupply = GasSupply.BOTTLEDGAS;
+                                break;
                             default:
                                 throw new IllegalArgumentException(value);
                         }
@@ -1634,6 +1639,9 @@ public class Parser {
                             case "Печная":
                             case "Печное":
                                 heatSupply = HeatSupply.STOVE;
+                                break;
+                            case "Газовая колонка":
+                                heatSupply = HeatSupply.GEYSER;
                                 break;
                             default:
                                 throw new IllegalArgumentException(value);
@@ -1943,10 +1951,12 @@ public class Parser {
                             case "не известен":
                             case "нет информации":
                             case "нет данных":
+                            case "нет сведений":
                                 materialType = MaterialType.UNKNOWN;
                                 break;
                             case "жилой дом, Панельный":
                             case "жилой дом, панельный":
+                            case "Панельный":
                                 materialType = MaterialType.PANEL;
                                 break;
                             case "проект на строительство 06/13-с-ПЗ":
