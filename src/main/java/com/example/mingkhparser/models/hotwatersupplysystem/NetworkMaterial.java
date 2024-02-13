@@ -8,5 +8,6 @@ public enum NetworkMaterial {
     GALVANIZEDSTEEL, //Сталь оцинкованная
     POLYPROPYLENE, //Полипропилен
     POLYMER, //Полимер
+    COPPER, //Медь
 
 }

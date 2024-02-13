@@ -6,4 +6,5 @@ public enum ThermalInsulationMaterial {
     MINERALWOOLCOATEDWITHGALVANIZEDSTEEL, //Минеральная вата с покрытием из оцинкованной стали
     MINERALWOOLCOATED, //Минеральная вата с покрытием
     ASBESTOSUNDERWOODENBASE, //Асбест под деревянной основой (устар.)
+    POLYURETHANEFOAMSPRAYING, //Пенополиуретановое напыление
 }

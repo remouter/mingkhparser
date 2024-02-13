@@ -29,16 +29,16 @@ public class Application implements CommandLineRunner {
     public void run(String... args) throws Exception {
         List<String> addresses = parser.getHouses("https://dom.mingkh.ru/ivanovskaya-oblast/furmanov/");
 
-        int index = addresses.size();
-        for (int i = 0; i < addresses.size(); i++) {
-            if (addresses.get(i).equals("https://dom.mingkh.ru/ivanovskaya-oblast/furmanov/1184572")) {
-                log.info("processed {}", i);
-                index = i;
-                break;
-            }
-        }
+//        int index = addresses.size();
+//        for (int i = 0; i < addresses.size(); i++) {
+//            if (addresses.get(i).equals("https://dom.mingkh.ru/ivanovskaya-oblast/furmanov/1004536")) {
+//                log.info("processed {}", i);
+//                index = i;
+//                break;
+//            }
+//        }
 
-        addresses = addresses.subList(index, addresses.size());
+        addresses = addresses.subList(0, addresses.size());
         addresses.forEach(a -> parser.process(a)); //1218
 
 

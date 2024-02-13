@@ -279,46 +279,41 @@ public class Parser {
                 coldWaterSystem.setPhysicalDeterioration(Double.valueOf(value.split(" ")[0]));
                 break;
             case "Материал сети":
-                com.example.mingkhparser.models.coldwatersystem.NetworkMaterial networkMaterial;
-                switch (value) {
-                    case "Сталь оцинкованная":
-                        networkMaterial = com.example.mingkhparser.models.coldwatersystem.NetworkMaterial.GALVANIZEDSTEEL;
-                        break;
-                    case "Полимер":
-                        networkMaterial = com.example.mingkhparser.models.coldwatersystem.NetworkMaterial.POLYMER;
-                        break;
-                    case "Нет":
-                        networkMaterial = com.example.mingkhparser.models.coldwatersystem.NetworkMaterial.NONE;
-                        break;
-                    case "Сталь":
-                        networkMaterial = com.example.mingkhparser.models.coldwatersystem.NetworkMaterial.STEEL;
-                        break;
-                    case "Металлополимер":
-                        networkMaterial = com.example.mingkhparser.models.coldwatersystem.NetworkMaterial.METALPOLYMER;
-                        break;
-                    case "Чугун":
-                        networkMaterial = com.example.mingkhparser.models.coldwatersystem.NetworkMaterial.CASTIRON;
-                        break;
-                    case "Сталь черная":
-                        networkMaterial = com.example.mingkhparser.models.coldwatersystem.NetworkMaterial.BLACKSTEEL;
-                        break;
-                    case "Сталь, Полипропилен":
-                        networkMaterial = com.example.mingkhparser.models.coldwatersystem.NetworkMaterial.STEELPOLYPROPYLENE;
-                        break;
-                    case "Сталь оцинкованная, Полимер":
-                    case "Полимер, Сталь оцинкованная":
-                        networkMaterial = com.example.mingkhparser.models.coldwatersystem.NetworkMaterial.GALVANIZEDSTEELPOLYMER;
-                        break;
-                    case "Полипропилен":
-                        networkMaterial = com.example.mingkhparser.models.coldwatersystem.NetworkMaterial.POLYPROPYLENE;
-                        break;
-                    case "Полиэтилен":
-                        networkMaterial = com.example.mingkhparser.models.coldwatersystem.NetworkMaterial.POLYETHYLENE;
-                        break;
-                    default:
-                        throw new IllegalArgumentException(value);
+                Set<com.example.mingkhparser.models.coldwatersystem.NetworkMaterial> networkMaterials = new HashSet<>();
+                for (String str : value.split(", ")) {
+                    switch (str) {
+                        case "Сталь оцинкованная":
+                            networkMaterials.add(com.example.mingkhparser.models.coldwatersystem.NetworkMaterial.GALVANIZEDSTEEL);
+                            break;
+                        case "Полимер":
+                            networkMaterials.add(com.example.mingkhparser.models.coldwatersystem.NetworkMaterial.POLYMER);
+                            break;
+                        case "Нет":
+                            networkMaterials.add(com.example.mingkhparser.models.coldwatersystem.NetworkMaterial.NONE);
+                            break;
+                        case "Сталь":
+                            networkMaterials.add(com.example.mingkhparser.models.coldwatersystem.NetworkMaterial.STEEL);
+                            break;
+                        case "Металлополимер":
+                            networkMaterials.add(com.example.mingkhparser.models.coldwatersystem.NetworkMaterial.METALPOLYMER);
+                            break;
+                        case "Чугун":
+                            networkMaterials.add(com.example.mingkhparser.models.coldwatersystem.NetworkMaterial.CASTIRON);
+                            break;
+                        case "Сталь черная":
+                            networkMaterials.add(com.example.mingkhparser.models.coldwatersystem.NetworkMaterial.BLACKSTEEL);
+                            break;
+                        case "Полипропилен":
+                            networkMaterials.add(com.example.mingkhparser.models.coldwatersystem.NetworkMaterial.POLYPROPYLENE);
+                            break;
+                        case "Полиэтилен":
+                            networkMaterials.add(com.example.mingkhparser.models.coldwatersystem.NetworkMaterial.POLYETHYLENE);
+                            break;
+                        default:
+                            throw new IllegalArgumentException(str);
+                    }
                 }
-                coldWaterSystem.setNetworkMaterial(networkMaterial);
+                coldWaterSystem.setNetworkMaterials(networkMaterials);
                 break;
             default:
                 throw new IllegalArgumentException(tag);
@@ -501,6 +496,9 @@ public class Parser {
                         break;
                     case "Полимер, Сталь оцинкованная":
                         thermalInsulationMaterial = ThermalInsulationMaterial.ASBESTOSUNDERWOODENBASE;
+                        break;
+                    case "Пенополиуретановое напыление":
+                        thermalInsulationMaterial = ThermalInsulationMaterial.POLYURETHANEFOAMSPRAYING;
                         break;
                     default:
                         throw new IllegalArgumentException(value);
@@ -1282,6 +1280,9 @@ public class Parser {
                             break;
                         case "Полипропилен":
                             networkMaterials.add(NetworkMaterial.POLYPROPYLENE);
+                            break;
+                        case "Медь":
+                            networkMaterials.add(NetworkMaterial.COPPER);
                             break;
                         default:
                             throw new IllegalArgumentException(str);
