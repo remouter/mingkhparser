@@ -8,4 +8,6 @@ public enum LoadBearingWalls {
     REINFORCEDCONCRETE, //Стены железобетонные
     MIXED, //Смешанные
     PANEL, //Стены панельные
+    LARGEBLOCKSANDSINGLELAYERLOADBEARINGPANELS, //Стены из крупноразмерных блоков и однослойных несущих панелей
+
 }

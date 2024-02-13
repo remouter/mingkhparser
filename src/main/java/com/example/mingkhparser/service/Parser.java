@@ -679,6 +679,9 @@ public class Parser {
                     case "Рубероид":
                         roofType = RoofType.RUBEROID;
                         break;
+                    case "Рулонная по железобетонным плитам":
+                        roofType = RoofType.ROLLEDONREINFORCEDCONCRETESLABS;
+                        break;
                     default:
                         throw new IllegalArgumentException(value);
                 }
@@ -841,6 +844,9 @@ public class Parser {
                     case "Крупнопанельные":
                         wallMaterial = WallMaterial.PANEL;
                         break;
+                    case "Стены из крупноразмерных блоков и однослойных несущих панелей":
+                        wallMaterial = WallMaterial.LARGEBLOCKSANDSINGLELAYERLOADBEARINGPANELS;
+                        break;
                     default:
                         throw new IllegalArgumentException(value);
                 }
@@ -946,6 +952,9 @@ public class Parser {
                     case "Стены из несущих панелей":
                     case "Стены крупнопанельные":
                         wallMaterial = WallMaterial.PANEL;
+                        break;
+                    case "Стены из крупноразмерных блоков и однослойных несущих панелей":
+                        wallMaterial = WallMaterial.LARGEBLOCKSANDSINGLELAYERLOADBEARINGPANELS;
                         break;
                     default:
                         throw new IllegalArgumentException(value);
@@ -1688,6 +1697,9 @@ public class Parser {
                             case "Стены из несущих панелей":
                             case "Крупнопанельные":
                                 loadBearingWalls = LoadBearingWalls.PANEL;
+                                break;
+                            case "Стены из крупноразмерных блоков и однослойных несущих панелей":
+                                loadBearingWalls = LoadBearingWalls.LARGEBLOCKSANDSINGLELAYERLOADBEARINGPANELS;
                                 break;
                             default:
                                 throw new IllegalArgumentException(value);

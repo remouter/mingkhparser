@@ -12,4 +12,5 @@ public enum RoofType {
     METALWAVY, //Металлическая волнистая
     RUBEROID, //Рубероид
     CORRUGATEDSHEETSSLATE, //Волнистые листы, Шиферная
+    ROLLEDONREINFORCEDCONCRETESLABS, //Рулонная по железобетонным плитам
 }
