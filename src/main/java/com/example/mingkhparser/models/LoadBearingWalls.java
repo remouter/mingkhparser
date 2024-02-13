@@ -9,5 +9,7 @@ public enum LoadBearingWalls {
     PANEL, //Стены панельные
     LARGEBLOCKSANDSINGLELAYERLOADBEARINGPANELS, //Стены из крупноразмерных блоков и однослойных несущих панелей
     PREFABRICATEDPANELS, //сборно-щитовые
+    REINFORCEDCONCRETEBLOCK, //Ж/б блоки
+    REINFORCEDCONCRETESLABS, //Железобетонные плиты
 
 }

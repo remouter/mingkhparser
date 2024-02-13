@@ -12,4 +12,7 @@ public enum WallMaterial {
     FRAMEFILL, //Каркасно-засыпные
     ARBOLITEPANELS, //Арболитовые панели
     NULL, //null
+    GYPSOLITIC, //Гипсолитовые
+    REINFORCEDCONCRETEBLOCK, //Ж/б блоки
+    REINFORCEDCONCRETESLABS, //Железобетонные плиты
 }

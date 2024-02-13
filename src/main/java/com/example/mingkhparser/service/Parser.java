@@ -864,6 +864,12 @@ public class Parser {
                         case "Стены из крупноразмерных блоков и однослойных несущих панелей":
                             wallMaterials.add(WallMaterial.LARGEBLOCKSANDSINGLELAYERLOADBEARINGPANELS);
                             break;
+                        case "Ж/б блоки":
+                            wallMaterials.add(WallMaterial.REINFORCEDCONCRETEBLOCK);
+                            break;
+                        case "Железобетонные плиты":
+                            wallMaterials.add(WallMaterial.REINFORCEDCONCRETESLABS);
+                            break;
                         default:
                             throw new IllegalArgumentException(value);
                     }
@@ -997,6 +1003,9 @@ public class Parser {
                             break;
                         case "null":
                             wallMaterials.add(WallMaterial.NULL);
+                            break;
+                        case "Гипсолитовые":
+                            wallMaterials.add(WallMaterial.GYPSOLITIC);
                             break;
                         default:
                             throw new IllegalArgumentException(string);
@@ -1499,6 +1508,7 @@ public class Parser {
                                 case "дом":
                                 case "жилое":
                                 case "жилой дом":
+                                case "Жилой дом":
                                     materialTypes.add(MaterialType.HOUSERESIDENTIAL);
                                     break;
                                 case "информация отсутствует":
@@ -1513,6 +1523,7 @@ public class Parser {
                                     materialTypes.add(MaterialType.UNKNOWN);
                                     break;
                                 case "Панельный":
+                                case "панельный":
                                     materialTypes.add(MaterialType.PANEL);
                                     break;
                                 case "проект на строительство 06/13-с-ПЗ":
@@ -1625,6 +1636,9 @@ public class Parser {
                                 break;
                             case "баллонный газ":
                                 gasSupply = GasSupply.BOTTLEDGAS;
+                                break;
+                            case "Автономное":
+                                gasSupply = GasSupply.AUTONOMOUS;
                                 break;
                             default:
                                 throw new IllegalArgumentException(value);
@@ -1797,6 +1811,12 @@ public class Parser {
                                     break;
                                 case "Стены из крупноразмерных блоков и однослойных несущих панелей":
                                     loadBearingWalls.add(LoadBearingWalls.LARGEBLOCKSANDSINGLELAYERLOADBEARINGPANELS);
+                                    break;
+                                case "Ж/б блоки":
+                                    loadBearingWalls.add(LoadBearingWalls.REINFORCEDCONCRETEBLOCK);
+                                    break;
+                                case "Железобетонные плиты":
+                                    loadBearingWalls.add(LoadBearingWalls.REINFORCEDCONCRETESLABS);
                                     break;
                                 default:
                                     throw new IllegalArgumentException(str);
@@ -2018,6 +2038,7 @@ public class Parser {
                                 case "дом":
                                 case "жилой дом":
                                 case "жилое":
+                                case "Жилой дом":
                                     materialTypes.add(MaterialType.HOUSERESIDENTIAL);
                                     break;
                                 case "информация отсутствует":
@@ -2031,6 +2052,7 @@ public class Parser {
                                     materialTypes.add(MaterialType.UNKNOWN);
                                     break;
                                 case "Панельный":
+                                case "панельный":
                                     materialTypes.add(MaterialType.PANEL);
                                     break;
                                 case "проект на строительство 06/13-с-ПЗ":
@@ -2137,6 +2159,12 @@ public class Parser {
                                     break;
                                 case "Стены из крупноразмерных блоков и однослойных несущих панелей":
                                     wallMaterials.add(WallMaterial.LARGEBLOCKSANDSINGLELAYERLOADBEARINGPANELS);
+                                    break;
+                                case "Ж/б блоки":
+                                    wallMaterials.add(WallMaterial.REINFORCEDCONCRETEBLOCK);
+                                    break;
+                                case "Железобетонные плиты":
+                                    wallMaterials.add(WallMaterial.REINFORCEDCONCRETESLABS);
                                     break;
                                 default:
                                     throw new IllegalArgumentException(value);
