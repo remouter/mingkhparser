@@ -13,7 +13,7 @@ import java.util.Set;
 public class Facade {
     private Set<WallMaterial> outerWallsMaterials;
     private ExternalInsulationType externalInsulationType;
-    private FacadeFinishingMaterial facadeFinishingMaterial;
+    private Set<FacadeFinishingMaterial> facadeFinishingMaterials;
     private Double physicalDeterioration;
     private Integer lastOverhaulYear;
 }

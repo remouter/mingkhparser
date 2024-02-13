@@ -12,7 +12,7 @@ import java.util.Set;
 public class HotWaterSupplySystem {
     private Set<HotWaterSystemType> hotWaterSystemTypes;
     private Double physicalDeterioration;
-    private NetworkMaterial networkMaterial;
+    private Set<NetworkMaterial> networkMaterials;
     private NetworkThermalInsulationMaterial networkThermalInsulationMaterial;
     private RisersMaterial risersMaterial;
 

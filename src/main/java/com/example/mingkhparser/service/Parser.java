@@ -889,49 +889,51 @@ public class Parser {
                 facade.setExternalInsulationType(externalInsulationType);
                 break;
             case "Материал отделки фасада":
-                FacadeFinishingMaterial facadeFinishingMaterial;
-                switch (value) {
-                    case "без отделки":
-                    case "Нет":
-                        facadeFinishingMaterial = FacadeFinishingMaterial.WITHOUTFINISHING;
-                        break;
-                    case "окраска":
-                        facadeFinishingMaterial = FacadeFinishingMaterial.PAINTING;
-                        break;
-                    case "Иной":
-                        facadeFinishingMaterial = FacadeFinishingMaterial.OTHER;
-                        break;
-                    case "окраска по штукатурке":
-                        facadeFinishingMaterial = FacadeFinishingMaterial.PAINTINGONPLASTER;
-                        break;
-                    case "Штукатурка":
-                        facadeFinishingMaterial = FacadeFinishingMaterial.PLASTER;
-                        break;
-                    case "Обшивка тёсом":
-                        facadeFinishingMaterial = FacadeFinishingMaterial.PANELING;
-                        break;
-                    case "обшивочная доска окрашенная":
-                        facadeFinishingMaterial = FacadeFinishingMaterial.PANELINGPAINTING;
-                        break;
-                    case "обшивочная доска не окрашенная":
-                        facadeFinishingMaterial = FacadeFinishingMaterial.PANELINGUNPAINTING;
-                        break;
-                    case "Дерево":
-                        facadeFinishingMaterial = FacadeFinishingMaterial.WOOD;
-                        break;
-                    case "панель с заводской отделкой":
-                        facadeFinishingMaterial = FacadeFinishingMaterial.FACTORYFINISHED;
-                        break;
-                    case "Сайдинг":
-                        facadeFinishingMaterial = FacadeFinishingMaterial.SIDING;
-                        break;
-                    case "наружная облицовка кирпичом":
-                        facadeFinishingMaterial = FacadeFinishingMaterial.BRICK;
-                        break;
-                    default:
-                        throw new IllegalArgumentException(value);
+                Set<FacadeFinishingMaterial> facadeFinishingMaterials = new HashSet<>();
+                for (String str : value.split(", ")) {
+                    switch (str) {
+                        case "без отделки":
+                        case "Нет":
+                            facadeFinishingMaterials.add(FacadeFinishingMaterial.WITHOUTFINISHING);
+                            break;
+                        case "окраска":
+                            facadeFinishingMaterials.add(FacadeFinishingMaterial.PAINTING);
+                            break;
+                        case "Иной":
+                            facadeFinishingMaterials.add(FacadeFinishingMaterial.OTHER);
+                            break;
+                        case "окраска по штукатурке":
+                            facadeFinishingMaterials.add(FacadeFinishingMaterial.PAINTINGONPLASTER);
+                            break;
+                        case "Штукатурка":
+                            facadeFinishingMaterials.add(FacadeFinishingMaterial.PLASTER);
+                            break;
+                        case "Обшивка тёсом":
+                            facadeFinishingMaterials.add(FacadeFinishingMaterial.PANELING);
+                            break;
+                        case "обшивочная доска окрашенная":
+                            facadeFinishingMaterials.add(FacadeFinishingMaterial.PANELINGPAINTING);
+                            break;
+                        case "обшивочная доска не окрашенная":
+                            facadeFinishingMaterials.add(FacadeFinishingMaterial.PANELINGUNPAINTING);
+                            break;
+                        case "Дерево":
+                            facadeFinishingMaterials.add(FacadeFinishingMaterial.WOOD);
+                            break;
+                        case "панель с заводской отделкой":
+                            facadeFinishingMaterials.add(FacadeFinishingMaterial.FACTORYFINISHED);
+                            break;
+                        case "Сайдинг":
+                            facadeFinishingMaterials.add(FacadeFinishingMaterial.SIDING);
+                            break;
+                        case "наружная облицовка кирпичом":
+                            facadeFinishingMaterials.add(FacadeFinishingMaterial.BRICK);
+                            break;
+                        default:
+                            throw new IllegalArgumentException(str);
+                    }
                 }
-                facade.setFacadeFinishingMaterial(facadeFinishingMaterial);
+                facade.setFacadeFinishingMaterials(facadeFinishingMaterials);
                 break;
             case "Физический износ":
                 facade.setPhysicalDeterioration(Double.valueOf(value.split(" ")[0]));
@@ -1061,6 +1063,9 @@ public class Parser {
                         break;
                     case "Бутовый камень":
                         foundationMaterial = FoundationMaterial.RUBBLESTONE;
+                        break;
+                    case "Бетон":
+                        foundationMaterial = FoundationMaterial.CONCRETE;
                         break;
                     default:
                         throw new IllegalArgumentException(value);
@@ -1233,38 +1238,36 @@ public class Parser {
                 hotWaterSupplySystem.setPhysicalDeterioration(Double.valueOf(value.split(" ")[0]));
                 break;
             case "Материал сети":
-                NetworkMaterial networkMaterial;
-                switch (value) {
-                    case "Нет":
-                        networkMaterial = NetworkMaterial.NONE;
-                        break;
-                    case "Металлополимер":
-                        networkMaterial = NetworkMaterial.METALPOLYMER;
-                        break;
-                    case "Сталь оцинкованная, Нет":
-                        networkMaterial = NetworkMaterial.GALVANIZEDSTEELNONE;
-                        break;
-                    case "Чугун":
-                        networkMaterial = NetworkMaterial.CASTIRON;
-                        break;
-                    case "Сталь":
-                    case "Сталь черная":
-                        networkMaterial = NetworkMaterial.STEEL;
-                        break;
-                    case "Сталь оцинкованная, Полимер":
-                    case "Полимер, Сталь оцинкованная":
-                        networkMaterial = NetworkMaterial.GALVANIZEDSTEELPOLYMER;
-                        break;
-                    case "Сталь оцинкованная":
-                        networkMaterial = NetworkMaterial.GALVANIZEDSTEEL;
-                        break;
-                    case "Полипропилен":
-                        networkMaterial = NetworkMaterial.POLYPROPYLENE;
-                        break;
-                    default:
-                        throw new IllegalArgumentException(value);
+                Set<NetworkMaterial> networkMaterials = new HashSet<>();
+                for (String str : value.split(", ")) {
+                    switch (str) {
+                        case "Нет":
+                            networkMaterials.add(NetworkMaterial.NONE);
+                            break;
+                        case "Металлополимер":
+                            networkMaterials.add(NetworkMaterial.METALPOLYMER);
+                            break;
+                        case "Чугун":
+                            networkMaterials.add(NetworkMaterial.CASTIRON);
+                            break;
+                        case "Сталь":
+                        case "Сталь черная":
+                            networkMaterials.add(NetworkMaterial.STEEL);
+                            break;
+                        case "Полимер":
+                            networkMaterials.add(NetworkMaterial.POLYMER);
+                            break;
+                        case "Сталь оцинкованная":
+                            networkMaterials.add(NetworkMaterial.GALVANIZEDSTEEL);
+                            break;
+                        case "Полипропилен":
+                            networkMaterials.add(NetworkMaterial.POLYPROPYLENE);
+                            break;
+                        default:
+                            throw new IllegalArgumentException(str);
+                    }
                 }
-                hotWaterSupplySystem.setNetworkMaterial(networkMaterial);
+                hotWaterSupplySystem.setNetworkMaterials(networkMaterials);
                 break;
             case "Материал теплоизоляции сети":
                 NetworkThermalInsulationMaterial networkThermalInsulationMaterial;
@@ -1501,6 +1504,7 @@ public class Parser {
                                 case "нет информации":
                                 case "нет данных":
                                 case "нет сведений":
+                                case "информация отсутвует":
                                     materialTypes.add(MaterialType.UNKNOWN);
                                     break;
                                 case "Панельный":
@@ -1747,6 +1751,9 @@ public class Parser {
                             default:
                                 throw new IllegalArgumentException(value);
                         }
+                        break;
+                    case "Количество мусоропроводов, ед.":
+                        constructionElements.setGarbageChuteNumber(Integer.valueOf(value));
                         break;
                     case "Несущие стены":
                         Set<LoadBearingWalls> loadBearingWalls = new HashSet<>();
@@ -2000,6 +2007,7 @@ public class Parser {
                                     materialTypes.add(MaterialType.HOUSERESIDENTIAL);
                                     break;
                                 case "информация отсутствует":
+                                case "информация отсутвует":
                                 case "byajhvfwbz jncencndetn":
                                 case "информация отсутсвует":
                                 case "не известен":

@@ -12,6 +12,7 @@ import java.util.Set;
 @ToString
 public class ConstructionElements {
     private Boolean garbageChute;
+    private Integer garbageChuteNumber;
     private Set<LoadBearingWalls> loadBearingWalls;
     private Double basementArea;
     private Foundation foundation;
