@@ -7,6 +7,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @SpringBootApplication
 @Slf4j
@@ -28,25 +30,35 @@ public class Application implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         List<String> addresses = parser.getHouses("https://dom.mingkh.ru/ivanovskaya-oblast/furmanov/");
+//        addresses = processNext(addresses);
 
-//        int index = addresses.size();
-//        for (int i = 0; i < addresses.size(); i++) {
-//            if (addresses.get(i).equals("https://dom.mingkh.ru/ivanovskaya-oblast/furmanov/1004536")) {
-//                log.info("processed {}", i);
-//                index = i;
-//                break;
-//            }
-//        }
+        Long startTime = System.currentTimeMillis();
+        addresses.forEach(a -> parser.process(a)); //takes 61285 / 61.285 sec
+//        addresses.stream().parallel().forEach(a -> parser.process(a)); //takes 63532 / 63.532 sec
+//        executorService(addresses);
 
-        addresses = addresses.subList(0, addresses.size());
-        addresses.forEach(a -> parser.process(a)); //1218
+        Long endTime = System.currentTimeMillis();
+        log.trace("process takes: {}", endTime - startTime);
+    }
 
+    private List<String> processNext(final List<String> addresses) {
+        int index = addresses.size();
+        for (int i = 0; i < addresses.size(); i++) {
+            if (addresses.get(i).equals("https://dom.mingkh.ru/ivanovskaya-oblast/furmanov/1004536")) {
+                log.info("processed {}", i);
+                index = i;
+                break;
+            }
+        }
+        return addresses.subList(index, addresses.size());
+    }
 
-//        addresses.stream().parallel().forEach(a -> parser.process(a)); //683
-
-//        ExecutorService executorService = Executors.newFixedThreadPool(4);
-//        for (String s : addresses) {
-//            executorService.execute(() -> parser.process(s)); //748
-//        }
+    private void executorService(final List<String> addresses) {
+        //        ExecutorService executorService = Executors.newFixedThreadPool(4); //takes 77.31 sec
+        ExecutorService executorService = Executors.newFixedThreadPool(10); //takes 68.40 sec
+        for (String s : addresses) {
+            executorService.execute(() -> parser.process(s));
+        }
+        executorService.shutdown();
     }
 }
