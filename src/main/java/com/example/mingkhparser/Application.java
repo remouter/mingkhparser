@@ -1,11 +1,14 @@
 package com.example.mingkhparser;
 
+import com.example.mingkhparser.models.HouseInfo;
 import com.example.mingkhparser.service.Parser;
+import com.example.mingkhparser.service.XlsExportService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -17,10 +20,12 @@ public class Application implements CommandLineRunner {
         dom.mingkh.ru parser
      */
 
-    private Parser parser;
+    private final Parser parser;
+    private final XlsExportService exportService;
 
-    public Application(Parser parser) {
+    public Application(Parser parser, XlsExportService exportService) {
         this.parser = parser;
+        this.exportService = exportService;
     }
 
     public static void main(String[] args) {
@@ -29,7 +34,8 @@ public class Application implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        List<String> addresses = parser.getHouses("https://dom.mingkh.ru/ivanovskaya-oblast/furmanov/");
+//        List<String> addresses = parser.getHouses("https://dom.mingkh.ru/ivanovskaya-oblast/furmanov/");
+        List<String> addresses = Arrays.asList("https://dom.mingkh.ru/ivanovskaya-oblast/furmanov/1267290");
 //        addresses = processNext(addresses);
 
         Long startTime = System.currentTimeMillis();
@@ -38,6 +44,9 @@ public class Application implements CommandLineRunner {
 //        executorService(addresses);
 
         Long endTime = System.currentTimeMillis();
+        List<HouseInfo> result = parser.getResult();
+        log.info("result: {}", result);
+        exportService.test(result);
         log.trace("process takes: {}", endTime - startTime);
     }
 

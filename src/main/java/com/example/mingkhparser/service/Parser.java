@@ -58,6 +58,7 @@ import java.util.stream.IntStream;
 @Slf4j
 public class Parser {
     private static Integer COUNTER = 0;
+    private final List<HouseInfo> result = new ArrayList<>();
 
     private InputStream getInputStream(String url) {
         try {
@@ -95,6 +96,7 @@ public class Parser {
         setGeneralInfo(houseInfo, doc);
         setDetailedInfo(houseInfo, doc);
         setDetailedInfo2(houseInfo, doc);
+        result.add(houseInfo);
 
         log.info("houseInfo: {}", houseInfo);
     }
@@ -869,7 +871,7 @@ public class Parser {
                             wallMaterials.add(WallMaterial.REINFORCEDCONCRETEBLOCK);
                             break;
                         case "Железобетонные плиты":
-                            wallMaterials.add(WallMaterial.REINFORCEDCONCRETESLABS);
+                            wallMaterials.add(WallMaterial.LAMINATEDREINFORCEDCONCRETEPANELS);
                             break;
                         default:
                             throw new IllegalArgumentException(value);
@@ -2175,7 +2177,7 @@ public class Parser {
                                     wallMaterials.add(WallMaterial.REINFORCEDCONCRETEBLOCK);
                                     break;
                                 case "Железобетонные плиты":
-                                    wallMaterials.add(WallMaterial.REINFORCEDCONCRETESLABS);
+                                    wallMaterials.add(WallMaterial.LAMINATEDREINFORCEDCONCRETEPANELS);
                                     break;
                                 default:
                                     throw new IllegalArgumentException(value);
@@ -2220,5 +2222,9 @@ public class Parser {
                 }
             }
         }
+    }
+
+    public List<HouseInfo> getResult() {
+        return result;
     }
 }

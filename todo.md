@@ -3,5 +3,5 @@
 +++3. get list of all houses
 +++4. process all houses one by one
 +++performance check
-get list of houses / show final list
++++get list of houses / show final list
 to xls
