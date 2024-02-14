@@ -51,11 +51,11 @@ public class HouseInfo {
     private String cadastralNumber;
     private String oktmoCode;
     private String managementCompany;
-    private GeneralInfo generalInfo;
-    private EngineeringSystems engineeringSystems;
-    private ConstructionElements constructionElements;
-    private HotWaterSupplySystem hotWaterSupplySystem;
-    private DrainageSystem drainageSystem;
+    private GeneralInfo generalInfo; //Основные сведения
+    private EngineeringSystems engineeringSystems; //Инженерные системы
+    private ConstructionElements constructionElements; //Конструктивные элементы
+    private HotWaterSupplySystem hotWaterSupplySystem; //Cистема горячего водоснабжения
+    private DrainageSystem drainageSystem; //Система водоотведения
     private GasSupplySystem gasSupplySystem;
     private ElectricitySupplySystem electricitySupplySystem;
     private Foundation foundation;

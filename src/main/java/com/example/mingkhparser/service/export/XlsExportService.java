@@ -112,14 +112,14 @@ public class XlsExportService implements ExportService {
     }
 
     private void createHeader(final XSSFWorkbook workbook, final Row header) {
-        CellStyle headerStyle = workbook.createCellStyle();
-        headerStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
-        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-
         XSSFFont font = workbook.createFont();
         font.setFontName("Arial Narrow");
         font.setFontHeightInPoints((short) 16);
         font.setBold(true);
+
+        CellStyle headerStyle = workbook.createCellStyle();
+        headerStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
         headerStyle.setFont(font);
 
         int headerRowIndex = 0;
@@ -187,8 +187,138 @@ public class XlsExportService implements ExportService {
         headerCell.setCellValue("Управляющая компания");
         headerCell.setCellStyle(headerStyle);
 
-        CellStyle style = workbook.createCellStyle();
-        style.setWrapText(true);
+        //********************************Основные сведения**************************************
+        headerStyle = workbook.createCellStyle();
+        headerStyle.setFillForegroundColor(IndexedColors.BRIGHT_GREEN.getIndex());
+        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        headerStyle.setFont(font);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Год ввода в эксплуатацию");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Дом признан аварийным");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Состояние дома");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Количество квартир");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Количество нежилых помещений");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Количество лоджий");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Количество балконов");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Класс энергетической эффективности");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Количество подъездов");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Количество лифтов");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Наибольшее количество этажей");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Наименьшее количество этажей");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Подземных этажей");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Формирование фонда кап. ремонта");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Площадь парковки м2");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Наличие в подъездах приспособлений для нужд маломобильных групп населения");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Тип дома");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Износ здания, %");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Дата, на которую установлен износ здания");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Основание признания дома аварийным");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("лощадь многоквартирного дома, кв.м");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Площадь жилых помещений м2");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Площадь нежилых помещений м2");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Площадь помещений общего имущества м2");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Площадь зем. участка общего имущества м2");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Серия, тип постройки здания");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Статус объекта культурного наследия");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Дата документа о признании дома аварийным");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Номер документа о признании дома аварийным");
+        headerCell.setCellStyle(headerStyle);
+
+        //**********************Инженерные системы**********************
+        //Конструктивные элементы
+//        Cистема горячего водоснабжения
+//        Система водоотведения
+
+
+
+
+
+
     }
 
     private void createInfoBlock(XSSFWorkbook workbook, Row row, HouseInfo houseInfo) {
