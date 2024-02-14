@@ -1,4 +1,4 @@
-package com.example.mingkhparser.service;
+package com.example.mingkhparser.service.export;
 
 import com.example.mingkhparser.models.HouseInfo;
 
