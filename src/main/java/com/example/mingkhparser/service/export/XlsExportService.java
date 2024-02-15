@@ -12,6 +12,7 @@ import com.example.mingkhparser.models.engineeringsystems.EngineeringSystems;
 import com.example.mingkhparser.models.engineeringsystems.GuttersSystem;
 import com.example.mingkhparser.models.engineeringsystems.Ventilation;
 import com.example.mingkhparser.models.facade.Facade;
+import com.example.mingkhparser.models.facade.FacadeFinishingMaterial;
 import com.example.mingkhparser.models.floors.Floors;
 import com.example.mingkhparser.models.foundation.Foundation;
 import com.example.mingkhparser.models.gassupplysystem.GasSupplySystem;
@@ -24,6 +25,7 @@ import com.example.mingkhparser.models.heatingsystem.HeatingSystem;
 import com.example.mingkhparser.models.heatingsystemrisers.HeatingSystemRisers;
 import com.example.mingkhparser.models.hotwatersupplysystem.HotWaterSupplySystem;
 import com.example.mingkhparser.models.hotwatersupplysystem.HotWaterSystemType;
+import com.example.mingkhparser.models.hotwatersupplysystem.NetworkMaterial;
 import com.example.mingkhparser.models.hotwatersupplysystemrisers.HotWaterSupplySystemRisers;
 import com.example.mingkhparser.models.roof.Roof;
 import com.example.mingkhparser.models.shutoffvalves.coldwater.ShutoffValvesColdWaterSupplySystem;
@@ -1124,26 +1126,292 @@ public class XlsExportService implements ExportService {
         cell.setCellStyle(style);
 
         //******************************Cистема горячего водоснабжения******************************
+        HotWaterSupplySystem hotWaterSupplySystem = houseInfo.getHotWaterSupplySystem();
+        cell = row.createCell(cellRowIndex++);
+        String hotWaterSystemTypes1 = hotWaterSupplySystem
+                .getHotWaterSystemTypes()
+                .stream()
+                .map(HotWaterSystemType::getName)
+                .collect(Collectors.joining(", "));
+        cell.setCellValue(hotWaterSystemTypes1); //Тип системы горячего водоснабжения
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(hotWaterSupplySystem.getPhysicalDeterioration()); //Физический износ
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        String networkMaterials = hotWaterSupplySystem
+                .getNetworkMaterials()
+                .stream()
+                .map(NetworkMaterial::getName)
+                .collect(Collectors.joining(", "));
+        cell.setCellValue(networkMaterials); //Материал сети
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(hotWaterSupplySystem.getNetworkThermalInsulationMaterial().getName()); //Материал теплоизоляции сети
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(hotWaterSupplySystem.getRisersMaterial().getName()); //Материал стояков
+        cell.setCellStyle(style);
+
         //******************************Система водоотведения******************************
+        DrainageSystem drainageSystem = houseInfo.getDrainageSystem();
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(drainageSystem.getPhysicalDeterioration()); //Физический износ
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(drainageSystem.getLastOverhaulYear()); //Год проведения последнего капитального ремонта
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(drainageSystem.getDrainageSystemType().getName()); //Тип системы водоотведения
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(drainageSystem.getNetworkMaterial().getName()); //Материал сети
+        cell.setCellStyle(style);
+
         //******************************Система газоснабжения******************************
+        GasSupplySystem gasSupplySystem = houseInfo.getGasSupplySystem();
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(gasSupplySystem.getLastOverhaulYear()); //Год проведения последнего капитального ремонта
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(gasSupplySystem.getGasSupplySystemType().getName()); //Тип системы газоснабжения
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(gasSupplySystem.getGasSupplySystemInletsNumber()); //Количество вводов системы газоснабжения
+        cell.setCellStyle(style);
+
         //******************************Система электроснабжения******************************
+        ElectricitySupplySystem electricitySupplySystem = houseInfo.getElectricitySupplySystem();
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(electricitySupplySystem.getPhysicalDeterioration()); //Физический износ
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(electricitySupplySystem.getLastOverhaulYear()); //Год проведения последнего капитального ремонта
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(electricitySupplySystem.getPowerSupplyInputNumbers()); //Количество вводов системы электроснабжения
+        cell.setCellStyle(style);
+
         //******************************Фундамент******************************
+        Foundation foundation = houseInfo.getFoundation();
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(foundation.getFoundationType().getName()); //Тип фундамента
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(foundation.getFoundationMaterial().getName()); //Материал фундамента
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(foundation.getBlindArea()); //Площадь отмостки
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(foundation.getPhysicalDeterioration()); //Физический износ
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(foundation.getLastOverhaulYear()); //Год проведения последнего капитального ремонта
+        cell.setCellStyle(style);
+
         //******************************Внутренние стены******************************
+        InnerWalls innerWalls = houseInfo.getInnerWalls();
+        cell = row.createCell(cellRowIndex++);
+        String wallMaterials = innerWalls
+                .getWallMaterials()
+                .stream()
+                .map(WallMaterial::getName)
+                .collect(Collectors.joining(", "));
+        cell.setCellValue(wallMaterials); //Тип внутренних стен
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(innerWalls.getPhysicalDeterioration()); //Физический износ
+        cell.setCellStyle(style);
+
         //******************************Фасад******************************
+        Facade facade = houseInfo.getFacade();
+        cell = row.createCell(cellRowIndex++);
+        String outerWallsMaterials = facade.getOuterWallsMaterials()
+                .stream()
+                .map(WallMaterial::getName)
+                .collect(Collectors.joining(", "));
+        cell.setCellValue(outerWallsMaterials); //Тип наружных стен
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(facade.getExternalInsulationType().getName()); //Тип наружного утепления фасада
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        String facadeFinishingMaterials = facade.getFacadeFinishingMaterials()
+                .stream()
+                .map(FacadeFinishingMaterial::getName)
+                .collect(Collectors.joining(", "));
+        cell.setCellValue(facadeFinishingMaterials); //Материал отделки фасада
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(facade.getPhysicalDeterioration()); //Физический износ
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(facade.getLastOverhaulYear()); //Год проведения последнего капитального ремонта
+        cell.setCellStyle(style);
+
         //******************************Перекрытия******************************
+        Floors floors = houseInfo.getFloors();
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(floors.getFloorType().getName()); //Тип перекрытия
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(floors.getPhysicalDeterioration()); //Физический износ
+        cell.setCellStyle(style);
+
         //******************************Крыша******************************
+        Roof roof = houseInfo.getRoof();
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(roof.getRoofShape().getName()); //Форма крыши
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(roof.getInsulatingLayers().getName()); //Утепляющие слои чердачных перекрытий
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(roof.getBearingType().getName()); //Вид несущей части
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(roof.getRoofType().getName()); //Тип кровли
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(roof.getPhysicalDeterioration()); //Физический износ кровли
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(roof.getLastOverhaulYear()); //Год проведения последнего капитального ремонта кровли
+        cell.setCellStyle(style);
+
         //******************************Окна******************************
+        Windows windows = houseInfo.getWindows();
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(windows.getPhysicalDeterioration()); //Физический износ
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(windows.getWindowsType().getName()); //Материал окон
+        cell.setCellStyle(style);
+
         //******************************Двери******************************
+        Doors doors = houseInfo.getDoors();
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(doors.getPhysicalDeterioration()); //Физический износ
+        cell.setCellStyle(style);
+
         //******************************Отделочные покрытия помещений общего пользования******************************
+        CommonAreasFinishingCoatings commonAreasFinishingCoatings = houseInfo.getCommonAreasFinishingCoatings();
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(commonAreasFinishingCoatings.getPhysicalDeterioration()); //Физический износ
+        cell.setCellStyle(style);
+
         //******************************Система отопления******************************
+        HeatingSystem heatingSystem = houseInfo.getHeatingSystem();
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(heatingSystem.getPhysicalDeterioration()); //Физический износ
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(heatingSystem.getNetworkMaterial().getName()); //Материал сети
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(heatingSystem.getThermalInsulationMaterial().getName()); //Материал теплоизоляции сети
+        cell.setCellStyle(style);
+
         //******************************Стояки системы отопления******************************
+        HeatingSystemRisers heatingSystemRisers = houseInfo.getHeatingSystemRisers();
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(heatingSystemRisers.getPhysicalDeterioration()); //Физический износ
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(heatingSystemRisers.getApartmentWiringType().getName()); //Тип поквартирной разводки внутридомовой системы отопления
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(heatingSystemRisers.getMaterialType().getName()); //Материал
+        cell.setCellStyle(style);
+
         //******************************Запорная арматура системы отопления******************************
+        ShutoffValvesHeatingSystem shutoffValvesHeatingSystem = houseInfo.getShutoffValvesHeatingSystem();
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(shutoffValvesHeatingSystem.getPhysicalDeterioration()); //Физический износ
+        cell.setCellStyle(style);
+
         //******************************Отопительные приборы******************************
+        HeatingDevices heatingDevices = houseInfo.getHeatingDevices();
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(heatingDevices.getPhysicalDeterioration()); //Физический износ
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(heatingDevices.getHeatingDevicesType().getName()); //Тип отопительных приборов
+        cell.setCellStyle(style);
+
         //******************************Система холодного водоснабжения******************************
+        ColdWaterSystem coldWaterSystem = houseInfo.getColdWaterSystem();
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(coldWaterSystem.getPhysicalDeterioration()); //Физический износ
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        String networkMaterial = coldWaterSystem.getNetworkMaterials()
+                .stream().map(com.example.mingkhparser.models.coldwatersystem.NetworkMaterial::getName)
+                .collect(Collectors.joining(", "));
+        cell.setCellValue(networkMaterial); //Материал сети
+        cell.setCellStyle(style);
+
         //******************************Стояки системы холодного водоснабжения******************************
+        ColdWaterSupplySystemRisers coldWaterSupplySystemRisers = houseInfo.getColdWaterSupplySystemRisers();
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(coldWaterSupplySystemRisers.getPhysicalDeterioration()); //Физический износ
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(coldWaterSupplySystemRisers.getNetworkMaterial().getName()); //Материал сети
+        cell.setCellStyle(style);
+
         //******************************Запорная арматура системы холодного водоснабжения******************************
+        ShutoffValvesColdWaterSupplySystem shutoffValvesColdWaterSupplySystem = houseInfo.getShutoffValvesColdWaterSupplySystem();
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(shutoffValvesColdWaterSupplySystem.getPhysicalDeterioration()); //Физический износ
+        cell.setCellStyle(style);
+
         //******************************Стояки системы горячего водоснабжения******************************
+        HotWaterSupplySystemRisers hotWaterSupplySystemRisers = houseInfo.getHotWaterSupplySystemRisers();
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(hotWaterSupplySystemRisers.getPhysicalDeterioration()); //Физический износ
+        cell.setCellStyle(style);
+
         //******************************Запорная арматура системы горячего водоснабжения******************************
+        ShutoffValvesHotWaterSupplySystem shutoffValvesHotWaterSupplySystem = houseInfo.getShutoffValvesHotWaterSupplySystem();
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(shutoffValvesHotWaterSupplySystem.getPhysicalDeterioration()); //Физический износ
+        cell.setCellStyle(style);
     }
 
     private void saveFile(XSSFWorkbook workbook) throws IOException {

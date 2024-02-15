@@ -329,7 +329,6 @@ public class Parser {
                 break;
             case "Тип отопительных приборов":
                 HeatingDevicesType heatingDevicesType;
-                //todo add list of enums
                 switch (value) {
                     case "Радиатор":
                         heatingDevicesType = HeatingDevicesType.RADIATOR;
@@ -497,7 +496,7 @@ public class Parser {
                         thermalInsulationMaterial = ThermalInsulationMaterial.ASBESTOSUNDERWOODENBASE;
                         break;
                     case "Полимер, Сталь оцинкованная":
-                        thermalInsulationMaterial = ThermalInsulationMaterial.ASBESTOSUNDERWOODENBASE;
+                        thermalInsulationMaterial = ThermalInsulationMaterial.POLYMERGALVANIZEDSTEEL;
                         break;
                     case "Пенополиуретановое напыление":
                         thermalInsulationMaterial = ThermalInsulationMaterial.POLYURETHANEFOAMSPRAYING;
@@ -602,8 +601,6 @@ public class Parser {
                 InsulatingLayers insulatingLayers;
                 switch (value) {
                     case "Керамзит или шлак":
-                    case "Керамзит или шлак, нет":
-                    case "нет, Керамзит или шлак":
                         insulatingLayers = InsulatingLayers.EXPANDEDCLAYSLAG;
                         break;
                     case "Минеральная вата":
@@ -637,7 +634,6 @@ public class Parser {
                         bearingType = BearingType.NONE;
                         break;
                     case "Совмещенные из сборных железобетонных слоистых панелей":
-                    case "Совмещенные из сборных железобетонных слоистых панелей, Нет":
                     case "Железобетонная совмещенная":
                         bearingType = BearingType.COMBINEDPRECASTCONCRETELAMINATEDPANELS;
                         break;
@@ -1322,16 +1318,14 @@ public class Parser {
                         risersMaterial = RisersMaterial.CASTIRON;
                         break;
                     case "Сталь черная":
-                        risersMaterial = RisersMaterial.BLACKSTEEL;
+                    case "Сталь":
+                        risersMaterial = RisersMaterial.STEEL;
                         break;
                     case "Сталь, Полипропилен":
                         risersMaterial = RisersMaterial.STEELPOLYPROPYLENE;
                         break;
                     case "Полимер":
                         risersMaterial = RisersMaterial.POLYMER;
-                        break;
-                    case "Сталь":
-                        risersMaterial = RisersMaterial.STEEL;
                         break;
                     case "Полимер, Сталь оцинкованная":
                         risersMaterial = RisersMaterial.POLYMERGALVANIZEDSTEEL;

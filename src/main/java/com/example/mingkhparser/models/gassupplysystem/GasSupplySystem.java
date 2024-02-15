@@ -1,6 +1,5 @@
 package com.example.mingkhparser.models.gassupplysystem;
 
-import com.example.mingkhparser.models.gassupplysystem.GasSupplySystemType;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

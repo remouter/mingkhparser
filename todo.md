@@ -14,4 +14,7 @@ setDetailedInfo2(houseInfo, doc);
 export one house entirely
 export one by one
 
-todo remove
++++::name => ::getName
++++.name() => getName
+Utils - Integer.valueOf ...
+todo enum sets
