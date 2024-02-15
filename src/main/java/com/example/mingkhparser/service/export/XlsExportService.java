@@ -1,8 +1,18 @@
 package com.example.mingkhparser.service.export;
 
 import com.example.mingkhparser.models.HouseInfo;
+import com.example.mingkhparser.models.LoadBearingWalls;
 import com.example.mingkhparser.models.WallMaterial;
+import com.example.mingkhparser.models.constructionelements.ConstructionElements;
+import com.example.mingkhparser.models.engineeringsystems.ElectricitySupply;
+import com.example.mingkhparser.models.engineeringsystems.EngineeringSystems;
+import com.example.mingkhparser.models.engineeringsystems.GuttersSystem;
+import com.example.mingkhparser.models.engineeringsystems.Ventilation;
+import com.example.mingkhparser.models.generalinfo.EnergyEfficiencyClass;
+import com.example.mingkhparser.models.generalinfo.GeneralInfo;
 import com.example.mingkhparser.models.generalinfo.MaterialType;
+import com.example.mingkhparser.models.generalinfo.RepairFormation;
+import com.example.mingkhparser.models.hotwatersupplysystem.HotWaterSystemType;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFFont;
@@ -262,6 +272,14 @@ public class XlsExportService implements ExportService {
         headerCell.setCellStyle(headerStyle);
 
         headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Дата документа о признании дома аварийным");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Номер документа о признании дома аварийным");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
         headerCell.setCellValue("Износ здания, %");
         headerCell.setCellStyle(headerStyle);
 
@@ -274,7 +292,7 @@ public class XlsExportService implements ExportService {
         headerCell.setCellStyle(headerStyle);
 
         headerCell = header.createCell(headerRowIndex++);
-        headerCell.setCellValue("лощадь многоквартирного дома, кв.м");
+        headerCell.setCellValue("Площадь многоквартирного дома, кв.м");
         headerCell.setCellStyle(headerStyle);
 
         headerCell = header.createCell(headerRowIndex++);
@@ -301,24 +319,89 @@ public class XlsExportService implements ExportService {
         headerCell.setCellValue("Статус объекта культурного наследия");
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
-        headerCell.setCellValue("Дата документа о признании дома аварийным");
-        headerCell.setCellStyle(headerStyle);
-
-        headerCell = header.createCell(headerRowIndex++);
-        headerCell.setCellValue("Номер документа о признании дома аварийным");
-        headerCell.setCellStyle(headerStyle);
-
         //**********************Инженерные системы**********************
-        //Конструктивные элементы
-//        Cистема горячего водоснабжения
-//        Система водоотведения
+        headerStyle = workbook.createCellStyle();
+        headerStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        headerStyle.setFont(font);
 
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Вентиляция");
+        headerCell.setCellStyle(headerStyle);
 
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Водоотведение");
+        headerCell.setCellStyle(headerStyle);
 
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Система водостоков");
+        headerCell.setCellStyle(headerStyle);
 
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Газоснабжение");
+        headerCell.setCellStyle(headerStyle);
 
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Горячее водоснабжение");
+        headerCell.setCellStyle(headerStyle);
 
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Система пожаротушения");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Теплоснабжение");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Холодное водоснабжение");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Электроснабжение");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Количество вводов в дом, ед.");
+        headerCell.setCellStyle(headerStyle);
+
+        //******************************Конструктивные элементы***********************
+        headerStyle = workbook.createCellStyle();
+        headerStyle.setFillForegroundColor(IndexedColors.BRIGHT_GREEN.getIndex());
+        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        headerStyle.setFont(font);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Мусоропровод");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Количество мусоропроводов, ед.");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Несущие стены");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Площадь подвала, кв.м");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Фундамент");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Перекрытия");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Вид услуги (работы)");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Подъезд");
+        headerCell.setCellStyle(headerStyle);
     }
 
     private void createInfoBlock(XSSFWorkbook workbook, Row row, HouseInfo houseInfo) {
@@ -403,6 +486,278 @@ public class XlsExportService implements ExportService {
 
         cell = row.createCell(cellRowIndex++);
         cell.setCellValue(houseInfo.getManagementCompany()); //Управляющая компания
+        cell.setCellStyle(style);
+
+//        ****************Основные сведения
+        GeneralInfo generalInfo = houseInfo.getGeneralInfo();
+        cell = row.createCell(cellRowIndex++);
+        Integer year1 = generalInfo.getYear();
+        if (year1 != null) {
+            cell.setCellValue(year1); //Год ввода в эксплуатацию
+        }
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(generalInfo.getIsEmergency() ? "Да" : "Нет"); //Дом признан аварийным
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(generalInfo.getHouseCondition().getName()); //Состояние дома
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(generalInfo.getApartmentsCount()); //Количество квартир
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        Integer nonResidentialPremises = generalInfo.getNonResidentialPremises();
+        if (nonResidentialPremises != null) {
+            cell.setCellValue(nonResidentialPremises); //Количество нежилых помещений
+        }
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        Integer loggiasNumber = generalInfo.getLoggiasNumber();
+        if (loggiasNumber != null) {
+            cell.setCellValue(loggiasNumber); //Количество лоджий
+        }
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        Integer balconyNumber = generalInfo.getBalconyNumber();
+        if (balconyNumber != null) {
+            cell.setCellValue(balconyNumber); //Количество балконов
+        }
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        EnergyEfficiencyClass energyEfficiencyClass = generalInfo.getEnergyEfficiencyClass();
+        if (energyEfficiencyClass != null) {
+            cell.setCellValue(energyEfficiencyClass.getName()); //Класс энергетической эффективности
+        }
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(generalInfo.getNumberOfEntrances()); //Количество подъездов
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        Integer elevatorsNumber = generalInfo.getElevatorsNumber();
+        if (elevatorsNumber != null) {
+            cell.setCellValue(elevatorsNumber); //Количество лифтов
+        }
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        Integer maxFloor = generalInfo.getMaxFloor();
+        if (maxFloor != null) {
+            cell.setCellValue(maxFloor); //Наибольшее количество этажей
+        }
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        Integer minFloor = generalInfo.getMinFloor();
+        if (minFloor != null) {
+            cell.setCellValue(minFloor); //Наименьшее количество этажей
+        }
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        Integer undergroundFloors = generalInfo.getUndergroundFloors();
+        if (undergroundFloors != null) {
+            cell.setCellValue(undergroundFloors); //Подземных этажей
+        }
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        RepairFormation repairFormation = generalInfo.getRepairFormation();
+        if (repairFormation != null) {
+            cell.setCellValue(repairFormation.getName()); //Формирование фонда кап. ремонта
+        }
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        Double parkingArea = generalInfo.getParkingArea();
+        if (parkingArea != null) {
+            cell.setCellValue(parkingArea); //Площадь парковки м2
+        }
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(generalInfo.getDisablePeopleDevices() ? "Нет" : "Да"); //Наличие в подъездах приспособлений для нужд маломобильных групп населения
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(generalInfo.getHouseType().getName()); //Тип дома
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(generalInfo.getEmergencyDate()); //Дата документа о признании дома аварийным
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(generalInfo.getEmergencyDocumentNumber()); //Номер документа о признании дома аварийным"
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        Double wearOfBuilding = generalInfo.getWearOfBuilding();
+        if (wearOfBuilding != null) {
+            cell.setCellValue(wearOfBuilding); //Износ здания, %
+        }
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(generalInfo.getWearCalculationDate()); //Дата, на которую установлен износ здания
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(generalInfo.getUnsafeRecognizingReason()); //Основание признания дома аварийным
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(generalInfo.getBuildingSquare()); //Площадь многоквартирного дома, кв.м
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(generalInfo.getBuildingResidentialSquare()); //Площадь жилых помещений м2
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(generalInfo.getBuildingNonResidentialSquare()); //Площадь нежилых помещений м2
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        Double buildingCommonPropertySquare = generalInfo.getBuildingCommonPropertySquare();
+        if (buildingCommonPropertySquare != null) {
+            cell.setCellValue(buildingCommonPropertySquare); //Площадь помещений общего имущества м2
+        }
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        Double landCommonPropertySquare = generalInfo.getLandCommonPropertySquare();
+        if (landCommonPropertySquare != null) {
+            cell.setCellValue(landCommonPropertySquare); //Площадь зем. участка общего имущества м2
+        }
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        String materialTYpes = generalInfo
+                .getMaterialTypes()
+                .stream()
+                .map(MaterialType::getName)
+                .collect(Collectors.joining(", "));
+        cell.setCellValue(materialTYpes); //Серия, тип постройки здания
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(generalInfo.getIsCulturalHeritage() ? "Да" : "Нет"); //Статус объекта культурного наследия
+        cell.setCellStyle(style);
+
+        //Инженерные системы
+        EngineeringSystems engineeringSystems = houseInfo.getEngineeringSystems();
+        cell = row.createCell(cellRowIndex++);
+        Ventilation ventilation = engineeringSystems.getVentilation();
+        if (ventilation != null) {
+            cell.setCellValue(ventilation.getName()); //Вентиляция
+        }
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(engineeringSystems.getWaterDisposal().getName()); //Водоотведение
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        GuttersSystem guttersSystem = engineeringSystems.getGuttersSystem();
+        if (guttersSystem != null) {
+            cell.setCellValue(guttersSystem.getName()); //Система водостоков
+        }
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(engineeringSystems.getGasSupply().getName()); //Газоснабжение
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        String hotWaterSystemTypes = engineeringSystems
+                .getHotWaterSystemTypes()
+                .stream()
+                .map(HotWaterSystemType::getName)
+                .collect(Collectors.joining(", "));
+        cell.setCellValue(hotWaterSystemTypes); //Горячее водоснабжение
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        Boolean fireExtinguishingSystem = engineeringSystems.getFireExtinguishingSystem();
+        if (fireExtinguishingSystem != null) {
+            cell.setCellValue(fireExtinguishingSystem ? "Да" : "Нет"); //Система пожаротушения
+        }
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(engineeringSystems.getHeatSupply().getName()); //Теплоснабжение
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(engineeringSystems.getColdWaterSupply().getName()); //Холодное водоснабжение
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        ElectricitySupply electricitySupply = engineeringSystems.getElectricitySupply();
+        if (electricitySupply != null) {
+            cell.setCellValue(electricitySupply.getName()); //Электроснабжение
+        }
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(engineeringSystems.getNumberOfEntriesIntoHouse()); //Количество вводов в дом, ед.
+        cell.setCellStyle(style);
+
+        //********************************Конструктивные элементы
+        ConstructionElements constructionElements = houseInfo.getConstructionElements();
+        cell = row.createCell(cellRowIndex++);
+        Boolean garbageChute1 = constructionElements.getGarbageChute();
+        if (garbageChute1 != null) {
+            cell.setCellValue(garbageChute1 ? "Да" : "Нет"); //Мусоропровод
+        }
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        Integer garbageChuteNumber = constructionElements.getGarbageChuteNumber();
+        if (garbageChuteNumber != null) {
+            cell.setCellValue(garbageChuteNumber); //Количество мусоропроводов, ед.
+        }
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        String loadBearingWalls = constructionElements
+                .getLoadBearingWalls()
+                .stream()
+                .map(LoadBearingWalls::getName)
+                .collect(Collectors.joining(", "));
+        cell.setCellValue(loadBearingWalls); //Несущие стены
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        Double basementArea = constructionElements.getBasementArea();
+        if (basementArea != null) {
+            cell.setCellValue(basementArea); //Площадь подвала, кв.м
+        }
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(constructionElements.getFoundation().getName()); //Фундамент
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(constructionElements.getFloorType().getName()); //Перекрытия
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(""); //Вид услуги (работы) //todo remove me
+        cell.setCellStyle(style);
+
+        cell = row.createCell(cellRowIndex++);
+        cell.setCellValue(""); //Подъезд //todo remove me
         cell.setCellStyle(style);
     }
 

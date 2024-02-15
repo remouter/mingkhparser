@@ -6,7 +6,10 @@
 +++get list of houses / show final list
 to xls
 +++setInfo
-setGeneralInfo(houseInfo, doc);
++++setGeneralInfoEngineeringSystemsConstructionElements(houseInfo, doc);
 
 setDetailedInfo(houseInfo, doc);
 setDetailedInfo2(houseInfo, doc);
+
+export one house entirely
+export one by one

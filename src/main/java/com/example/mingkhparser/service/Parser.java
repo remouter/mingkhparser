@@ -1755,7 +1755,7 @@ public class Parser {
                                 coldWaterSupply = ColdWaterSupply.NONE;
                                 break;
                             case "Автономное":
-                                coldWaterSupply = ColdWaterSupply.NONE;
+                                coldWaterSupply = ColdWaterSupply.AUTONOMOUS;
                                 break;
                             default:
                                 throw new IllegalArgumentException(value);

@@ -1,7 +1,8 @@
 package com.example.mingkhparser.models.generalinfo;
 
 public enum HouseType {
-    MANYAPPARTMENTS("Многоквартирный дом");
+    MANYAPPARTMENTS("Многоквартирный дом")
+    ;
 
     private String name;
 
