@@ -93,7 +93,7 @@ public class Parser {
         HouseInfo houseInfo = new HouseInfo();
 
         setInfo(houseInfo, doc);
-        setGeneralInfo(houseInfo, doc);
+        setGeneralInfoEngineeringSystemsConstructionElements(houseInfo, doc);
         setDetailedInfo(houseInfo, doc);
         setDetailedInfo2(houseInfo, doc);
         result.add(houseInfo);
@@ -1355,7 +1355,7 @@ public class Parser {
         }
     }
 
-    private static void setGeneralInfo(HouseInfo houseInfo, Document doc) {
+    private static void setGeneralInfoEngineeringSystemsConstructionElements(HouseInfo houseInfo, Document doc) {
         GeneralInfo generalInfo = new GeneralInfo();
         EngineeringSystems engineeringSystems = new EngineeringSystems();
         ConstructionElements constructionElements = new ConstructionElements();
@@ -1401,6 +1401,9 @@ public class Parser {
                     case "Количество нежилых помещений":
                         generalInfo.setNonResidentialPremises(Integer.valueOf(value));
                         break;
+                    case "Количество лоджий":
+                        generalInfo.setLoggiasNumber(Integer.valueOf(value));
+                        break;
                     case "Количество балконов":
                         generalInfo.setBalconyNumber(Integer.valueOf(value));
                         break;
@@ -1418,6 +1421,9 @@ public class Parser {
                         break;
                     case "Количество подъездов":
                         generalInfo.setNumberOfEntrances(Integer.valueOf(value));
+                        break;
+                    case "Количество лифтов":
+                        generalInfo.setElevatorsNumber(Integer.valueOf(value));
                         break;
                     case "Наибольшее количество этажей":
                         generalInfo.setMaxFloor(Integer.valueOf(value));
@@ -1912,12 +1918,6 @@ public class Parser {
                     case "Подъезд":
                         //todo skip - https://dom.mingkh.ru/ivanovskaya-oblast/furmanov/92788
                         //todo skip - https://dom.mingkh.ru/ivanovskaya-oblast/furmanov/1148044
-                        break;
-                    case "Количество лоджий":
-                        generalInfo.setLoggiasNumber(Integer.valueOf(value));
-                        break;
-                    case "Количество лифтов":
-                        generalInfo.setElevatorsNumber(Integer.valueOf(value));
                         break;
                     default:
                         throw new IllegalArgumentException(tag);

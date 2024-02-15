@@ -5,3 +5,8 @@
 +++performance check
 +++get list of houses / show final list
 to xls
++++setInfo
+setGeneralInfo(houseInfo, doc);
+
+setDetailedInfo(houseInfo, doc);
+setDetailedInfo2(houseInfo, doc);

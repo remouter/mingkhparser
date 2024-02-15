@@ -28,6 +28,8 @@ public class GeneralInfo {
     private Double parkingArea;
     private Boolean disablePeopleDevices;
     private HouseType houseType;
+    private LocalDate emergencyDate;
+    private String emergencyDocumentNumber;
     private Double wearOfBuilding;
     private LocalDate wearCalculationDate;
     private String unsafeRecognizingReason;
@@ -38,6 +40,4 @@ public class GeneralInfo {
     private Double landCommonPropertySquare;
     private Set<MaterialType> materialTypes;
     private Boolean isCulturalHeritage;
-    private LocalDate emergencyDate;
-    private String emergencyDocumentNumber;
 }
