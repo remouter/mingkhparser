@@ -1,18 +1,35 @@
 package com.example.mingkhparser.service.export;
 
-import com.example.mingkhparser.models.HouseInfo;
-import com.example.mingkhparser.models.LoadBearingWalls;
-import com.example.mingkhparser.models.WallMaterial;
+import com.example.mingkhparser.models.*;
+import com.example.mingkhparser.models.coldwatersupplysystemrisers.ColdWaterSupplySystemRisers;
+import com.example.mingkhparser.models.coldwatersystem.ColdWaterSystem;
 import com.example.mingkhparser.models.constructionelements.ConstructionElements;
+import com.example.mingkhparser.models.doors.Doors;
+import com.example.mingkhparser.models.drainagesystem.DrainageSystem;
+import com.example.mingkhparser.models.electricitysupplysystem.ElectricitySupplySystem;
 import com.example.mingkhparser.models.engineeringsystems.ElectricitySupply;
 import com.example.mingkhparser.models.engineeringsystems.EngineeringSystems;
 import com.example.mingkhparser.models.engineeringsystems.GuttersSystem;
 import com.example.mingkhparser.models.engineeringsystems.Ventilation;
+import com.example.mingkhparser.models.facade.Facade;
+import com.example.mingkhparser.models.floors.Floors;
+import com.example.mingkhparser.models.foundation.Foundation;
+import com.example.mingkhparser.models.gassupplysystem.GasSupplySystem;
 import com.example.mingkhparser.models.generalinfo.EnergyEfficiencyClass;
 import com.example.mingkhparser.models.generalinfo.GeneralInfo;
 import com.example.mingkhparser.models.generalinfo.MaterialType;
 import com.example.mingkhparser.models.generalinfo.RepairFormation;
+import com.example.mingkhparser.models.heatingdevices.HeatingDevices;
+import com.example.mingkhparser.models.heatingsystem.HeatingSystem;
+import com.example.mingkhparser.models.heatingsystemrisers.HeatingSystemRisers;
+import com.example.mingkhparser.models.hotwatersupplysystem.HotWaterSupplySystem;
 import com.example.mingkhparser.models.hotwatersupplysystem.HotWaterSystemType;
+import com.example.mingkhparser.models.hotwatersupplysystemrisers.HotWaterSupplySystemRisers;
+import com.example.mingkhparser.models.roof.Roof;
+import com.example.mingkhparser.models.shutoffvalves.coldwater.ShutoffValvesColdWaterSupplySystem;
+import com.example.mingkhparser.models.shutoffvalves.heating.ShutoffValvesHeatingSystem;
+import com.example.mingkhparser.models.shutoffvalves.hotwater.ShutoffValvesHotWaterSupplySystem;
+import com.example.mingkhparser.models.windows.Windows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFFont;
@@ -402,6 +419,352 @@ public class XlsExportService implements ExportService {
         headerCell = header.createCell(headerRowIndex++);
         headerCell.setCellValue("Подъезд");
         headerCell.setCellStyle(headerStyle);
+
+        //******************************Cистема горячего водоснабжения******************************
+        headerStyle = workbook.createCellStyle();
+        headerStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        headerStyle.setFont(font);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Тип системы горячего водоснабжения");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Физический износ");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Материал сети");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Материал теплоизоляции сети");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Материал стояков");
+        headerCell.setCellStyle(headerStyle);
+
+        //******************************Система водоотведения******************************
+        headerStyle = workbook.createCellStyle();
+        headerStyle.setFillForegroundColor(IndexedColors.BRIGHT_GREEN.getIndex());
+        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        headerStyle.setFont(font);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Физический износ");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Год проведения последнего капитального ремонта");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Тип системы водоотведения");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Материал сети");
+        headerCell.setCellStyle(headerStyle);
+
+        //******************************Система газоснабжения******************************
+        headerStyle = workbook.createCellStyle();
+        headerStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        headerStyle.setFont(font);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Год проведения последнего капитального ремонта");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Тип системы газоснабжения");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Количество вводов системы газоснабжения");
+        headerCell.setCellStyle(headerStyle);
+
+        //******************************Система электроснабжения******************************
+        headerStyle = workbook.createCellStyle();
+        headerStyle.setFillForegroundColor(IndexedColors.BRIGHT_GREEN.getIndex());
+        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        headerStyle.setFont(font);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Физический износ");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Год проведения последнего капитального ремонта");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Количество вводов системы электроснабжения");
+        headerCell.setCellStyle(headerStyle);
+
+        //******************************Фундамент******************************
+        headerStyle = workbook.createCellStyle();
+        headerStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        headerStyle.setFont(font);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Тип фундамента");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Материал фундамента");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Площадь отмостки");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Физический износ");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Год проведения последнего капитального ремонта");
+        headerCell.setCellStyle(headerStyle);
+
+        //******************************Внутренние стены******************************
+        headerStyle = workbook.createCellStyle();
+        headerStyle.setFillForegroundColor(IndexedColors.BRIGHT_GREEN.getIndex());
+        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        headerStyle.setFont(font);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Тип внутренних стен");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Физический износ");
+        headerCell.setCellStyle(headerStyle);
+
+        //******************************Фасад******************************
+        headerStyle = workbook.createCellStyle();
+        headerStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        headerStyle.setFont(font);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Тип наружных стен");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Тип наружного утепления фасада");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Материал отделки фасада");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Физический износ");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Год проведения последнего капитального ремонта");
+        headerCell.setCellStyle(headerStyle);
+
+        //******************************Перекрытия******************************
+        headerStyle = workbook.createCellStyle();
+        headerStyle.setFillForegroundColor(IndexedColors.BRIGHT_GREEN.getIndex());
+        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        headerStyle.setFont(font);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Тип перекрытия");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Физический износ");
+        headerCell.setCellStyle(headerStyle);
+
+        //******************************Крыша******************************
+        headerStyle = workbook.createCellStyle();
+        headerStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        headerStyle.setFont(font);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Форма крыши");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Утепляющие слои чердачных перекрытий");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Вид несущей части");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Тип кровли");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Физический износ кровли");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Год проведения последнего капитального ремонта кровли");
+        headerCell.setCellStyle(headerStyle);
+
+        //******************************Окна******************************
+        headerStyle = workbook.createCellStyle();
+        headerStyle.setFillForegroundColor(IndexedColors.BRIGHT_GREEN.getIndex());
+        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        headerStyle.setFont(font);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Физический износ");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Материал окон");
+        headerCell.setCellStyle(headerStyle);
+
+        //******************************Двери******************************
+        headerStyle = workbook.createCellStyle();
+        headerStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        headerStyle.setFont(font);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Физический износ");
+        headerCell.setCellStyle(headerStyle);
+
+        //******************************Отделочные покрытия помещений общего пользования******************************
+        headerStyle = workbook.createCellStyle();
+        headerStyle.setFillForegroundColor(IndexedColors.BRIGHT_GREEN.getIndex());
+        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        headerStyle.setFont(font);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Физический износ");
+        headerCell.setCellStyle(headerStyle);
+
+        //******************************Система отопления******************************
+        headerStyle = workbook.createCellStyle();
+        headerStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        headerStyle.setFont(font);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Физический износ");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Материал сети");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Материал теплоизоляции сети");
+        headerCell.setCellStyle(headerStyle);
+
+        //******************************Стояки системы отопления******************************
+        headerStyle = workbook.createCellStyle();
+        headerStyle.setFillForegroundColor(IndexedColors.BRIGHT_GREEN.getIndex());
+        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        headerStyle.setFont(font);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Физический износ");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Тип поквартирной разводки внутридомовой системы отопления");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Материал");
+        headerCell.setCellStyle(headerStyle);
+
+        //******************************Запорная арматура системы отопления******************************
+        headerStyle = workbook.createCellStyle();
+        headerStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        headerStyle.setFont(font);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Физический износ");
+        headerCell.setCellStyle(headerStyle);
+
+        //******************************Отопительные приборы******************************
+        headerStyle = workbook.createCellStyle();
+        headerStyle.setFillForegroundColor(IndexedColors.BRIGHT_GREEN.getIndex());
+        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        headerStyle.setFont(font);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Физический износ");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Тип отопительных приборов");
+        headerCell.setCellStyle(headerStyle);
+
+        //******************************Система холодного водоснабжения******************************
+        headerStyle = workbook.createCellStyle();
+        headerStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        headerStyle.setFont(font);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Физический износ");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Материал сети");
+        headerCell.setCellStyle(headerStyle);
+
+        //******************************Стояки системы холодного водоснабжения******************************
+        headerStyle = workbook.createCellStyle();
+        headerStyle.setFillForegroundColor(IndexedColors.BRIGHT_GREEN.getIndex());
+        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        headerStyle.setFont(font);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Физический износ");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Материал сети");
+        headerCell.setCellStyle(headerStyle);
+
+        //******************************Запорная арматура системы холодного водоснабжения******************************
+        headerStyle = workbook.createCellStyle();
+        headerStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        headerStyle.setFont(font);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Физический износ");
+        headerCell.setCellStyle(headerStyle);
+
+        //******************************Стояки системы горячего водоснабжения******************************
+        headerStyle = workbook.createCellStyle();
+        headerStyle.setFillForegroundColor(IndexedColors.BRIGHT_GREEN.getIndex());
+        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        headerStyle.setFont(font);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Физический износ");
+        headerCell.setCellStyle(headerStyle);
+
+        //******************************Запорная арматура системы горячего водоснабжения******************************
+        headerStyle = workbook.createCellStyle();
+        headerStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        headerStyle.setFont(font);
+
+        headerCell = header.createCell(headerRowIndex++);
+        headerCell.setCellValue("Физический износ");
+        headerCell.setCellStyle(headerStyle);
     }
 
     private void createInfoBlock(XSSFWorkbook workbook, Row row, HouseInfo houseInfo) {
@@ -759,6 +1122,28 @@ public class XlsExportService implements ExportService {
         cell = row.createCell(cellRowIndex++);
         cell.setCellValue(""); //Подъезд //todo remove me
         cell.setCellStyle(style);
+
+        //******************************Cистема горячего водоснабжения******************************
+        //******************************Система водоотведения******************************
+        //******************************Система газоснабжения******************************
+        //******************************Система электроснабжения******************************
+        //******************************Фундамент******************************
+        //******************************Внутренние стены******************************
+        //******************************Фасад******************************
+        //******************************Перекрытия******************************
+        //******************************Крыша******************************
+        //******************************Окна******************************
+        //******************************Двери******************************
+        //******************************Отделочные покрытия помещений общего пользования******************************
+        //******************************Система отопления******************************
+        //******************************Стояки системы отопления******************************
+        //******************************Запорная арматура системы отопления******************************
+        //******************************Отопительные приборы******************************
+        //******************************Система холодного водоснабжения******************************
+        //******************************Стояки системы холодного водоснабжения******************************
+        //******************************Запорная арматура системы холодного водоснабжения******************************
+        //******************************Стояки системы горячего водоснабжения******************************
+        //******************************Запорная арматура системы горячего водоснабжения******************************
     }
 
     private void saveFile(XSSFWorkbook workbook) throws IOException {

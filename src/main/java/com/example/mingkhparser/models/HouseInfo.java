@@ -56,24 +56,24 @@ public class HouseInfo {
     private ConstructionElements constructionElements; //Конструктивные элементы
     private HotWaterSupplySystem hotWaterSupplySystem; //Cистема горячего водоснабжения
     private DrainageSystem drainageSystem; //Система водоотведения
-    private GasSupplySystem gasSupplySystem;
-    private ElectricitySupplySystem electricitySupplySystem;
-    private Foundation foundation;
-    private InnerWalls innerWalls;
-    private Facade facade;
-    private Floors floors;
-    private Roof roof;
-    private Windows windows;
-    private Doors doors;
-    private CommonAreasFinishingCoatings commonAreasFinishingCoatings;
-    private HeatingSystem heatingSystem;
-    private HeatingSystemRisers heatingSystemRisers;
-    private ShutoffValvesHeatingSystem shutoffValvesHeatingSystem;
-    private HeatingDevices heatingDevices;
-    private ColdWaterSystem coldWaterSystem;
-    private ColdWaterSupplySystemRisers coldWaterSupplySystemRisers;
-    private ShutoffValvesColdWaterSupplySystem shutoffValvesColdWaterSupplySystem;
-    private HotWaterSupplySystemRisers hotWaterSupplySystemRisers;
-    private ShutoffValvesHotWaterSupplySystem shutoffValvesHotWaterSupplySystem;
+    private GasSupplySystem gasSupplySystem; //Система газоснабжения
+    private ElectricitySupplySystem electricitySupplySystem; //Система электроснабжения
+    private Foundation foundation; //Фундамент
+    private InnerWalls innerWalls; //Внутренние стены
+    private Facade facade; //Фасад
+    private Floors floors; //Перекрытия
+    private Roof roof; //Крыша
+    private Windows windows; //Окна
+    private Doors doors; //Двери
+    private CommonAreasFinishingCoatings commonAreasFinishingCoatings; //Отделочные покрытия помещений общего пользования
+    private HeatingSystem heatingSystem; //Система отопления
+    private HeatingSystemRisers heatingSystemRisers; //Стояки системы отопления
+    private ShutoffValvesHeatingSystem shutoffValvesHeatingSystem; //Запорная арматура системы отопления
+    private HeatingDevices heatingDevices; //Отопительные приборы
+    private ColdWaterSystem coldWaterSystem; //Система холодного водоснабжения
+    private ColdWaterSupplySystemRisers coldWaterSupplySystemRisers; //Стояки системы холодного водоснабжения
+    private ShutoffValvesColdWaterSupplySystem shutoffValvesColdWaterSupplySystem; //Запорная арматура системы холодного водоснабжения
+    private HotWaterSupplySystemRisers hotWaterSupplySystemRisers; //Стояки системы горячего водоснабжения
+    private ShutoffValvesHotWaterSupplySystem shutoffValvesHotWaterSupplySystem; //Запорная арматура системы горячего водоснабжения
 }
 

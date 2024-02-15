@@ -13,3 +13,5 @@ setDetailedInfo2(houseInfo, doc);
 
 export one house entirely
 export one by one
+
+todo remove

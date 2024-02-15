@@ -11,6 +11,5 @@ import java.util.Set;
 @ToString
 public class ColdWaterSystem {
     private Double physicalDeterioration;
-
     private Set<NetworkMaterial> networkMaterials;
 }
