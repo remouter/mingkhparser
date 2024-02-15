@@ -1,6 +1,5 @@
 package com.example.mingkhparser;
 
-import com.example.mingkhparser.models.HouseInfo;
 import com.example.mingkhparser.service.Parser;
 import com.example.mingkhparser.service.export.XlsExportService;
 import lombok.extern.slf4j.Slf4j;
@@ -8,7 +7,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -33,13 +31,13 @@ public class Application implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         List<String> addresses = parser.getHouses("https://dom.mingkh.ru/ivanovskaya-oblast/furmanov/");
 //        List<String> addresses = Arrays.asList("https://dom.mingkh.ru/ivanovskaya-oblast/furmanov/1267290");
 //        addresses = processNext(addresses);
 
         Long startTime = System.currentTimeMillis();
-        addresses.forEach(a -> parser.process(a)); //takes 61285 / 61.285 sec
+        addresses.forEach(parser::process); //takes 61285 / 61.285 sec
 //        addresses.stream().parallel().forEach(a -> parser.process(a)); //takes 63532 / 63.532 sec
 //        executorService(addresses);
 

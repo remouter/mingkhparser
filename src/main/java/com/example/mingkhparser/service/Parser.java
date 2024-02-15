@@ -35,6 +35,7 @@ import com.example.mingkhparser.models.shutoffvalves.hotwater.ShutoffValvesHotWa
 import com.example.mingkhparser.models.windows.Windows;
 import com.example.mingkhparser.models.windows.WindowsType;
 import com.example.mingkhparser.utils.SplitConvertUtils;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -57,6 +58,7 @@ import java.util.stream.IntStream;
 
 @Service
 @Slf4j
+@Getter
 public class Parser {
     private static Integer COUNTER = 0;
     private final List<HouseInfo> result = new ArrayList<>();
@@ -1982,9 +1984,11 @@ public class Parser {
                         break;
                     case "Год постройки":
                     case "Год ввода в эксплуатацию":
+                        assert value != null;
                         houseInfo.setYear(Integer.valueOf(value));
                         break;
                     case "Количество этажей":
+                        assert value != null;
                         houseInfo.setFloor(Integer.valueOf(value));
                         break;
                     case "Тип дома":
@@ -1999,6 +2003,7 @@ public class Parser {
                         houseInfo.setHouseType(houseType);
                         break;
                     case "Жилых помещений":
+                        assert value != null;
                         houseInfo.setApartmentsCount(Integer.valueOf(value));
                         break;
                     case "Капитальный ремонт":
@@ -2197,7 +2202,4 @@ public class Parser {
         }
     }
 
-    public List<HouseInfo> getResult() {
-        return result;
-    }
 }

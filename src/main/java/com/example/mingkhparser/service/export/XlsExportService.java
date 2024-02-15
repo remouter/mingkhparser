@@ -58,7 +58,7 @@ public class XlsExportService implements ExportService {
     @Override
     public void export(List<HouseInfo> source) {
         log.info("Start export method");
-        try (Workbook workbook = new XSSFWorkbook()) {
+        try (XSSFWorkbook workbook = new XSSFWorkbook()) {
             Sheet sheet = workbook.createSheet("Persons");
             sheet.setColumnWidth(0, 6000);
             sheet.setColumnWidth(1, 4000);
@@ -69,7 +69,7 @@ public class XlsExportService implements ExportService {
             headerStyle.setFillForegroundColor(IndexedColors.LIGHT_BLUE.getIndex());
             headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
 
-            XSSFFont font = ((XSSFWorkbook) workbook).createFont();
+            XSSFFont font = workbook.createFont();
             font.setFontName("Arial");
             font.setFontHeightInPoints((short) 16);
             font.setBold(true);
