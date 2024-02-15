@@ -16,5 +16,8 @@ export one by one
 
 +++::name => ::getName
 +++.name() => getName
-Utils - Integer.valueOf ...
++++Utils - Integer.valueOf ...
++++Integer.valueOf(value.split(" ")[0])
++++Double.valueOf(value.split(" ")[0])
+
 todo enum sets

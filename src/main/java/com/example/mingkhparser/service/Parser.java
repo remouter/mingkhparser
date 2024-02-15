@@ -34,6 +34,7 @@ import com.example.mingkhparser.models.shutoffvalves.heating.ShutoffValvesHeatin
 import com.example.mingkhparser.models.shutoffvalves.hotwater.ShutoffValvesHotWaterSupplySystem;
 import com.example.mingkhparser.models.windows.Windows;
 import com.example.mingkhparser.models.windows.WindowsType;
+import com.example.mingkhparser.utils.SplitConvertUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -199,7 +200,7 @@ public class Parser {
     private void setShutoffValvesHotWaterSupplySystem(String tag, String value, ShutoffValvesHotWaterSupplySystem shutoffValvesHotWaterSupplySystem) {
         switch (tag) {
             case "Физический износ":
-                shutoffValvesHotWaterSupplySystem.setPhysicalDeterioration(Integer.valueOf(value.split(" ")[0]));
+                shutoffValvesHotWaterSupplySystem.setPhysicalDeterioration(SplitConvertUtils.stringToInteger(value));
                 break;
             default:
                 throw new IllegalArgumentException(tag);
@@ -209,7 +210,7 @@ public class Parser {
     private void setShutoffValvesColdWaterSupplySystem(String tag, String value, ShutoffValvesColdWaterSupplySystem shutoffValvesColdWaterSupplySystem) {
         switch (tag) {
             case "Физический износ":
-                shutoffValvesColdWaterSupplySystem.setPhysicalDeterioration(Integer.valueOf(value.split(" ")[0]));
+                shutoffValvesColdWaterSupplySystem.setPhysicalDeterioration(SplitConvertUtils.stringToInteger(value));
                 break;
             default:
                 throw new IllegalArgumentException(tag);
@@ -219,7 +220,7 @@ public class Parser {
     private void setColdWaterSupplySystemRisers(String tag, String value, ColdWaterSupplySystemRisers coldWaterSupplySystemRisers) {
         switch (tag) {
             case "Физический износ":
-                coldWaterSupplySystemRisers.setPhysicalDeterioration(Integer.valueOf(value.split(" ")[0]));
+                coldWaterSupplySystemRisers.setPhysicalDeterioration(SplitConvertUtils.stringToInteger(value));
                 break;
             case "Материал сети":
                 com.example.mingkhparser.models.coldwatersupplysystemrisers.NetworkMaterial networkMaterial;
@@ -268,7 +269,7 @@ public class Parser {
     private void setHotWaterSupplySystemRisers(String tag, String value, HotWaterSupplySystemRisers hotWaterSupplySystemRisers) {
         switch (tag) {
             case "Физический износ":
-                hotWaterSupplySystemRisers.setPhysicalDeterioration(Integer.valueOf(value.split(" ")[0]));
+                hotWaterSupplySystemRisers.setPhysicalDeterioration(SplitConvertUtils.stringToInteger(value));
                 break;
             default:
                 throw new IllegalArgumentException(tag);
@@ -278,7 +279,7 @@ public class Parser {
     private void setColdWaterSystem(String tag, String value, ColdWaterSystem coldWaterSystem) {
         switch (tag) {
             case "Физический износ":
-                coldWaterSystem.setPhysicalDeterioration(Double.valueOf(value.split(" ")[0]));
+                coldWaterSystem.setPhysicalDeterioration(SplitConvertUtils.stringToDouble(value));
                 break;
             case "Материал сети":
                 Set<com.example.mingkhparser.models.coldwatersystem.NetworkMaterial> networkMaterials = new HashSet<>();
@@ -325,7 +326,7 @@ public class Parser {
     private void setHeatingDevices(String tag, String value, HeatingDevices heatingDevices) {
         switch (tag) {
             case "Физический износ":
-                heatingDevices.setPhysicalDeterioration(Integer.valueOf(value.split(" ")[0]));
+                heatingDevices.setPhysicalDeterioration(SplitConvertUtils.stringToInteger(value));
                 break;
             case "Тип отопительных приборов":
                 HeatingDevicesType heatingDevicesType;
@@ -358,7 +359,7 @@ public class Parser {
     private void setShutoffValvesHeatingSystem(String tag, String value, ShutoffValvesHeatingSystem shutoffValvesHeatingSystem) {
         switch (tag) {
             case "Физический износ":
-                shutoffValvesHeatingSystem.setPhysicalDeterioration(Integer.valueOf(value.split(" ")[0]));
+                shutoffValvesHeatingSystem.setPhysicalDeterioration(SplitConvertUtils.stringToInteger(value));
                 break;
             default:
                 throw new IllegalArgumentException(tag);
@@ -368,7 +369,7 @@ public class Parser {
     private void setHeatingSystemRisers(String tag, String value, HeatingSystemRisers heatingSystemRisers) {
         switch (tag) {
             case "Физический износ":
-                heatingSystemRisers.setPhysicalDeterioration(Integer.valueOf(value.split(" ")[0]));
+                heatingSystemRisers.setPhysicalDeterioration(SplitConvertUtils.stringToInteger(value));
                 break;
             case "Тип поквартирной разводки внутридомовой системы отопления":
                 ApartmentWiringType apartmentWiringType;
@@ -435,7 +436,7 @@ public class Parser {
     private void setHeatingSystem(String tag, String value, HeatingSystem heatingSystem) {
         switch (tag) {
             case "Физический износ":
-                heatingSystem.setPhysicalDeterioration(Double.valueOf(value.split(" ")[0]));
+                heatingSystem.setPhysicalDeterioration(SplitConvertUtils.stringToDouble(value));
                 break;
             case "Материал сети":
                 com.example.mingkhparser.models.heatingsystem.NetworkMaterial networkMaterial;
@@ -514,7 +515,7 @@ public class Parser {
     private void setCommonAreasFinishingCoatings(String tag, String value, CommonAreasFinishingCoatings commonAreasFinishingCoatings) {
         switch (tag) {
             case "Физический износ":
-                commonAreasFinishingCoatings.setPhysicalDeterioration(Double.valueOf(value.split(" ")[0]));
+                commonAreasFinishingCoatings.setPhysicalDeterioration(SplitConvertUtils.stringToDouble(value));
                 break;
             default:
                 throw new IllegalArgumentException(tag);
@@ -524,7 +525,7 @@ public class Parser {
     private void setDoors(String tag, String value, Doors doors) {
         switch (tag) {
             case "Физический износ":
-                doors.setPhysicalDeterioration(Double.valueOf(value.split(" ")[0]));
+                doors.setPhysicalDeterioration(SplitConvertUtils.stringToDouble(value));
                 break;
             default:
                 throw new IllegalArgumentException(tag);
@@ -534,7 +535,7 @@ public class Parser {
     private void setWindows(String tag, String value, Windows windows) {
         switch (tag) {
             case "Физический износ":
-                windows.setPhysicalDeterioration(Double.valueOf(value.split(" ")[0]));
+                windows.setPhysicalDeterioration(SplitConvertUtils.stringToDouble(value));
                 break;
             case "Материал окон":
                 WindowsType windowsType;
@@ -702,7 +703,7 @@ public class Parser {
                 roof.setRoofType(roofType);
                 break;
             case "Физический износ кровли":
-                roof.setPhysicalDeterioration(Integer.valueOf(value.split(" ")[0]));
+                roof.setPhysicalDeterioration(SplitConvertUtils.stringToInteger(value));
                 break;
             case "Год проведения последнего капитального ремонта кровли":
                 roof.setLastOverhaulYear(Integer.valueOf(value));
@@ -750,7 +751,7 @@ public class Parser {
                 floors.setFloorType(floorType);
                 break;
             case "Физический износ":
-                floors.setPhysicalDeterioration(Double.valueOf(value.split(" ")[0]));
+                floors.setPhysicalDeterioration(SplitConvertUtils.stringToDouble(value));
                 break;
             default:
                 throw new IllegalArgumentException(tag);
@@ -948,7 +949,7 @@ public class Parser {
                 facade.setFacadeFinishingMaterials(facadeFinishingMaterials);
                 break;
             case "Физический износ":
-                facade.setPhysicalDeterioration(Double.valueOf(value.split(" ")[0]));
+                facade.setPhysicalDeterioration(SplitConvertUtils.stringToDouble(value));
                 break;
             case "Год проведения последнего капитального ремонта":
                 facade.setLastOverhaulYear(Integer.valueOf(value));
@@ -1017,7 +1018,7 @@ public class Parser {
                 innerWalls.setWallMaterials(wallMaterials);
                 break;
             case "Физический износ":
-                innerWalls.setPhysicalDeterioration(Double.valueOf(value.split(" ")[0]));
+                innerWalls.setPhysicalDeterioration(SplitConvertUtils.stringToDouble(value));
                 break;
             default:
                 throw new IllegalArgumentException(tag);
@@ -1089,10 +1090,10 @@ public class Parser {
                 foundation.setFoundationMaterial(foundationMaterial);
                 break;
             case "Площадь отмостки":
-                foundation.setBlindArea(Double.valueOf(value.split(" ")[0]));
+                foundation.setBlindArea(SplitConvertUtils.stringToDouble(value));
                 break;
             case "Физический износ":
-                foundation.setPhysicalDeterioration(Double.valueOf(value.split(" ")[0]));
+                foundation.setPhysicalDeterioration(SplitConvertUtils.stringToDouble(value));
                 break;
             case "Год проведения последнего капитального ремонта":
                 foundation.setLastOverhaulYear(Integer.valueOf(value));
@@ -1105,13 +1106,13 @@ public class Parser {
     private void setElectricitySupplySystem(String tag, String value, ElectricitySupplySystem electricitySupplySystem) {
         switch (tag) {
             case "Физический износ":
-                electricitySupplySystem.setPhysicalDeterioration(Integer.valueOf(value.split(" ")[0]));
+                electricitySupplySystem.setPhysicalDeterioration(SplitConvertUtils.stringToInteger(value));
                 break;
             case "Год проведения последнего капитального ремонта":
                 electricitySupplySystem.setLastOverhaulYear(Integer.valueOf(value));
                 break;
             case "Количество вводов системы электроснабжения":
-                electricitySupplySystem.setPowerSupplyInputNumbers(Integer.valueOf(value.split(" ")[0]));
+                electricitySupplySystem.setPowerSupplyInputNumbers(SplitConvertUtils.stringToInteger(value));
                 break;
             default:
                 throw new IllegalArgumentException(tag);
@@ -1144,7 +1145,7 @@ public class Parser {
                 gasSupplySystem.setGasSupplySystemType(gasSupplySystemType);
                 break;
             case "Количество вводов системы газоснабжения":
-                gasSupplySystem.setGasSupplySystemInletsNumber(Integer.valueOf(value.split(" ")[0]));
+                gasSupplySystem.setGasSupplySystemInletsNumber(SplitConvertUtils.stringToInteger(value));
                 break;
             default:
                 throw new IllegalArgumentException(tag);
@@ -1155,7 +1156,7 @@ public class Parser {
         switch (tag) {
 //Система водоотведения
             case "Физический износ":
-                drainageSystem.setPhysicalDeterioration(Integer.valueOf(value.split(" ")[0]));
+                drainageSystem.setPhysicalDeterioration(SplitConvertUtils.stringToInteger(value));
                 break;
             case "Год проведения последнего капитального ремонта":
                 drainageSystem.setLastOverhaulYear(Integer.valueOf(value));
@@ -1251,7 +1252,7 @@ public class Parser {
                 hotWaterSupplySystem.setHotWaterSystemTypes(hotWaterSystemTypes);
                 break;
             case "Физический износ":
-                hotWaterSupplySystem.setPhysicalDeterioration(Double.valueOf(value.split(" ")[0]));
+                hotWaterSupplySystem.setPhysicalDeterioration(SplitConvertUtils.stringToDouble(value));
                 break;
             case "Материал сети":
                 Set<NetworkMaterial> networkMaterials = new HashSet<>();
