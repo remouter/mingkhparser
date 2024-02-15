@@ -5,7 +5,7 @@ public enum BearingType {
     PREFABRICATEDREINFORCEDCONCRETE("Железобетонные сборные (чердачные)"),
     WOODEN("Деревянные"),
     RAFTER("Стропильная"),
-    NONE("Нет"), //Нет
+    NONE("Нет"),
     COMBINEDPRECASTCONCRETELAMINATEDPANELS("Совмещенные из сборных железобетонных слоистых панелей"),
     REINFORCEDCONCRETESLABS("Ж/б плиты");
 

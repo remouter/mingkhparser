@@ -4,10 +4,12 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.Set;
+
 @Getter
 @Setter
 @ToString
 public class HeatingDevices {
     private Integer physicalDeterioration;
-    private HeatingDevicesType heatingDevicesType;
+    private Set<HeatingDevicesType> heatingDevicesTypes;
 }

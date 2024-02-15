@@ -1,11 +1,9 @@
 package com.example.mingkhparser.models.drainagesystem;
 
 public enum NetworkMaterial {
-    //todo enum set
     CASTIRON("чугун"),
     NONE("Нет"),
     PLASTIC("пластик"),
-    CASTIRONPLASTIC("чугун, пластик"), //чугун, пластик
     ASBESTOSCEMENT("асбестоцемент");
 
     private String name;

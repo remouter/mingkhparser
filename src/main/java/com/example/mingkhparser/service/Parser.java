@@ -223,43 +223,38 @@ public class Parser {
                 coldWaterSupplySystemRisers.setPhysicalDeterioration(SplitConvertUtils.stringToInteger(value));
                 break;
             case "Материал сети":
-                com.example.mingkhparser.models.coldwatersupplysystemrisers.NetworkMaterial networkMaterial;
-                switch (value) {
-                    case "Сталь оцинкованная":
-                        networkMaterial = com.example.mingkhparser.models.coldwatersupplysystemrisers.NetworkMaterial.GALVANIZEDSTEEL;
-                        break;
-                    case "Полимер":
-                        networkMaterial = com.example.mingkhparser.models.coldwatersupplysystemrisers.NetworkMaterial.POLYMER;
-                        break;
-                    case "Нет":
-                        networkMaterial = com.example.mingkhparser.models.coldwatersupplysystemrisers.NetworkMaterial.NONE;
-                        break;
-                    case "Металлополимер":
-                        networkMaterial = com.example.mingkhparser.models.coldwatersupplysystemrisers.NetworkMaterial.METALPOLYMER;
-                        break;
-                    case "Сталь":
-                        networkMaterial = com.example.mingkhparser.models.coldwatersupplysystemrisers.NetworkMaterial.STEEL;
-                        break;
-                    case "Чугун":
-                        networkMaterial = com.example.mingkhparser.models.coldwatersupplysystemrisers.NetworkMaterial.CASTIRON;
-                        break;
-                    case "Сталь черная":
-                        networkMaterial = com.example.mingkhparser.models.coldwatersupplysystemrisers.NetworkMaterial.BLACKSTEEL;
-                        break;
-                    case "Полимер, Сталь оцинкованная":
-                    case "Сталь оцинкованная, Полимер":
-                        networkMaterial = com.example.mingkhparser.models.coldwatersupplysystemrisers.NetworkMaterial.POLYMERGALVANIZEDSTEEL;
-                        break;
-                    case "Полипропилен":
-                        networkMaterial = com.example.mingkhparser.models.coldwatersupplysystemrisers.NetworkMaterial.POLYPROPYLENE;
-                        break;
-                    case "Сталь, Полипропилен":
-                        networkMaterial = com.example.mingkhparser.models.coldwatersupplysystemrisers.NetworkMaterial.STEELPOLYPROPYLENE;
-                        break;
-                    default:
-                        throw new IllegalArgumentException(value);
+                Set<com.example.mingkhparser.models.coldwatersupplysystemrisers.NetworkMaterial> networkMaterials = new HashSet<>();
+                for (String str : value.split(", ")) {
+                    switch (str) {
+                        case "Сталь оцинкованная":
+                            networkMaterials.add(com.example.mingkhparser.models.coldwatersupplysystemrisers.NetworkMaterial.GALVANIZEDSTEEL);
+                            break;
+                        case "Полимер":
+                            networkMaterials.add(com.example.mingkhparser.models.coldwatersupplysystemrisers.NetworkMaterial.POLYMER);
+                            break;
+                        case "Нет":
+                            networkMaterials.add(com.example.mingkhparser.models.coldwatersupplysystemrisers.NetworkMaterial.NONE);
+                            break;
+                        case "Металлополимер":
+                            networkMaterials.add(com.example.mingkhparser.models.coldwatersupplysystemrisers.NetworkMaterial.METALPOLYMER);
+                            break;
+                        case "Сталь":
+                            networkMaterials.add(com.example.mingkhparser.models.coldwatersupplysystemrisers.NetworkMaterial.STEEL);
+                            break;
+                        case "Чугун":
+                            networkMaterials.add(com.example.mingkhparser.models.coldwatersupplysystemrisers.NetworkMaterial.CASTIRON);
+                            break;
+                        case "Сталь черная":
+                            networkMaterials.add(com.example.mingkhparser.models.coldwatersupplysystemrisers.NetworkMaterial.BLACKSTEEL);
+                            break;
+                        case "Полипропилен":
+                            networkMaterials.add(com.example.mingkhparser.models.coldwatersupplysystemrisers.NetworkMaterial.POLYPROPYLENE);
+                            break;
+                        default:
+                            throw new IllegalArgumentException(str);
+                    }
                 }
-                coldWaterSupplySystemRisers.setNetworkMaterial(networkMaterial);
+                coldWaterSupplySystemRisers.setNetworkMaterials(networkMaterials);
                 break;
             default:
                 throw new IllegalArgumentException(tag);
@@ -329,27 +324,26 @@ public class Parser {
                 heatingDevices.setPhysicalDeterioration(SplitConvertUtils.stringToInteger(value));
                 break;
             case "Тип отопительных приборов":
-                HeatingDevicesType heatingDevicesType;
-                switch (value) {
-                    case "Радиатор":
-                        heatingDevicesType = HeatingDevicesType.RADIATOR;
-                        break;
-                    case "Регистр":
-                        heatingDevicesType = HeatingDevicesType.REGISTER;
-                        break;
-                    case "Нет":
-                        heatingDevicesType = HeatingDevicesType.NONE;
-                        break;
-                    case "Нет, Регистр":
-                        heatingDevicesType = HeatingDevicesType.NONEREGISTER;
-                        break;
-                    case "Конвектор":
-                        heatingDevicesType = HeatingDevicesType.CONVECTOR;
-                        break;
-                    default:
-                        throw new IllegalArgumentException(value);
+                Set<HeatingDevicesType> heatingDevicesTypes = new HashSet<>();
+                for (String str : value.split(", ")) {
+                    switch (str) {
+                        case "Радиатор":
+                            heatingDevicesTypes.add(HeatingDevicesType.RADIATOR);
+                            break;
+                        case "Регистр":
+                            heatingDevicesTypes.add(HeatingDevicesType.REGISTER);
+                            break;
+                        case "Нет":
+                            heatingDevicesTypes.add(HeatingDevicesType.NONE);
+                            break;
+                        case "Конвектор":
+                            heatingDevicesTypes.add(HeatingDevicesType.CONVECTOR);
+                            break;
+                        default:
+                            throw new IllegalArgumentException(str);
+                    }
                 }
-                heatingDevices.setHeatingDevicesType(heatingDevicesType);
+                heatingDevices.setHeatingDevicesTypes(heatingDevicesTypes);
                 break;
             default:
                 throw new IllegalArgumentException(tag);
@@ -389,44 +383,36 @@ public class Parser {
                 heatingSystemRisers.setApartmentWiringType(apartmentWiringType);
                 break;
             case "Материал":
-                com.example.mingkhparser.models.heatingsystemrisers.MaterialType materialType;
-                switch (value) {
-                    case "Сталь оцинкованная":
-                        materialType = com.example.mingkhparser.models.heatingsystemrisers.MaterialType.GALVANIZEDSTEEL;
-                        break;
-                    case "Полимер":
-                        materialType = com.example.mingkhparser.models.heatingsystemrisers.MaterialType.POLYMER;
-                        break;
-                    case "Нет":
-                        materialType = com.example.mingkhparser.models.heatingsystemrisers.MaterialType.NONE;
-                        break;
-                    case "Сталь":
-                    case "Сталь черная":
-                        materialType = com.example.mingkhparser.models.heatingsystemrisers.MaterialType.STEEL;
-                        break;
-                    case "Чугун":
-                        materialType = com.example.mingkhparser.models.heatingsystemrisers.MaterialType.CASTIRON;
-                        break;
-                    case "Металлополимер":
-                        materialType = com.example.mingkhparser.models.heatingsystemrisers.MaterialType.METALPOLYMER;
-                        break;
-                    case "Нет, Сталь черная":
-                        materialType = com.example.mingkhparser.models.heatingsystemrisers.MaterialType.NONESTEEL;
-                        break;
-                    case "Сталь, Полипропилен":
-                        materialType = com.example.mingkhparser.models.heatingsystemrisers.MaterialType.STEELPOLYPROPYLENE;
-                        break;
-                    case "Полимер, Сталь оцинкованная":
-                    case "Сталь оцинкованная, Полимер":
-                        materialType = com.example.mingkhparser.models.heatingsystemrisers.MaterialType.POLYMERGALVANIZEDSTEEL;
-                        break;
-                    case "Полипропилен":
-                        materialType = com.example.mingkhparser.models.heatingsystemrisers.MaterialType.POLYPROPYLENE;
-                        break;
-                    default:
-                        throw new IllegalArgumentException(value);
+                Set<com.example.mingkhparser.models.heatingsystemrisers.MaterialType> materialTypes = new HashSet<>();
+                for (String str : value.split(", ")) {
+                    switch (str) {
+                        case "Сталь оцинкованная":
+                            materialTypes.add(com.example.mingkhparser.models.heatingsystemrisers.MaterialType.GALVANIZEDSTEEL);
+                            break;
+                        case "Полимер":
+                            materialTypes.add(com.example.mingkhparser.models.heatingsystemrisers.MaterialType.POLYMER);
+                            break;
+                        case "Нет":
+                            materialTypes.add(com.example.mingkhparser.models.heatingsystemrisers.MaterialType.NONE);
+                            break;
+                        case "Сталь":
+                        case "Сталь черная":
+                            materialTypes.add(com.example.mingkhparser.models.heatingsystemrisers.MaterialType.STEEL);
+                            break;
+                        case "Чугун":
+                            materialTypes.add(com.example.mingkhparser.models.heatingsystemrisers.MaterialType.CASTIRON);
+                            break;
+                        case "Металлополимер":
+                            materialTypes.add(com.example.mingkhparser.models.heatingsystemrisers.MaterialType.METALPOLYMER);
+                            break;
+                        case "Полипропилен":
+                            materialTypes.add(com.example.mingkhparser.models.heatingsystemrisers.MaterialType.POLYPROPYLENE);
+                            break;
+                        default:
+                            throw new IllegalArgumentException(str);
+                    }
                 }
-                heatingSystemRisers.setMaterialType(materialType);
+                heatingSystemRisers.setMaterialTypes(materialTypes);
                 break;
             default:
                 throw new IllegalArgumentException(tag);
@@ -439,73 +425,73 @@ public class Parser {
                 heatingSystem.setPhysicalDeterioration(SplitConvertUtils.stringToDouble(value));
                 break;
             case "Материал сети":
-                com.example.mingkhparser.models.heatingsystem.NetworkMaterial networkMaterial;
-                switch (value) {
-                    case "Сталь оцинкованная":
-                        networkMaterial = com.example.mingkhparser.models.heatingsystem.NetworkMaterial.GALVANIZEDSTEEL;
-                        break;
-                    case "Нет":
-                        networkMaterial = com.example.mingkhparser.models.heatingsystem.NetworkMaterial.NONE;
-                        break;
-                    case "Полимер":
-                        networkMaterial = com.example.mingkhparser.models.heatingsystem.NetworkMaterial.POLYMER;
-                        break;
-                    case "Сталь":
-                    case "Сталь черная":
-                        networkMaterial = com.example.mingkhparser.models.heatingsystem.NetworkMaterial.STEEL;
-                        break;
-                    case "Чугун":
-                        networkMaterial = com.example.mingkhparser.models.heatingsystem.NetworkMaterial.CASTIRON;
-                        break;
-                    case "Металлополимер":
-                        networkMaterial = com.example.mingkhparser.models.heatingsystem.NetworkMaterial.METALPOLYMER;
-                        break;
-                    case "Полимер, Сталь оцинкованная":
-                    case "Сталь оцинкованная, Полимер":
-                        networkMaterial = com.example.mingkhparser.models.heatingsystem.NetworkMaterial.POLYMERGALVANIZEDSTEEL;
-                        break;
-                    case "Полипропилен":
-                        networkMaterial = com.example.mingkhparser.models.heatingsystem.NetworkMaterial.POLYPROPYLENE;
-                        break;
-                    case "Сталь, Полипропилен":
-                        networkMaterial = com.example.mingkhparser.models.heatingsystem.NetworkMaterial.STEELPOLYPROPYLENE;
-                        break;
-                    default:
-                        throw new IllegalArgumentException(value);
+                Set<com.example.mingkhparser.models.heatingsystem.NetworkMaterial> networkMaterials = new HashSet<>();
+                for (String str : value.split(", ")) {
+                    switch (str) {
+                        case "Сталь оцинкованная":
+                            networkMaterials.add(com.example.mingkhparser.models.heatingsystem.NetworkMaterial.GALVANIZEDSTEEL);
+                            break;
+                        case "Нет":
+                            networkMaterials.add(com.example.mingkhparser.models.heatingsystem.NetworkMaterial.NONE);
+                            break;
+                        case "Полимер":
+                            networkMaterials.add(com.example.mingkhparser.models.heatingsystem.NetworkMaterial.POLYMER);
+                            break;
+                        case "Сталь":
+                        case "Сталь черная":
+                            networkMaterials.add(com.example.mingkhparser.models.heatingsystem.NetworkMaterial.STEEL);
+                            break;
+                        case "Чугун":
+                            networkMaterials.add(com.example.mingkhparser.models.heatingsystem.NetworkMaterial.CASTIRON);
+                            break;
+                        case "Металлополимер":
+                            networkMaterials.add(com.example.mingkhparser.models.heatingsystem.NetworkMaterial.METALPOLYMER);
+                            break;
+                        case "Полипропилен":
+                            networkMaterials.add(com.example.mingkhparser.models.heatingsystem.NetworkMaterial.POLYPROPYLENE);
+                            break;
+                        default:
+                            throw new IllegalArgumentException(str);
+                    }
                 }
-                heatingSystem.setNetworkMaterial(networkMaterial);
+                heatingSystem.setNetworkMaterials(networkMaterials);
                 break;
             case "Материал теплоизоляции сети":
-                ThermalInsulationMaterial thermalInsulationMaterial;
-                switch (value) {
-                    case "Вспененный полиэтилен (энергофлекс)":
-                        thermalInsulationMaterial = ThermalInsulationMaterial.FOAMEDPOLYETHYLENE;
-                        break;
-                    case "Нет":
-                        thermalInsulationMaterial = ThermalInsulationMaterial.NONE;
-                        break;
-                    case "Минеральная вата с покрытием из алюминиевой фольги":
-                        thermalInsulationMaterial = ThermalInsulationMaterial.MINERALWOOLCOATEDWITHALUMINUMFOIL;
-                        break;
-                    case "Минеральная вата с покрытием из оцинкованной стали":
-                        thermalInsulationMaterial = ThermalInsulationMaterial.MINERALWOOLCOATEDWITHGALVANIZEDSTEEL;
-                        break;
-                    case "Минеральная вата с покрытием":
-                        thermalInsulationMaterial = ThermalInsulationMaterial.MINERALWOOLCOATED;
-                        break;
-                    case "Асбест под деревянной основой (устар.)":
-                        thermalInsulationMaterial = ThermalInsulationMaterial.ASBESTOSUNDERWOODENBASE;
-                        break;
-                    case "Полимер, Сталь оцинкованная":
-                        thermalInsulationMaterial = ThermalInsulationMaterial.POLYMERGALVANIZEDSTEEL;
-                        break;
-                    case "Пенополиуретановое напыление":
-                        thermalInsulationMaterial = ThermalInsulationMaterial.POLYURETHANEFOAMSPRAYING;
-                        break;
-                    default:
-                        throw new IllegalArgumentException(value);
+                Set<ThermalInsulationMaterial> thermalInsulationMaterials = new HashSet<>();
+                for (String str : value.split(", ")) {
+                    switch (str) {
+                        case "Вспененный полиэтилен (энергофлекс)":
+                            thermalInsulationMaterials.add(ThermalInsulationMaterial.FOAMEDPOLYETHYLENE);
+                            break;
+                        case "Нет":
+                            thermalInsulationMaterials.add(ThermalInsulationMaterial.NONE);
+                            break;
+                        case "Минеральная вата с покрытием из алюминиевой фольги":
+                            thermalInsulationMaterials.add(ThermalInsulationMaterial.MINERALWOOLCOATEDWITHALUMINUMFOIL);
+                            break;
+                        case "Минеральная вата с покрытием из оцинкованной стали":
+                            thermalInsulationMaterials.add(ThermalInsulationMaterial.MINERALWOOLCOATEDWITHGALVANIZEDSTEEL);
+                            break;
+                        case "Минеральная вата с покрытием":
+                            thermalInsulationMaterials.add(ThermalInsulationMaterial.MINERALWOOLCOATED);
+                            break;
+                        case "Асбест под деревянной основой (устар.)":
+                            thermalInsulationMaterials.add(ThermalInsulationMaterial.ASBESTOSUNDERWOODENBASE);
+                            break;
+                        case "Полимер":
+                            thermalInsulationMaterials.add(ThermalInsulationMaterial.POLYMER);
+                            break;
+                        case "Сталь оцинкованная":
+                            thermalInsulationMaterials.add(ThermalInsulationMaterial.GALVANIZEDSTEEL);
+                            break;
+                        case "Пенополиуретановое напыление":
+                            thermalInsulationMaterials.add(ThermalInsulationMaterial.POLYURETHANEFOAMSPRAYING);
+                            break;
+                        default:
+                            throw new IllegalArgumentException(str);
+                    }
                 }
-                heatingSystem.setThermalInsulationMaterial(thermalInsulationMaterial);
+                heatingSystem.setThermalInsulationMaterials(thermalInsulationMaterials);
                 break;
             default:
                 throw new IllegalArgumentException(tag);
@@ -538,25 +524,23 @@ public class Parser {
                 windows.setPhysicalDeterioration(SplitConvertUtils.stringToDouble(value));
                 break;
             case "Материал окон":
-                WindowsType windowsType;
-                switch (value) {
-                    case "Пластиковые, Деревянные":
-                    case "Деревянные, Пластиковые":
-                        windowsType = WindowsType.PLASTICWOODEN;
-                        break;
-                    case "Деревянные":
-                        windowsType = WindowsType.WOODEN;
-                        break;
-                    case "Пластиковые":
-                        windowsType = WindowsType.PLASTIC;
-                        break;
-                    case "нет":
-                        windowsType = WindowsType.NONE;
-                        break;
-                    default:
-                        throw new IllegalArgumentException(value);
+                Set<WindowsType> windowsTypes = new HashSet<>();
+                for (String str : value.split(", ")) {
+                    switch (str) {
+                        case "Деревянные":
+                            windowsTypes.add(WindowsType.WOODEN);
+                            break;
+                        case "Пластиковые":
+                            windowsTypes.add(WindowsType.PLASTIC);
+                            break;
+                        case "нет":
+                            windowsTypes.add(WindowsType.NONE);
+                            break;
+                        default:
+                            throw new IllegalArgumentException(str);
+                    }
                 }
-                windows.setWindowsType(windowsType);
+                windows.setWindowsTypes(windowsTypes);
                 break;
             default:
                 throw new IllegalArgumentException(tag);
@@ -647,60 +631,59 @@ public class Parser {
                 roof.setBearingType(bearingType);
                 break;
             case "Тип кровли":
-                RoofType roofType;
-                switch (value) {
-                    case "Рулонная":
-                        roofType = RoofType.ROLL;
-                        break;
-                    case "Волнистые листы":
-                        roofType = RoofType.CORRUGATEDSHEETS;
-                        break;
-                    case "Шиферная":
-                        roofType = RoofType.SLATE;
-                        break;
-                    case "Волнистые листы, Шиферная":
-                        roofType = RoofType.CORRUGATEDSHEETSSLATE;
-                        break;
-                    case "Металлическая фальцевая":
-                        roofType = RoofType.METALSEAM;
-                        break;
-                    case "Железо":
-                        roofType = RoofType.IRON;
-                        break;
-                    case "Стальная (металлическая)":
-                        roofType = RoofType.STEELMETAL;
-                        break;
-                    case "Железо по деревянной обрешетке":
-                        roofType = RoofType.IRONONWOODSHEATHING;
-                        break;
-                    case "Металлический профлист":
-                        roofType = RoofType.METALPROFILEDSHEET;
-                        break;
-                    case "Мягкая":
-                        roofType = RoofType.SOFT;
-                        break;
-                    case "Металлическая волнистая":
-                        roofType = RoofType.METALWAVY;
-                        break;
-                    case "Рубероид":
-                        roofType = RoofType.RUBEROID;
-                        break;
-                    case "Рулонная по железобетонным плитам":
-                        roofType = RoofType.ROLLEDONREINFORCEDCONCRETESLABS;
-                        break;
-                    case "Оцинкованный профлист":
-                        roofType = RoofType.GALVANIZEDCORRUGATEDSHEET;
-                        break;
-                    case "Профнастил":
-                        roofType = RoofType.CORRUGATEDSHEET;
-                        break;
-                    case "Нет":
-                        roofType = RoofType.NONE;
-                        break;
-                    default:
-                        throw new IllegalArgumentException(value);
+                Set<RoofType> roofTypes = new HashSet<>();
+                for (String str : value.split(", ")) {
+                    switch (str) {
+                        case "Рулонная":
+                            roofTypes.add(RoofType.ROLL);
+                            break;
+                        case "Волнистые листы":
+                            roofTypes.add(RoofType.CORRUGATEDSHEETS);
+                            break;
+                        case "Шиферная":
+                            roofTypes.add(RoofType.SLATE);
+                            break;
+                        case "Металлическая фальцевая":
+                            roofTypes.add(RoofType.METALSEAM);
+                            break;
+                        case "Железо":
+                            roofTypes.add(RoofType.IRON);
+                            break;
+                        case "Стальная (металлическая)":
+                            roofTypes.add(RoofType.STEELMETAL);
+                            break;
+                        case "Железо по деревянной обрешетке":
+                            roofTypes.add(RoofType.IRONONWOODSHEATHING);
+                            break;
+                        case "Металлический профлист":
+                            roofTypes.add(RoofType.METALPROFILEDSHEET);
+                            break;
+                        case "Мягкая":
+                            roofTypes.add(RoofType.SOFT);
+                            break;
+                        case "Металлическая волнистая":
+                            roofTypes.add(RoofType.METALWAVY);
+                            break;
+                        case "Рубероид":
+                            roofTypes.add(RoofType.RUBEROID);
+                            break;
+                        case "Рулонная по железобетонным плитам":
+                            roofTypes.add(RoofType.ROLLEDONREINFORCEDCONCRETESLABS);
+                            break;
+                        case "Оцинкованный профлист":
+                            roofTypes.add(RoofType.GALVANIZEDCORRUGATEDSHEET);
+                            break;
+                        case "Профнастил":
+                            roofTypes.add(RoofType.CORRUGATEDSHEET);
+                            break;
+                        case "Нет":
+                            roofTypes.add(RoofType.NONE);
+                            break;
+                        default:
+                            throw new IllegalArgumentException(str);
+                    }
                 }
-                roof.setRoofType(roofType);
+                roof.setRoofTypes(roofTypes);
                 break;
             case "Физический износ кровли":
                 roof.setPhysicalDeterioration(SplitConvertUtils.stringToInteger(value));
@@ -1182,28 +1165,26 @@ public class Parser {
                 drainageSystem.setDrainageSystemType(drainageSystemType);
                 break;
             case "Материал сети":
-                com.example.mingkhparser.models.drainagesystem.NetworkMaterial networkMaterial;
-                switch (value) {
-                    case "чугун":
-                        networkMaterial = com.example.mingkhparser.models.drainagesystem.NetworkMaterial.CASTIRON;
-                        break;
-                    case "Нет":
-                        networkMaterial = com.example.mingkhparser.models.drainagesystem.NetworkMaterial.NONE;
-                        break;
-                    case "пластик":
-                        networkMaterial = com.example.mingkhparser.models.drainagesystem.NetworkMaterial.PLASTIC;
-                        break;
-                    case "чугун, пластик":
-                    case "пластик, чугун":
-                        networkMaterial = com.example.mingkhparser.models.drainagesystem.NetworkMaterial.CASTIRONPLASTIC;
-                        break;
-                    case "асбестоцемент":
-                        networkMaterial = com.example.mingkhparser.models.drainagesystem.NetworkMaterial.ASBESTOSCEMENT;
-                        break;
-                    default:
-                        throw new IllegalArgumentException(value);
+                Set<com.example.mingkhparser.models.drainagesystem.NetworkMaterial> networkMaterials = new HashSet<>();
+                for (String str : value.split(", ")) {
+                    switch (str) {
+                        case "чугун":
+                            networkMaterials.add(com.example.mingkhparser.models.drainagesystem.NetworkMaterial.CASTIRON);
+                            break;
+                        case "Нет":
+                            networkMaterials.add(com.example.mingkhparser.models.drainagesystem.NetworkMaterial.NONE);
+                            break;
+                        case "пластик":
+                            networkMaterials.add(com.example.mingkhparser.models.drainagesystem.NetworkMaterial.PLASTIC);
+                            break;
+                        case "асбестоцемент":
+                            networkMaterials.add(com.example.mingkhparser.models.drainagesystem.NetworkMaterial.ASBESTOSCEMENT);
+                            break;
+                        default:
+                            throw new IllegalArgumentException(str);
+                    }
                 }
-                drainageSystem.setNetworkMaterial(networkMaterial);
+                drainageSystem.setNetworkMaterials(networkMaterials);
                 break;
             default:
                 throw new IllegalArgumentException(tag);
@@ -1310,40 +1291,33 @@ public class Parser {
                 hotWaterSupplySystem.setNetworkThermalInsulationMaterial(networkThermalInsulationMaterial);
                 break;
             case "Материал стояков":
-                RisersMaterial risersMaterial;
-                switch (value) {
-                    case "Нет":
-                        risersMaterial = RisersMaterial.NONE;
-                        break;
-                    case "Чугун":
-                        risersMaterial = RisersMaterial.CASTIRON;
-                        break;
-                    case "Сталь черная":
-                    case "Сталь":
-                        risersMaterial = RisersMaterial.STEEL;
-                        break;
-                    case "Сталь, Полипропилен":
-                        risersMaterial = RisersMaterial.STEELPOLYPROPYLENE;
-                        break;
-                    case "Полимер":
-                        risersMaterial = RisersMaterial.POLYMER;
-                        break;
-                    case "Полимер, Сталь оцинкованная":
-                        risersMaterial = RisersMaterial.POLYMERGALVANIZEDSTEEL;
-                        break;
-                    case "Полимер, Чугун":
-                        risersMaterial = RisersMaterial.POLYMERCASTIRON;
-                        break;
-                    case "Сталь оцинкованная":
-                        risersMaterial = RisersMaterial.GALVANIZEDSTEEL;
-                        break;
-                    case "Полипропилен":
-                        risersMaterial = RisersMaterial.POLYPROPYLENE;
-                        break;
-                    default:
-                        throw new IllegalArgumentException(value);
+                Set<RisersMaterial> risersMaterials = new HashSet<>();
+                for (String str : value.split(", ")) {
+                    switch (str) {
+                        case "Нет":
+                            risersMaterials.add(RisersMaterial.NONE);
+                            break;
+                        case "Чугун":
+                            risersMaterials.add(RisersMaterial.CASTIRON);
+                            break;
+                        case "Сталь черная":
+                        case "Сталь":
+                            risersMaterials.add(RisersMaterial.STEEL);
+                            break;
+                        case "Полимер":
+                            risersMaterials.add(RisersMaterial.POLYMER);
+                            break;
+                        case "Сталь оцинкованная":
+                            risersMaterials.add(RisersMaterial.GALVANIZEDSTEEL);
+                            break;
+                        case "Полипропилен":
+                            risersMaterials.add(RisersMaterial.POLYPROPYLENE);
+                            break;
+                        default:
+                            throw new IllegalArgumentException(str);
+                    }
                 }
-                hotWaterSupplySystem.setRisersMaterial(risersMaterial);
+                hotWaterSupplySystem.setRisersMaterials(risersMaterials);
                 break;
             default:
                 throw new IllegalArgumentException(tag);

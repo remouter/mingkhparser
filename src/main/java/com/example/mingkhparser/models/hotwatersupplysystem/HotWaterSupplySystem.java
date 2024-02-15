@@ -14,6 +14,5 @@ public class HotWaterSupplySystem {
     private Double physicalDeterioration;
     private Set<NetworkMaterial> networkMaterials;
     private NetworkThermalInsulationMaterial networkThermalInsulationMaterial;
-    private RisersMaterial risersMaterial;
-
+    private Set<RisersMaterial> risersMaterials;
 }

@@ -1,18 +1,14 @@
 package com.example.mingkhparser.models.coldwatersupplysystemrisers;
 
 public enum NetworkMaterial {
-    //todo enums set
     GALVANIZEDSTEEL("Сталь оцинкованная"),
     POLYMER("Полимер"),
     NONE("Нет"),
     STEEL("Сталь"),
     METALPOLYMER("Металлополимер"),
     CASTIRON("Чугун"),
-    BLACKSTEEL("Сталь черная"), //Сталь черная
-    POLYMERGALVANIZEDSTEEL("Сталь оцинкованная, Полимер"), //Полимер, Сталь оцинкованная
-    POLYPROPYLENE("Полипропилен"),
-    STEELPOLYPROPYLENE("Сталь, Полипропилен") //Сталь, Полипропилен
-    ;
+    BLACKSTEEL("Сталь черная"),
+    POLYPROPYLENE("Полипропилен");
 
     private String name;
 

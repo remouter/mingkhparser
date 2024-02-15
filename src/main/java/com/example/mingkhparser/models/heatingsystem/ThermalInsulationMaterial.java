@@ -1,7 +1,6 @@
 package com.example.mingkhparser.models.heatingsystem;
 
 public enum ThermalInsulationMaterial {
-    //todo enums set
     FOAMEDPOLYETHYLENE("Вспененный полиэтилен (энергофлекс)"),
     NONE("Нет"),
     MINERALWOOLCOATEDWITHALUMINUMFOIL("Минеральная вата с покрытием из алюминиевой фольги"),
@@ -9,8 +8,8 @@ public enum ThermalInsulationMaterial {
     MINERALWOOLCOATED("Минеральная вата с покрытием"),
     ASBESTOSUNDERWOODENBASE("Асбест под деревянной основой (устар.)"),
     POLYURETHANEFOAMSPRAYING("Пенополиуретановое напыление"),
-    POLYMERGALVANIZEDSTEEL("Полимер, Сталь оцинкованная") //Полимер, Сталь оцинкованная
-    ;
+    POLYMER("Полимер"),
+    GALVANIZEDSTEEL("Сталь оцинкованная");
 
     private String name;
 

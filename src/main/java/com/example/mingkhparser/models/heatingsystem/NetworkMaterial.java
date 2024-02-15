@@ -1,17 +1,13 @@
 package com.example.mingkhparser.models.heatingsystem;
 
 public enum NetworkMaterial {
-    //todo enum set
     GALVANIZEDSTEEL("Сталь оцинкованная"),
     NONE("Нет"),
     STEEL("Сталь"),
     POLYMER("Полимер"),
     CASTIRON("Чугун"),
     METALPOLYMER("Металлополимер"),
-    POLYMERGALVANIZEDSTEEL("Полимер, Сталь оцинкованная"), //Полимер, Сталь оцинкованная
-    POLYPROPYLENE("Полипропилен"),
-    STEELPOLYPROPYLENE("Сталь, Полипропилен") //Сталь, Полипропилен
-    ;
+    POLYPROPYLENE("Полипропилен");
 
     private String name;
 

@@ -1,8 +1,6 @@
 package com.example.mingkhparser.models.windows;
 
 public enum WindowsType {
-    //todo enum set
-    PLASTICWOODEN("Пластиковые, Деревянные"), //Пластиковые, Деревянные
     PLASTIC("Пластиковые"),
     WOODEN("Деревянные"),
     NONE("нет");

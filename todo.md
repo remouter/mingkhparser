@@ -4,16 +4,10 @@
 +++4. process all houses one by one
 +++performance check
 +++get list of houses / show final list
-to xls
 +++setInfo
 +++setGeneralInfoEngineeringSystemsConstructionElements(houseInfo, doc);
-
-setDetailedInfo(houseInfo, doc);
-setDetailedInfo2(houseInfo, doc);
-
-export one house entirely
-export one by one
-
++++setDetailedInfo(houseInfo, doc);
++++setDetailedInfo2(houseInfo, doc);
 +++::name => ::getName
 +++.name() => getName
 +++Utils - Integer.valueOf ...
@@ -21,3 +15,6 @@ export one by one
 +++Double.valueOf(value.split(" ")[0])
 
 todo enum sets
+export one house entirely
+export one by one
+to xls

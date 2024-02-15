@@ -1,7 +1,6 @@
 package com.example.mingkhparser.models.roof;
 
 public enum RoofType {
-    //todo enum set
     ROLL("Рулонная"),
     CORRUGATEDSHEETS("Волнистые листы"),
     SLATE("Шиферная"),
@@ -13,7 +12,6 @@ public enum RoofType {
     SOFT("Мягкая"),
     METALWAVY("Металлическая волнистая"),
     RUBEROID("Рубероид"),
-    CORRUGATEDSHEETSSLATE("Волнистые листы, Шиферная"), //Волнистые листы, Шиферная
     ROLLEDONREINFORCEDCONCRETESLABS("Рулонная по железобетонным плитам"),
     GALVANIZEDCORRUGATEDSHEET("Оцинкованный профлист"),
     CORRUGATEDSHEET("Профнастил"),
