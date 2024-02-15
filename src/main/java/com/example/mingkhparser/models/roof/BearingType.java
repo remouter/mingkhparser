@@ -1,7 +1,6 @@
 package com.example.mingkhparser.models.roof;
 
 public enum BearingType {
-    //todo enums set
     PREFABRICATEDREINFORCEDCONCRETE("Железобетонные сборные (чердачные)"),
     WOODEN("Деревянные"),
     RAFTER("Стропильная"),

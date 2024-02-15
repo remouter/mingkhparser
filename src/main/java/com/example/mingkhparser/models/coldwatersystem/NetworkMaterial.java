@@ -1,7 +1,6 @@
 package com.example.mingkhparser.models.coldwatersystem;
 
 public enum NetworkMaterial {
-    //todo set enums
     GALVANIZEDSTEEL("Сталь оцинкованная"),
     POLYMER("Полимер"),
     STEEL("Сталь"),

@@ -21,17 +21,24 @@ import com.example.mingkhparser.models.generalinfo.GeneralInfo;
 import com.example.mingkhparser.models.generalinfo.MaterialType;
 import com.example.mingkhparser.models.generalinfo.RepairFormation;
 import com.example.mingkhparser.models.heatingdevices.HeatingDevices;
+import com.example.mingkhparser.models.heatingdevices.HeatingDevicesType;
 import com.example.mingkhparser.models.heatingsystem.HeatingSystem;
+import com.example.mingkhparser.models.heatingsystem.ThermalInsulationMaterial;
 import com.example.mingkhparser.models.heatingsystemrisers.HeatingSystemRisers;
 import com.example.mingkhparser.models.hotwatersupplysystem.HotWaterSupplySystem;
 import com.example.mingkhparser.models.hotwatersupplysystem.HotWaterSystemType;
 import com.example.mingkhparser.models.hotwatersupplysystem.NetworkMaterial;
+import com.example.mingkhparser.models.hotwatersupplysystem.RisersMaterial;
 import com.example.mingkhparser.models.hotwatersupplysystemrisers.HotWaterSupplySystemRisers;
+import com.example.mingkhparser.models.roof.BearingType;
+import com.example.mingkhparser.models.roof.InsulatingLayers;
 import com.example.mingkhparser.models.roof.Roof;
+import com.example.mingkhparser.models.roof.RoofType;
 import com.example.mingkhparser.models.shutoffvalves.coldwater.ShutoffValvesColdWaterSupplySystem;
 import com.example.mingkhparser.models.shutoffvalves.heating.ShutoffValvesHeatingSystem;
 import com.example.mingkhparser.models.shutoffvalves.hotwater.ShutoffValvesHotWaterSupplySystem;
 import com.example.mingkhparser.models.windows.Windows;
+import com.example.mingkhparser.models.windows.WindowsType;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFFont;
@@ -1154,7 +1161,10 @@ public class XlsExportService implements ExportService {
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        cell.setCellValue(hotWaterSupplySystem.getRisersMaterial().getName()); //Материал стояков
+        String risersMaterials = hotWaterSupplySystem.getRisersMaterials()
+                .stream().map(RisersMaterial::getName)
+                .collect(Collectors.joining(", "));
+        cell.setCellValue(risersMaterials); //Материал стояков
         cell.setCellStyle(style);
 
         //******************************Система водоотведения******************************
@@ -1172,7 +1182,11 @@ public class XlsExportService implements ExportService {
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        cell.setCellValue(drainageSystem.getNetworkMaterial().getName()); //Материал сети
+        String networkMaterials1 = drainageSystem.getNetworkMaterials()
+                .stream()
+                .map(com.example.mingkhparser.models.drainagesystem.NetworkMaterial::getName)
+                .collect(Collectors.joining(", "));
+        cell.setCellValue(networkMaterials1); //Материал сети
         cell.setCellStyle(style);
 
         //******************************Система газоснабжения******************************
@@ -1287,15 +1301,27 @@ public class XlsExportService implements ExportService {
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        cell.setCellValue(roof.getInsulatingLayers().getName()); //Утепляющие слои чердачных перекрытий
+        String insulatingLayers = roof.getInsulatingLayers()
+                .stream()
+                .map(InsulatingLayers::getName)
+                .collect(Collectors.joining(", "));
+        cell.setCellValue(insulatingLayers); //Утепляющие слои чердачных перекрытий
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        cell.setCellValue(roof.getBearingType().getName()); //Вид несущей части
+        String bearingTypes = roof.getBearingTypes()
+                .stream()
+                .map(BearingType::getName)
+                .collect(Collectors.joining(", "));
+        cell.setCellValue(bearingTypes); //Вид несущей части
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        cell.setCellValue(roof.getRoofType().getName()); //Тип кровли
+        String roofTypes = roof.getRoofTypes()
+                .stream()
+                .map(RoofType::getName)
+                .collect(Collectors.joining(", "));
+        cell.setCellValue(roofTypes); //Тип кровли
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
@@ -1313,7 +1339,11 @@ public class XlsExportService implements ExportService {
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        cell.setCellValue(windows.getWindowsType().getName()); //Материал окон
+        String windowsTypes = windows.getWindowsTypes()
+                .stream()
+                .map(WindowsType::getName)
+                .collect(Collectors.joining(", "));
+        cell.setCellValue(windowsTypes); //Материал окон
         cell.setCellStyle(style);
 
         //******************************Двери******************************
@@ -1335,11 +1365,19 @@ public class XlsExportService implements ExportService {
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        cell.setCellValue(heatingSystem.getNetworkMaterial().getName()); //Материал сети
+        String networkMaterials2 = heatingSystem.getNetworkMaterials()
+                .stream()
+                .map(com.example.mingkhparser.models.heatingsystem.NetworkMaterial::getName)
+                .collect(Collectors.joining(", "));
+        cell.setCellValue(networkMaterials2); //Материал сети
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        cell.setCellValue(heatingSystem.getThermalInsulationMaterial().getName()); //Материал теплоизоляции сети
+        String thermalInsulationMaterials = heatingSystem.getThermalInsulationMaterials()
+                .stream()
+                .map(ThermalInsulationMaterial::getName)
+                .collect(Collectors.joining(", "));
+        cell.setCellValue(thermalInsulationMaterials); //Материал теплоизоляции сети
         cell.setCellStyle(style);
 
         //******************************Стояки системы отопления******************************
@@ -1353,7 +1391,11 @@ public class XlsExportService implements ExportService {
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        cell.setCellValue(heatingSystemRisers.getMaterialType().getName()); //Материал
+        String networkMaterials3 = heatingSystemRisers.getMaterialTypes()
+                .stream()
+                .map(com.example.mingkhparser.models.heatingsystemrisers.MaterialType::getName)
+                .collect(Collectors.joining(", "));
+        cell.setCellValue(networkMaterials3); //Материал
         cell.setCellStyle(style);
 
         //******************************Запорная арматура системы отопления******************************
@@ -1369,7 +1411,11 @@ public class XlsExportService implements ExportService {
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        cell.setCellValue(heatingDevices.getHeatingDevicesType().getName()); //Тип отопительных приборов
+        String heatingDevicesTypes = heatingDevices.getHeatingDevicesTypes()
+                .stream()
+                .map(HeatingDevicesType::getName)
+                .collect(Collectors.joining(", "));
+        cell.setCellValue(heatingDevicesTypes); //Тип отопительных приборов
         cell.setCellStyle(style);
 
         //******************************Система холодного водоснабжения******************************
@@ -1392,7 +1438,11 @@ public class XlsExportService implements ExportService {
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        cell.setCellValue(coldWaterSupplySystemRisers.getNetworkMaterial().getName()); //Материал сети
+        String networkMaterials4 = coldWaterSupplySystemRisers.getNetworkMaterials()
+                .stream()
+                .map(com.example.mingkhparser.models.coldwatersupplysystemrisers.NetworkMaterial::getName)
+                .collect(Collectors.joining(", "));
+        cell.setCellValue(networkMaterials4); //Материал сети
         cell.setCellStyle(style);
 
         //******************************Запорная арматура системы холодного водоснабжения******************************

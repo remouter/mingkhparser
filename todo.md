@@ -13,8 +13,7 @@
 +++Utils - Integer.valueOf ...
 +++Integer.valueOf(value.split(" ")[0])
 +++Double.valueOf(value.split(" ")[0])
-
-todo enum sets
++++todo enum sets
 export one house entirely
 export one by one
 to xls

@@ -583,52 +583,56 @@ public class Parser {
                 roof.setRoofShape(roofShape);
                 break;
             case "Утепляющие слои чердачных перекрытий":
-                InsulatingLayers insulatingLayers;
-                switch (value) {
-                    case "Керамзит или шлак":
-                        insulatingLayers = InsulatingLayers.EXPANDEDCLAYSLAG;
-                        break;
-                    case "Минеральная вата":
-                    case "Минераловатные плиты":
-                        insulatingLayers = InsulatingLayers.MINERALWOOL;
-                        break;
-                    case "нет":
-                        insulatingLayers = InsulatingLayers.NONE;
-                        break;
-                    case "Пенобетон":
-                        insulatingLayers = InsulatingLayers.FOAMCONCRETE;
-                        break;
-                    default:
-                        throw new IllegalArgumentException(value);
+                Set<InsulatingLayers> insulatingLayers = new HashSet<>();
+                for (String str : value.split(", ")) {
+                    switch (str) {
+                        case "Керамзит или шлак":
+                            insulatingLayers.add(InsulatingLayers.EXPANDEDCLAYSLAG);
+                            break;
+                        case "Минеральная вата":
+                        case "Минераловатные плиты":
+                            insulatingLayers.add(InsulatingLayers.MINERALWOOL);
+                            break;
+                        case "нет":
+                            insulatingLayers.add(InsulatingLayers.NONE);
+                            break;
+                        case "Пенобетон":
+                            insulatingLayers.add(InsulatingLayers.FOAMCONCRETE);
+                            break;
+                        default:
+                            throw new IllegalArgumentException(str);
+                    }
                 }
                 roof.setInsulatingLayers(insulatingLayers);
                 break;
             case "Вид несущей части":
-                BearingType bearingType;
-                switch (value) {
-                    case "Железобетонные сборные (чердачные)":
-                        bearingType = BearingType.PREFABRICATEDREINFORCEDCONCRETE;
-                        break;
-                    case "Деревянные":
-                        bearingType = BearingType.WOODEN;
-                        break;
-                    case "Стропильная":
-                        bearingType = BearingType.RAFTER;
-                        break;
-                    case "Нет":
-                        bearingType = BearingType.NONE;
-                        break;
-                    case "Совмещенные из сборных железобетонных слоистых панелей":
-                    case "Железобетонная совмещенная":
-                        bearingType = BearingType.COMBINEDPRECASTCONCRETELAMINATEDPANELS;
-                        break;
-                    case "Ж/б плиты":
-                        bearingType = BearingType.REINFORCEDCONCRETESLABS;
-                        break;
-                    default:
-                        throw new IllegalArgumentException(value);
+                Set<BearingType> bearingTypes = new HashSet<>();
+                for (String str : value.split(", ")) {
+                    switch (str) {
+                        case "Железобетонные сборные (чердачные)":
+                            bearingTypes.add(BearingType.PREFABRICATEDREINFORCEDCONCRETE);
+                            break;
+                        case "Деревянные":
+                            bearingTypes.add(BearingType.WOODEN);
+                            break;
+                        case "Стропильная":
+                            bearingTypes.add(BearingType.RAFTER);
+                            break;
+                        case "Нет":
+                            bearingTypes.add(BearingType.NONE);
+                            break;
+                        case "Совмещенные из сборных железобетонных слоистых панелей":
+                        case "Железобетонная совмещенная":
+                            bearingTypes.add(BearingType.COMBINEDPRECASTCONCRETELAMINATEDPANELS);
+                            break;
+                        case "Ж/б плиты":
+                            bearingTypes.add(BearingType.REINFORCEDCONCRETESLABS);
+                            break;
+                        default:
+                            throw new IllegalArgumentException(str);
+                    }
                 }
-                roof.setBearingType(bearingType);
+                roof.setBearingTypes(bearingTypes);
                 break;
             case "Тип кровли":
                 Set<RoofType> roofTypes = new HashSet<>();

@@ -11,8 +11,8 @@ import java.util.Set;
 @ToString
 public class Roof {
     private RoofShape roofShape;
-    private InsulatingLayers insulatingLayers;
-    private BearingType bearingType;
+    private Set<InsulatingLayers> insulatingLayers;
+    private Set<BearingType> bearingTypes;
     private Set<RoofType> roofTypes;
     private Integer physicalDeterioration;
     private Integer lastOverhaulYear;
