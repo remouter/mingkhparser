@@ -1,5 +1,8 @@
 package com.example.mingkhparser.models.coldwatersupplysystemrisers;
 
+import lombok.Getter;
+
+@Getter
 public enum NetworkMaterial {
     GALVANIZEDSTEEL("Сталь оцинкованная"),
     POLYMER("Полимер"),
@@ -10,19 +13,10 @@ public enum NetworkMaterial {
     BLACKSTEEL("Сталь черная"),
     POLYPROPYLENE("Полипропилен");
 
-    private String name;
+    private final String name;
 
     NetworkMaterial(String name) {
         this.name = name;
     }
 
-    public String getName() {
-        return name;
-    }
-
-
-    @Override
-    public String toString() {
-        return name;
-    }
 }

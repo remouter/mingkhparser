@@ -7,7 +7,6 @@ import com.example.mingkhparser.models.constructionelements.FloorType;
 import com.example.mingkhparser.models.doors.Doors;
 import com.example.mingkhparser.models.drainagesystem.DrainageSystem;
 import com.example.mingkhparser.models.electricitysupplysystem.ElectricitySupplySystem;
-import com.example.mingkhparser.models.engineeringsystems.ElectricitySupply;
 import com.example.mingkhparser.models.engineeringsystems.EngineeringSystems;
 import com.example.mingkhparser.models.facade.Facade;
 import com.example.mingkhparser.models.floors.Floors;
@@ -26,7 +25,6 @@ import com.example.mingkhparser.models.shutoffvalves.coldwater.ShutoffValvesCold
 import com.example.mingkhparser.models.shutoffvalves.heating.ShutoffValvesHeatingSystem;
 import com.example.mingkhparser.models.shutoffvalves.hotwater.ShutoffValvesHotWaterSupplySystem;
 import com.example.mingkhparser.models.windows.Windows;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

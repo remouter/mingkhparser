@@ -1,5 +1,8 @@
 package com.example.mingkhparser.models.engineeringsystems;
 
+import lombok.Getter;
+
+@Getter
 public enum WaterDisposal {
     CENTRAL("Центральное"),
     NONE("Отсутствует"),
@@ -7,19 +10,10 @@ public enum WaterDisposal {
     AUTONOMOUS("Автономное"),
     LOCALSEWERAGESEPTIC("Локальная канализация (септик)");
 
-    private String name;
+    private final String name;
 
     WaterDisposal(String name) {
         this.name = name;
     }
 
-    public String getName() {
-        return name;
-    }
-
-
-    @Override
-    public String toString() {
-        return name;
-    }
 }

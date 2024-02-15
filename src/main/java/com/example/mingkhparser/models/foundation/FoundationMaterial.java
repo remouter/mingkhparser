@@ -1,5 +1,8 @@
 package com.example.mingkhparser.models.foundation;
 
+import lombok.Getter;
+
+@Getter
 public enum FoundationMaterial {
     REINFORCEDCONCRETEBLOCKS("Железобетонные блоки"),
     CERAMICBRICK("Кирпич керамический"),
@@ -12,19 +15,10 @@ public enum FoundationMaterial {
     RUBBLESTONE("Бутовый камень"),
     CONCRETE("Бетон");
 
-    private String name;
+    private final String name;
 
     FoundationMaterial(String name) {
         this.name = name;
     }
 
-    public String getName() {
-        return name;
-    }
-
-
-    @Override
-    public String toString() {
-        return name;
-    }
 }

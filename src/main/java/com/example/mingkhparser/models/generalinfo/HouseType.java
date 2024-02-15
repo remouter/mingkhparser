@@ -1,16 +1,15 @@
 package com.example.mingkhparser.models.generalinfo;
 
-public enum HouseType {
-    MANYAPPARTMENTS("Многоквартирный дом")
-    ;
+import lombok.Getter;
 
-    private String name;
+@Getter
+public enum HouseType {
+    MANYAPPARTMENTS("Многоквартирный дом");
+
+    private final String name;
 
     HouseType(String name) {
         this.name = name;
     }
 
-    public String getName() {
-        return name;
-    }
 }

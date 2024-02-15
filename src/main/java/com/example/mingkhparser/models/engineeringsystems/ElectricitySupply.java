@@ -1,21 +1,15 @@
 package com.example.mingkhparser.models.engineeringsystems;
 
+import lombok.Getter;
+
+@Getter
 public enum ElectricitySupply {
     CENTRAL("Центральное");
 
-    private String name;
+    private final String name;
 
     ElectricitySupply(String name) {
         this.name = name;
     }
 
-    public String getName() {
-        return name;
-    }
-
-
-    @Override
-    public String toString() {
-        return name;
-    }
 }

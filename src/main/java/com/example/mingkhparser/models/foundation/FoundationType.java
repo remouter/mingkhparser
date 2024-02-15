@@ -1,5 +1,8 @@
 package com.example.mingkhparser.models.foundation;
 
+import lombok.Getter;
+
+@Getter
 public enum FoundationType {
     TAPE("Ленточный"),
     REINFORCEDCONCRETELARGEBLOCK("Ж/б"),
@@ -7,19 +10,9 @@ public enum FoundationType {
     COLUMNARPILLAR("Столбчатый (столбовой)"),
     NONE("Нет");
 
-    private String name;
+    private final String name;
 
     FoundationType(String name) {
         this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-
-    @Override
-    public String toString() {
-        return name;
     }
 }

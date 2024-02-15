@@ -1,5 +1,8 @@
 package com.example.mingkhparser.models.hotwatersupplysystem;
 
+import lombok.Getter;
+
+@Getter
 public enum HotWaterSystemType {
     NONE("Нет"),
     INDIVIDUALBOILER("Индивидуальный котел"),
@@ -12,19 +15,10 @@ public enum HotWaterSystemType {
     USHAPED("П-образная"),
     LOWERROUTINGOFHIGHWAYS("с нижней разводкой магистралей");
 
-    private String name;
+    private final String name;
 
     HotWaterSystemType(String name) {
         this.name = name;
     }
 
-    public String getName() {
-        return name;
-    }
-
-
-    @Override
-    public String toString() {
-        return name;
-    }
 }

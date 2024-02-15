@@ -122,8 +122,8 @@ public class XlsExportService implements ExportService {
 
             saveFile(workbook);
             log.info("Finish export method");
-        } catch (Exception ignored) {
-            ignored.printStackTrace();
+        } catch (Exception exception) {
+            exception.printStackTrace();
         }
     }
 

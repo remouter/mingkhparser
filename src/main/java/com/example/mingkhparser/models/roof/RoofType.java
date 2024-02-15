@@ -1,5 +1,8 @@
 package com.example.mingkhparser.models.roof;
 
+import lombok.Getter;
+
+@Getter
 public enum RoofType {
     ROLL("Рулонная"),
     CORRUGATEDSHEETS("Волнистые листы"),
@@ -17,19 +20,9 @@ public enum RoofType {
     CORRUGATEDSHEET("Профнастил"),
     NONE("Нет");
 
-    private String name;
+    private final String name;
 
     RoofType(String name) {
         this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-
-    @Override
-    public String toString() {
-        return name;
     }
 }

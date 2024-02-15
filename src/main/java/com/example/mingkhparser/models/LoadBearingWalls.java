@@ -1,5 +1,8 @@
 package com.example.mingkhparser.models;
 
+import lombok.Getter;
+
+@Getter
 public enum LoadBearingWalls {
     BRICK("Кирпич"),
     WOODENFRAME("Стены деревянные каркасные"),
@@ -13,18 +16,9 @@ public enum LoadBearingWalls {
     REINFORCEDCONCRETEBLOCK("Ж/б блоки"),
     REINFORCEDCONCRETESLABS("Железобетонные плиты");
 
-    private String name;
+    private final String name;
 
     LoadBearingWalls(String name) {
         this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public String toString() {
-        return name;
     }
 }

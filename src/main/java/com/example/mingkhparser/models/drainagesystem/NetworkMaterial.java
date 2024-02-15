@@ -1,24 +1,18 @@
 package com.example.mingkhparser.models.drainagesystem;
 
+import lombok.Getter;
+
+@Getter
 public enum NetworkMaterial {
     CASTIRON("чугун"),
     NONE("Нет"),
     PLASTIC("пластик"),
     ASBESTOSCEMENT("асбестоцемент");
 
-    private String name;
+    private final String name;
 
     NetworkMaterial(String name) {
         this.name = name;
     }
 
-    public String getName() {
-        return name;
-    }
-
-
-    @Override
-    public String toString() {
-        return name;
-    }
 }

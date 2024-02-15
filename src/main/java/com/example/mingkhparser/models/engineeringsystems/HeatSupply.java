@@ -1,5 +1,8 @@
 package com.example.mingkhparser.models.engineeringsystems;
 
+import lombok.Getter;
+
+@Getter
 public enum HeatSupply {
     CENTRAL("Центральное"),
     NONE("Нет"),
@@ -8,19 +11,10 @@ public enum HeatSupply {
     STOVE("Печное"),
     GEYSER("Газовая колонка");
 
-    private String name;
+    private final String name;
 
     HeatSupply(String name) {
         this.name = name;
     }
 
-    public String getName() {
-        return name;
-    }
-
-
-    @Override
-    public String toString() {
-        return name;
-    }
 }

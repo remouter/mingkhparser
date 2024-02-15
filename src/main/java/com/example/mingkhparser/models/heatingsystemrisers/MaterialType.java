@@ -1,5 +1,8 @@
 package com.example.mingkhparser.models.heatingsystemrisers;
 
+import lombok.Getter;
+
+@Getter
 public enum MaterialType {
     GALVANIZEDSTEEL("Сталь оцинкованная"),
     POLYMER("Полимер"),
@@ -9,19 +12,10 @@ public enum MaterialType {
     METALPOLYMER("Металлополимер"),
     POLYPROPYLENE("Полипропилен");
 
-    private String name;
+    private final String name;
 
     MaterialType(String name) {
         this.name = name;
     }
 
-    public String getName() {
-        return name;
-    }
-
-
-    @Override
-    public String toString() {
-        return name;
-    }
 }

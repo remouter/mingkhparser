@@ -1,5 +1,8 @@
 package com.example.mingkhparser.models.hotwatersupplysystem;
 
+import lombok.Getter;
+
+@Getter
 public enum RisersMaterial {
     NONE("Нет"),
     CASTIRON("Чугун"),
@@ -8,19 +11,10 @@ public enum RisersMaterial {
     GALVANIZEDSTEEL("Сталь оцинкованная"),
     POLYPROPYLENE("Полипропилен");
 
-    private String name;
+    private final String name;
 
     RisersMaterial(String name) {
         this.name = name;
     }
 
-    public String getName() {
-        return name;
-    }
-
-
-    @Override
-    public String toString() {
-        return name;
-    }
 }

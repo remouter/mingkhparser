@@ -1,5 +1,8 @@
 package com.example.mingkhparser.models.roof;
 
+import lombok.Getter;
+
+@Getter
 public enum BearingType {
     PREFABRICATEDREINFORCEDCONCRETE("Железобетонные сборные (чердачные)"),
     WOODEN("Деревянные"),
@@ -8,19 +11,9 @@ public enum BearingType {
     COMBINEDPRECASTCONCRETELAMINATEDPANELS("Совмещенные из сборных железобетонных слоистых панелей"),
     REINFORCEDCONCRETESLABS("Ж/б плиты");
 
-    private String name;
+    private final String name;
 
     BearingType(String name) {
         this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-
-    @Override
-    public String toString() {
-        return name;
     }
 }

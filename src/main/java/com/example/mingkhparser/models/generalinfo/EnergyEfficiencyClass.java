@@ -1,21 +1,15 @@
 package com.example.mingkhparser.models.generalinfo;
 
+import lombok.Getter;
+
+@Getter
 public enum EnergyEfficiencyClass {
     NOTASSIGNED("");
 
-    private String name;
+    private final String name;
 
     EnergyEfficiencyClass(String name) {
         this.name = name;
     }
 
-    public String getName() {
-        return name;
-    }
-
-
-    @Override
-    public String toString() {
-        return name;
-    }
 }

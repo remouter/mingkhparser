@@ -1,5 +1,8 @@
 package com.example.mingkhparser.models.facade;
 
+import lombok.Getter;
+
+@Getter
 public enum FacadeFinishingMaterial {
     WITHOUTFINISHING("без отделки"),
     PAINTING("окраска"),
@@ -15,19 +18,10 @@ public enum FacadeFinishingMaterial {
     BRICK("наружная облицовка кирпичом"),
     CERAMICTILE("облицовка керамической плиткой");
 
-    private String name;
+    private final String name;
 
     FacadeFinishingMaterial(String name) {
         this.name = name;
     }
 
-    public String getName() {
-        return name;
-    }
-
-
-    @Override
-    public String toString() {
-        return name;
-    }
 }
