@@ -34,8 +34,8 @@ public class Application implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-//        List<String> addresses = parser.getHouses("https://dom.mingkh.ru/ivanovskaya-oblast/furmanov/");
-        List<String> addresses = List.of(nextUrl);
+        List<String> addresses = parser.getHouses("https://dom.mingkh.ru/ivanovskaya-oblast/furmanov/");
+//        List<String> addresses = List.of(nextUrl);
 //        addresses = processNext(addresses);
 
         Long startTime = System.currentTimeMillis();

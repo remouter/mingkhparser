@@ -16,8 +16,8 @@
 +++todo enum sets
 ++clear code
 +++export one house entirely
-export one by one
-to xls
++++export one by one
++++to xls
 +++not null utils
 Фундамент... - https://dom.mingkh.ru/ivanovskaya-oblast/furmanov/1343465
 
