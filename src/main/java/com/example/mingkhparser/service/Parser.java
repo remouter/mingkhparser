@@ -94,14 +94,14 @@ public class Parser {
         Scanner scanner = new Scanner(new BufferedInputStream(getInputStream(url)));
         Document doc = Jsoup.parseBodyFragment(scanner.nextLine());
         HouseInfo houseInfo = new HouseInfo();
+        houseInfo.setUrl(url);
 
         setInfo(houseInfo, doc);
         setGeneralInfoEngineeringSystemsConstructionElements(houseInfo, doc);
         setDetailedInfo(houseInfo, doc);
         setDetailedInfo2(houseInfo, doc);
         result.add(houseInfo);
-
-        log.info("houseInfo: {}", houseInfo);
+        log.debug("houseInfo: {}", houseInfo);
     }
 
     private void setDetailedInfo2(HouseInfo houseInfo, Document doc) {

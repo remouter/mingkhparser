@@ -25,6 +25,7 @@ import com.example.mingkhparser.models.shutoffvalves.coldwater.ShutoffValvesCold
 import com.example.mingkhparser.models.shutoffvalves.heating.ShutoffValvesHeatingSystem;
 import com.example.mingkhparser.models.shutoffvalves.hotwater.ShutoffValvesHotWaterSupplySystem;
 import com.example.mingkhparser.models.windows.Windows;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -35,6 +36,8 @@ import java.util.Set;
 @Getter
 @ToString
 public class HouseInfo {
+    @JsonIgnore
+    private String url;
     private String address;
     private Integer year;
     private Integer floor;
