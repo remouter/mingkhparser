@@ -15,6 +15,7 @@ import java.util.concurrent.Executors;
 @SpringBootApplication
 @Slf4j
 public class Application implements CommandLineRunner {
+    private String nextUrl = "https://dom.mingkh.ru/ivanovskaya-oblast/furmanov/1203129";
     /*
         dom.mingkh.ru parser
      */
@@ -34,7 +35,7 @@ public class Application implements CommandLineRunner {
     @Override
     public void run(String... args) {
 //        List<String> addresses = parser.getHouses("https://dom.mingkh.ru/ivanovskaya-oblast/furmanov/");
-        List<String> addresses = List.of("https://dom.mingkh.ru/ivanovskaya-oblast/furmanov/1197855");
+        List<String> addresses = List.of(nextUrl);
 //        addresses = processNext(addresses);
 
         Long startTime = System.currentTimeMillis();
@@ -52,7 +53,7 @@ public class Application implements CommandLineRunner {
     private List<String> processNext(final List<String> addresses) {
         int index = addresses.size();
         for (int i = 0; i < addresses.size(); i++) {
-            if (addresses.get(i).equals("https://dom.mingkh.ru/ivanovskaya-oblast/furmanov/1197855")) {
+            if (addresses.get(i).equals(nextUrl)) {
                 log.info("processed {}", i);
                 index = i;
                 break;

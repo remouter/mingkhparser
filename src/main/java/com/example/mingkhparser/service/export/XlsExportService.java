@@ -1011,16 +1011,11 @@ public class XlsExportService implements ExportService {
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        cell.setCellValue(houseInfo.getFloorType().getName()); //Тип перекрытий
+        enumCheckAndSet(houseInfo.getFloorType(), cell); //Тип перекрытий
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        String value = houseInfo
-                .getWallMaterials()
-                .stream()
-                .map(WallMaterial::getName)
-                .collect(Collectors.joining(", "));
-        cell.setCellValue(value); //Материал несущих стен
+        setCheckAndJoin(houseInfo.getWallMaterials(), cell); //Материал несущих стен
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
@@ -1110,7 +1105,7 @@ public class XlsExportService implements ExportService {
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        cell.setCellValue(generalInfo.getDisablePeopleDevices() ? "Нет" : "Да"); //Наличие в подъездах приспособлений для нужд маломобильных групп населения
+        setBooleanAndSet(generalInfo.getDisablePeopleDevices(), cell); //Наличие в подъездах приспособлений для нужд маломобильных групп населения
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
@@ -1142,11 +1137,11 @@ public class XlsExportService implements ExportService {
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        cell.setCellValue(generalInfo.getBuildingResidentialSquare()); //Площадь жилых помещений м2
+        setDoubleAndSet(generalInfo.getBuildingResidentialSquare(), cell); //Площадь жилых помещений м2
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        cell.setCellValue(generalInfo.getBuildingNonResidentialSquare()); //Площадь нежилых помещений м2
+        setDoubleAndSet(generalInfo.getBuildingNonResidentialSquare(), cell); //Площадь нежилых помещений м2
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
@@ -1218,12 +1213,7 @@ public class XlsExportService implements ExportService {
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        String loadBearingWalls = constructionElements
-                .getLoadBearingWalls()
-                .stream()
-                .map(LoadBearingWalls::getName)
-                .collect(Collectors.joining(", "));
-        cell.setCellValue(loadBearingWalls); //Несущие стены
+        setCheckAndJoin(constructionElements.getLoadBearingWalls(), cell); //Несущие стены
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
@@ -1231,11 +1221,11 @@ public class XlsExportService implements ExportService {
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        cell.setCellValue(constructionElements.getFoundation().getName()); //Фундамент
+        enumCheckAndSet(constructionElements.getFoundation(), cell); //Фундамент
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        cell.setCellValue(constructionElements.getFloorType().getName()); //Перекрытия
+        enumCheckAndSet(constructionElements.getFloorType(), cell); //Перекрытия
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);

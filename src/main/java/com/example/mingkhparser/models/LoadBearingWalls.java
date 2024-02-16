@@ -3,7 +3,7 @@ package com.example.mingkhparser.models;
 import lombok.Getter;
 
 @Getter
-public enum LoadBearingWalls {
+public enum LoadBearingWalls implements IEnum {
     BRICK("Кирпич"),
     WOODENFRAME("Стены деревянные каркасные"),
     LOGSTIMBER("Стены рубленные из бревен и брусчатые"),

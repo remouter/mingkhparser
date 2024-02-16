@@ -1,9 +1,10 @@
 package com.example.mingkhparser.models.constructionelements;
 
+import com.example.mingkhparser.models.IEnum;
 import lombok.Getter;
 
 @Getter
-public enum Foundation {
+public enum Foundation implements IEnum {
     TAPE("Ленточный"),
     NONE("Нет"),
     REINFORCEDCONCRETELARGEBLOCK("Ж/б"),
