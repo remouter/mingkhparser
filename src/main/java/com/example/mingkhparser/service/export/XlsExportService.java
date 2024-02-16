@@ -1,6 +1,8 @@
 package com.example.mingkhparser.service.export;
 
-import com.example.mingkhparser.models.*;
+import com.example.mingkhparser.models.CommonAreasFinishingCoatings;
+import com.example.mingkhparser.models.HouseInfo;
+import com.example.mingkhparser.models.InnerWalls;
 import com.example.mingkhparser.models.coldwatersupplysystemrisers.ColdWaterSupplySystemRisers;
 import com.example.mingkhparser.models.coldwatersystem.ColdWaterSystem;
 import com.example.mingkhparser.models.constructionelements.ConstructionElements;
@@ -33,7 +35,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.example.mingkhparser.utils.NullCheckUtils.*;
 
@@ -45,19 +46,33 @@ public class XlsExportService implements ExportService {
         log.debug("Start export method");
         try (XSSFWorkbook workbook = new XSSFWorkbook()) {
             Sheet sheet = workbook.createSheet("Houses");
-            setColumnsWidth(sheet);
+
+            XSSFFont font = workbook.createFont();
+            font.setFontName("Arial Narrow");
+            font.setFontHeightInPoints((short) 10);
+            font.setBold(true);
+
+            CellStyle headerStyleGrey = workbook.createCellStyle();
+            headerStyleGrey.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+            headerStyleGrey.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+            headerStyleGrey.setFont(font);
+
+            CellStyle headerStyleGreen = workbook.createCellStyle();
+            headerStyleGreen.setFillForegroundColor(IndexedColors.BRIGHT_GREEN.getIndex());
+            headerStyleGreen.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+            headerStyleGreen.setFont(font);
 
             int counter = 0;
             Row header0 = sheet.createRow(counter++);
             Row header1 = sheet.createRow(counter++);
-            createHeader(workbook, header0, header1);
+            createHeader(header0, header1, headerStyleGrey, headerStyleGreen);
 
             for (HouseInfo houseInfo : source) {
                 log.info("export: {}", houseInfo.getUrl());
                 Row row = sheet.createRow(counter++);
                 createInfoBlock(workbook, row, houseInfo);
             }
-
+            setColumnsWidth(sheet);
             saveFile(workbook);
             log.debug("Finish export method");
         } catch (Exception exception) {
@@ -67,915 +82,796 @@ public class XlsExportService implements ExportService {
 
     private void setColumnsWidth(final Sheet sheet) {
         int columnWidthCount = 0;
-        sheet.setColumnWidth(columnWidthCount++, 4000);
-        sheet.setColumnWidth(columnWidthCount++, 4000);
-        sheet.setColumnWidth(columnWidthCount++, 4000);
-        sheet.setColumnWidth(columnWidthCount++, 4000);
-        sheet.setColumnWidth(columnWidthCount++, 4000);
-        sheet.setColumnWidth(columnWidthCount++, 4000);
-        sheet.setColumnWidth(columnWidthCount++, 4000);
-        sheet.setColumnWidth(columnWidthCount++, 4000);
-        sheet.setColumnWidth(columnWidthCount++, 4000);
-        sheet.setColumnWidth(columnWidthCount++, 4000);
-        sheet.setColumnWidth(columnWidthCount++, 4000);
-        sheet.setColumnWidth(columnWidthCount++, 4000);
-        sheet.setColumnWidth(columnWidthCount++, 4000);
-        sheet.setColumnWidth(columnWidthCount++, 4000);
-        sheet.setColumnWidth(columnWidthCount++, 4000);
-        sheet.setColumnWidth(columnWidthCount++, 4000);
+//        sheet.setColumnWidth(columnWidthCount++, 4000);
+//        sheet.autoSizeColumn(1);
+//        sheet.setColumnWidth(columnWidthCount++, 4000);
+//        sheet.setColumnWidth(columnWidthCount++, 4000);
+//        sheet.setColumnWidth(columnWidthCount++, 4000);
+//        sheet.setColumnWidth(columnWidthCount++, 4000);
+//        sheet.setColumnWidth(columnWidthCount++, 4000);
+//        sheet.setColumnWidth(columnWidthCount++, 4000);
+//        sheet.setColumnWidth(columnWidthCount++, 4000);
+//        sheet.setColumnWidth(columnWidthCount++, 4000);
+//        sheet.setColumnWidth(columnWidthCount++, 4000);
+//        sheet.setColumnWidth(columnWidthCount++, 4000);
+//        sheet.setColumnWidth(columnWidthCount++, 4000);
+//        sheet.setColumnWidth(columnWidthCount++, 4000);
+//        sheet.setColumnWidth(columnWidthCount++, 4000);
+//        sheet.setColumnWidth(columnWidthCount++, 4000);
+//        sheet.setColumnWidth(columnWidthCount++, 4000);
+//        IntStream.of(118).forEach(sheet::autoSizeColumn);
+        for (int i = 0; i < 120; i++) {
+            sheet.autoSizeColumn(i);
+        }
     }
 
-    private void createHeader(final XSSFWorkbook workbook, final Row header0, final Row header1) {
-        XSSFFont font = workbook.createFont();
-        font.setFontName("Arial Narrow");
-        font.setFontHeightInPoints((short) 16);
-        font.setBold(true);
-
-        CellStyle headerStyle = workbook.createCellStyle();
-        headerStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
-        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-        headerStyle.setFont(font);
-
+    private void createHeader(final Row header0, final Row header1,
+                              final CellStyle headerStyleGrey, final CellStyle headerStyleGreen) {
         int headerRowIndex = 0;
         Cell headerCell0 = header0.createCell(headerRowIndex);
         Cell headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("№");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGrey);
+        headerCell.setCellStyle(headerStyleGrey);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Адрес");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGrey);
+        headerCell.setCellStyle(headerStyleGrey);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Год постройки");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGrey);
+        headerCell.setCellStyle(headerStyleGrey);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Количество этажей");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGrey);
+        headerCell.setCellStyle(headerStyleGrey);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Тип дома");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGrey);
+        headerCell.setCellStyle(headerStyleGrey);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Жилых помещений");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGrey);
+        headerCell.setCellStyle(headerStyleGrey);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Капитальный ремонт");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGrey);
+        headerCell.setCellStyle(headerStyleGrey);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Серия, тип постройки");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGrey);
+        headerCell.setCellStyle(headerStyleGrey);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Тип перекрытий");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGrey);
+        headerCell.setCellStyle(headerStyleGrey);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Материал несущих стен");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGrey);
+        headerCell.setCellStyle(headerStyleGrey);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Тип мусоропровода");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGrey);
+        headerCell.setCellStyle(headerStyleGrey);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Дом признан аварийным");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGrey);
+        headerCell.setCellStyle(headerStyleGrey);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Выписка из ЕГРН");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGrey);
+        headerCell.setCellStyle(headerStyleGrey);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Кадастровый номер");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGrey);
+        headerCell.setCellStyle(headerStyleGrey);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Код ОКТМО");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGrey);
+        headerCell.setCellStyle(headerStyleGrey);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Управляющая компания");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGrey);
+        headerCell.setCellStyle(headerStyleGrey);
 
         //********************************Основные сведения**************************************
-        headerStyle = workbook.createCellStyle();
-        headerStyle.setFillForegroundColor(IndexedColors.BRIGHT_GREEN.getIndex());
-        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-        headerStyle.setFont(font);
-
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell0.setCellValue("Основные сведения");
         headerCell.setCellValue("Год ввода в эксплуатацию");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGreen);
+        headerCell.setCellStyle(headerStyleGreen);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Дом признан аварийным");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGreen);
+        headerCell.setCellStyle(headerStyleGreen);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Состояние дома");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGreen);
+        headerCell.setCellStyle(headerStyleGreen);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Количество квартир");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGreen);
+        headerCell.setCellStyle(headerStyleGreen);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Количество нежилых помещений");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGreen);
+        headerCell.setCellStyle(headerStyleGreen);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Количество лоджий");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGreen);
+        headerCell.setCellStyle(headerStyleGreen);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Количество балконов");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGreen);
+        headerCell.setCellStyle(headerStyleGreen);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Класс энергетической эффективности");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGreen);
+        headerCell.setCellStyle(headerStyleGreen);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Количество подъездов");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGreen);
+        headerCell.setCellStyle(headerStyleGreen);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Количество лифтов");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGreen);
+        headerCell.setCellStyle(headerStyleGreen);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Наибольшее количество этажей");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGreen);
+        headerCell.setCellStyle(headerStyleGreen);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Наименьшее количество этажей");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGreen);
+        headerCell.setCellStyle(headerStyleGreen);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Подземных этажей");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGreen);
+        headerCell.setCellStyle(headerStyleGreen);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Формирование фонда кап. ремонта");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGreen);
+        headerCell.setCellStyle(headerStyleGreen);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Площадь парковки м2");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGreen);
+        headerCell.setCellStyle(headerStyleGreen);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Наличие в подъездах приспособлений для нужд маломобильных групп населения");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGreen);
+        headerCell.setCellStyle(headerStyleGreen);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Тип дома");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGreen);
+        headerCell.setCellStyle(headerStyleGreen);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Дата документа о признании дома аварийным");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGreen);
+        headerCell.setCellStyle(headerStyleGreen);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Номер документа о признании дома аварийным");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGreen);
+        headerCell.setCellStyle(headerStyleGreen);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Износ здания, %");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGreen);
+        headerCell.setCellStyle(headerStyleGreen);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Дата, на которую установлен износ здания");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGreen);
+        headerCell.setCellStyle(headerStyleGreen);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Основание признания дома аварийным");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGreen);
+        headerCell.setCellStyle(headerStyleGreen);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Площадь многоквартирного дома, кв.м");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGreen);
+        headerCell.setCellStyle(headerStyleGreen);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Площадь жилых помещений м2");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGreen);
+        headerCell.setCellStyle(headerStyleGreen);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Площадь нежилых помещений м2");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGreen);
+        headerCell.setCellStyle(headerStyleGreen);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Площадь помещений общего имущества м2");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGreen);
+        headerCell.setCellStyle(headerStyleGreen);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Площадь зем. участка общего имущества м2");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGreen);
+        headerCell.setCellStyle(headerStyleGreen);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Серия, тип постройки здания");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGreen);
+        headerCell.setCellStyle(headerStyleGreen);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Статус объекта культурного наследия");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGrey);
+        headerCell.setCellStyle(headerStyleGrey);
 
         //**********************Инженерные системы**********************
-        headerStyle = workbook.createCellStyle();
-        headerStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
-        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-        headerStyle.setFont(font);
-
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell0.setCellValue("Инженерные системы");
         headerCell.setCellValue("Вентиляция");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGrey);
+        headerCell.setCellStyle(headerStyleGrey);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Водоотведение");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGrey);
+        headerCell.setCellStyle(headerStyleGrey);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Система водостоков");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGrey);
+        headerCell.setCellStyle(headerStyleGrey);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Газоснабжение");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGrey);
+        headerCell.setCellStyle(headerStyleGrey);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Горячее водоснабжение");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGrey);
+        headerCell.setCellStyle(headerStyleGrey);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Система пожаротушения");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGrey);
+        headerCell.setCellStyle(headerStyleGrey);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Теплоснабжение");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGrey);
+        headerCell.setCellStyle(headerStyleGrey);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Холодное водоснабжение");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGrey);
+        headerCell.setCellStyle(headerStyleGrey);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Электроснабжение");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGrey);
+        headerCell.setCellStyle(headerStyleGrey);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Количество вводов в дом, ед.");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGrey);
+        headerCell.setCellStyle(headerStyleGrey);
 
         //******************************Конструктивные элементы***********************
-        headerStyle = workbook.createCellStyle();
-        headerStyle.setFillForegroundColor(IndexedColors.BRIGHT_GREEN.getIndex());
-        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-        headerStyle.setFont(font);
-
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell0.setCellValue("Конструктивные элементы");
         headerCell.setCellValue("Мусоропровод");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGreen);
+        headerCell.setCellStyle(headerStyleGreen);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Количество мусоропроводов, ед.");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGreen);
+        headerCell.setCellStyle(headerStyleGreen);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Несущие стены");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGreen);
+        headerCell.setCellStyle(headerStyleGreen);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Площадь подвала, кв.м");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGreen);
+        headerCell.setCellStyle(headerStyleGreen);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Фундамент");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGreen);
+        headerCell.setCellStyle(headerStyleGreen);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Перекрытия");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGreen);
+        headerCell.setCellStyle(headerStyleGreen);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Вид услуги (работы)");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGreen);
+        headerCell.setCellStyle(headerStyleGreen);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Подъезд");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGreen);
+        headerCell.setCellStyle(headerStyleGreen);
 
         //******************************Cистема горячего водоснабжения******************************
-        headerStyle = workbook.createCellStyle();
-        headerStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
-        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-        headerStyle.setFont(font);
-
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell0.setCellValue("Cистема горячего водоснабжения");
         headerCell.setCellValue("Тип системы горячего водоснабжения");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGrey);
+        headerCell.setCellStyle(headerStyleGrey);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Физический износ");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGrey);
+        headerCell.setCellStyle(headerStyleGrey);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Материал сети");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGrey);
+        headerCell.setCellStyle(headerStyleGrey);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Материал теплоизоляции сети");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGrey);
+        headerCell.setCellStyle(headerStyleGrey);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Материал стояков");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGrey);
+        headerCell.setCellStyle(headerStyleGrey);
 
         //******************************Система водоотведения******************************
-        headerStyle = workbook.createCellStyle();
-        headerStyle.setFillForegroundColor(IndexedColors.BRIGHT_GREEN.getIndex());
-        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-        headerStyle.setFont(font);
-
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell0.setCellValue("Система водоотведения");
         headerCell.setCellValue("Физический износ");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGreen);
+        headerCell.setCellStyle(headerStyleGreen);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Год проведения последнего капитального ремонта");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGreen);
+        headerCell.setCellStyle(headerStyleGreen);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Тип системы водоотведения");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGreen);
+        headerCell.setCellStyle(headerStyleGreen);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Материал сети");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGreen);
+        headerCell.setCellStyle(headerStyleGreen);
 
         //******************************Система газоснабжения******************************
-        headerStyle = workbook.createCellStyle();
-        headerStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
-        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-        headerStyle.setFont(font);
-
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell0.setCellValue("Система газоснабжения");
         headerCell.setCellValue("Год проведения последнего капитального ремонта");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGrey);
+        headerCell.setCellStyle(headerStyleGrey);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Тип системы газоснабжения");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGrey);
+        headerCell.setCellStyle(headerStyleGrey);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Количество вводов системы газоснабжения");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGrey);
+        headerCell.setCellStyle(headerStyleGrey);
 
         //******************************Система электроснабжения******************************
-        headerStyle = workbook.createCellStyle();
-        headerStyle.setFillForegroundColor(IndexedColors.BRIGHT_GREEN.getIndex());
-        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-        headerStyle.setFont(font);
-
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell0.setCellValue("Система электроснабжения");
         headerCell.setCellValue("Физический износ");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGreen);
+        headerCell.setCellStyle(headerStyleGreen);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Год проведения последнего капитального ремонта");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGreen);
+        headerCell.setCellStyle(headerStyleGreen);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Количество вводов системы электроснабжения");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGreen);
+        headerCell.setCellStyle(headerStyleGreen);
 
         //******************************Фундамент******************************
-        headerStyle = workbook.createCellStyle();
-        headerStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
-        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-        headerStyle.setFont(font);
-
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell0.setCellValue("Фундамент");
         headerCell.setCellValue("Тип фундамента");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGrey);
+        headerCell.setCellStyle(headerStyleGrey);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Материал фундамента");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGrey);
+        headerCell.setCellStyle(headerStyleGrey);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Площадь отмостки");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGrey);
+        headerCell.setCellStyle(headerStyleGrey);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Физический износ");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGrey);
+        headerCell.setCellStyle(headerStyleGrey);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Год проведения последнего капитального ремонта");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGrey);
+        headerCell.setCellStyle(headerStyleGrey);
 
         //******************************Внутренние стены******************************
-        headerStyle = workbook.createCellStyle();
-        headerStyle.setFillForegroundColor(IndexedColors.BRIGHT_GREEN.getIndex());
-        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-        headerStyle.setFont(font);
-
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell0.setCellValue("Внутренние стены");
         headerCell.setCellValue("Тип внутренних стен");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGreen);
+        headerCell.setCellStyle(headerStyleGreen);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Физический износ");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGreen);
+        headerCell.setCellStyle(headerStyleGreen);
 
         //******************************Фасад******************************
-        headerStyle = workbook.createCellStyle();
-        headerStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
-        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-        headerStyle.setFont(font);
-
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell0.setCellValue("Фасад");
         headerCell.setCellValue("Тип наружных стен");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGrey);
+        headerCell.setCellStyle(headerStyleGrey);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Тип наружного утепления фасада");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGrey);
+        headerCell.setCellStyle(headerStyleGrey);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Материал отделки фасада");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGrey);
+        headerCell.setCellStyle(headerStyleGrey);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Физический износ");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGrey);
+        headerCell.setCellStyle(headerStyleGrey);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Год проведения последнего капитального ремонта");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGrey);
+        headerCell.setCellStyle(headerStyleGrey);
 
         //******************************Перекрытия******************************
-        headerStyle = workbook.createCellStyle();
-        headerStyle.setFillForegroundColor(IndexedColors.BRIGHT_GREEN.getIndex());
-        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-        headerStyle.setFont(font);
-
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell0.setCellValue("Перекрытия");
         headerCell.setCellValue("Тип перекрытия");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGreen);
+        headerCell.setCellStyle(headerStyleGreen);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Физический износ");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGreen);
+        headerCell.setCellStyle(headerStyleGreen);
 
         //******************************Крыша******************************
-        headerStyle = workbook.createCellStyle();
-        headerStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
-        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-        headerStyle.setFont(font);
-
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell0.setCellValue("Крыша");
         headerCell.setCellValue("Форма крыши");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGrey);
+        headerCell.setCellStyle(headerStyleGrey);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Утепляющие слои чердачных перекрытий");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGrey);
+        headerCell.setCellStyle(headerStyleGrey);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Вид несущей части");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGrey);
+        headerCell.setCellStyle(headerStyleGrey);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Тип кровли");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGrey);
+        headerCell.setCellStyle(headerStyleGrey);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Физический износ кровли");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGrey);
+        headerCell.setCellStyle(headerStyleGrey);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Год проведения последнего капитального ремонта кровли");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGrey);
+        headerCell.setCellStyle(headerStyleGrey);
 
         //******************************Окна******************************
-        headerStyle = workbook.createCellStyle();
-        headerStyle.setFillForegroundColor(IndexedColors.BRIGHT_GREEN.getIndex());
-        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-        headerStyle.setFont(font);
-
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell0.setCellValue("Окна");
         headerCell.setCellValue("Физический износ");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGreen);
+        headerCell.setCellStyle(headerStyleGreen);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Материал окон");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGreen);
+        headerCell.setCellStyle(headerStyleGreen);
 
         //******************************Двери******************************
-        headerStyle = workbook.createCellStyle();
-        headerStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
-        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-        headerStyle.setFont(font);
-
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell0.setCellValue("Двери");
         headerCell.setCellValue("Физический износ");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGrey);
+        headerCell.setCellStyle(headerStyleGrey);
 
         //******************************Отделочные покрытия помещений общего пользования******************************
-        headerStyle = workbook.createCellStyle();
-        headerStyle.setFillForegroundColor(IndexedColors.BRIGHT_GREEN.getIndex());
-        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-        headerStyle.setFont(font);
-
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell0.setCellValue("Отделочные покрытия помещений общего пользования");
         headerCell.setCellValue("Физический износ");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGreen);
+        headerCell.setCellStyle(headerStyleGreen);
 
         //******************************Система отопления******************************
-        headerStyle = workbook.createCellStyle();
-        headerStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
-        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-        headerStyle.setFont(font);
-
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell0.setCellValue("Система отопления");
         headerCell.setCellValue("Физический износ");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGrey);
+        headerCell.setCellStyle(headerStyleGrey);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Материал сети");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGrey);
+        headerCell.setCellStyle(headerStyleGrey);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Материал теплоизоляции сети");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGrey);
+        headerCell.setCellStyle(headerStyleGrey);
 
         //******************************Стояки системы отопления******************************
-        headerStyle = workbook.createCellStyle();
-        headerStyle.setFillForegroundColor(IndexedColors.BRIGHT_GREEN.getIndex());
-        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-        headerStyle.setFont(font);
-
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell0.setCellValue("Стояки системы отопления");
         headerCell.setCellValue("Физический износ");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGreen);
+        headerCell.setCellStyle(headerStyleGreen);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Тип поквартирной разводки внутридомовой системы отопления");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGreen);
+        headerCell.setCellStyle(headerStyleGreen);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Материал");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGreen);
+        headerCell.setCellStyle(headerStyleGreen);
 
         //******************************Запорная арматура системы отопления******************************
-        headerStyle = workbook.createCellStyle();
-        headerStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
-        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-        headerStyle.setFont(font);
-
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell0.setCellValue("Запорная арматура системы отопления");
         headerCell.setCellValue("Физический износ");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGrey);
+        headerCell.setCellStyle(headerStyleGrey);
 
         //******************************Отопительные приборы******************************
-        headerStyle = workbook.createCellStyle();
-        headerStyle.setFillForegroundColor(IndexedColors.BRIGHT_GREEN.getIndex());
-        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-        headerStyle.setFont(font);
-
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell0.setCellValue("Отопительные приборы");
         headerCell.setCellValue("Физический износ");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGreen);
+        headerCell.setCellStyle(headerStyleGreen);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Тип отопительных приборов");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGreen);
+        headerCell.setCellStyle(headerStyleGreen);
 
         //******************************Система холодного водоснабжения******************************
-        headerStyle = workbook.createCellStyle();
-        headerStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
-        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-        headerStyle.setFont(font);
-
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell0.setCellValue("Система холодного водоснабжения");
         headerCell.setCellValue("Физический износ");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGrey);
+        headerCell.setCellStyle(headerStyleGrey);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Материал сети");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGrey);
+        headerCell.setCellStyle(headerStyleGrey);
 
         //******************************Стояки системы холодного водоснабжения******************************
-        headerStyle = workbook.createCellStyle();
-        headerStyle.setFillForegroundColor(IndexedColors.BRIGHT_GREEN.getIndex());
-        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-        headerStyle.setFont(font);
-
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell0.setCellValue("Система холодного водоснабжения");
         headerCell.setCellValue("Стояки системы холодного водоснабжения");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGreen);
+        headerCell.setCellStyle(headerStyleGreen);
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Материал сети");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGreen);
+        headerCell.setCellStyle(headerStyleGreen);
 
         //******************************Запорная арматура системы холодного водоснабжения******************************
-        headerStyle = workbook.createCellStyle();
-        headerStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
-        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-        headerStyle.setFont(font);
-
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell0.setCellValue("Стояки системы холодного водоснабжения");
         headerCell.setCellValue("Физический износ");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGrey);
+        headerCell.setCellStyle(headerStyleGrey);
 
         //******************************Стояки системы горячего водоснабжения******************************
-        headerStyle = workbook.createCellStyle();
-        headerStyle.setFillForegroundColor(IndexedColors.BRIGHT_GREEN.getIndex());
-        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-        headerStyle.setFont(font);
-
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell0.setCellValue("Стояки системы горячего водоснабжения");
         headerCell.setCellValue("Физический износ");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGreen);
+        headerCell.setCellStyle(headerStyleGreen);
 
         //******************************Запорная арматура системы горячего водоснабжения******************************
-        headerStyle = workbook.createCellStyle();
-        headerStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
-        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-        headerStyle.setFont(font);
-
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell0.setCellValue("Запорная арматура системы горячего водоснабжения");
         headerCell.setCellValue("Физический износ");
-        headerCell0.setCellStyle(headerStyle);
-        headerCell.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyleGrey);
+        headerCell.setCellStyle(headerStyleGrey);
     }
 
     private void createInfoBlock(XSSFWorkbook workbook, Row row, HouseInfo houseInfo) {
         CellStyle style = workbook.createCellStyle();
+
+        XSSFFont font = workbook.createFont();
+        font.setFontName("Arial Narrow");
+        font.setFontHeightInPoints((short) 10);
+        style.setFont(font);
         int cellRowIndex = 0;
 
         Cell cell = row.createCell(cellRowIndex++);
@@ -1134,6 +1030,7 @@ public class XlsExportService implements ExportService {
 
         cell = row.createCell(cellRowIndex++);
         cell.setCellValue(generalInfo.getBuildingSquare()); //Площадь многоквартирного дома, кв.м
+        style.setAlignment(HorizontalAlignment.LEFT);
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);

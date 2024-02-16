@@ -20,5 +20,10 @@
 +++to xls
 +++not null utils
 Фундамент... - https://dom.mingkh.ru/ivanovskaya-oblast/furmanov/1343465
+url insert xls
++++font size change
+выравнивание по краю
+выровнять ширину
+
 
 
