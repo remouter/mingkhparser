@@ -1,9 +1,10 @@
 package com.example.mingkhparser.models.roof;
 
+import com.example.mingkhparser.models.IEnum;
 import lombok.Getter;
 
 @Getter
-public enum BearingType {
+public enum BearingType implements IEnum {
     PREFABRICATEDREINFORCEDCONCRETE("Железобетонные сборные (чердачные)"),
     WOODEN("Деревянные"),
     RAFTER("Стропильная"),

@@ -1,6 +1,8 @@
 package com.example.mingkhparser.models.constructionelements;
 
-public enum FloorType {
+import com.example.mingkhparser.models.IEnum;
+
+public enum FloorType implements IEnum {
     REINFORCEDCONCRETESLABS("Перекрытия железобетонные"),
     WOODENUNPLASTERED("Перекрытия деревянные неоштукатуренные"),
     WOODENPLASTERED("Перекрытия деревянные оштукатуренные"),

@@ -1,9 +1,10 @@
 package com.example.mingkhparser.models.hotwatersupplysystem;
 
+import com.example.mingkhparser.models.IEnum;
 import lombok.Getter;
 
 @Getter
-public enum HotWaterSystemType {
+public enum HotWaterSystemType implements IEnum {
     NONE("Нет"),
     INDIVIDUALBOILER("Индивидуальный котел"),
     RINGORWITHLOOPEDINPUTS("Кольцевая или с закольцованными вводами"),

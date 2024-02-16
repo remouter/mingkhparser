@@ -1,6 +1,10 @@
 package com.example.mingkhparser.models.generalinfo;
 
-public enum MaterialType {
+import com.example.mingkhparser.models.IEnum;
+import lombok.Getter;
+
+@Getter
+public enum MaterialType implements IEnum {
     BRICK("Кирпичный"),
     NONE("нет"),
     HOUSERESIDENTIAL("Жилой дом"),
@@ -12,19 +16,9 @@ public enum MaterialType {
     BLOCKOFFLATS("многоквартирный дом блокированной застройки"),
     TWOBLOCKOFFLATS("двухквартирный жилой дом блокированной застройки");
 
-    private String name;
+    private final String name;
 
     MaterialType(String name) {
         this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-
-    @Override
-    public String toString() {
-        return name;
     }
 }

@@ -1,9 +1,10 @@
 package com.example.mingkhparser.models.roof;
 
+import com.example.mingkhparser.models.IEnum;
 import lombok.Getter;
 
 @Getter
-public enum RoofShape {
+public enum RoofShape implements IEnum {
     FLAT("Плоская"),
     GABLE("Двускатная"),
     SLOPING("Односкатная"),

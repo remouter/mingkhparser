@@ -1,9 +1,10 @@
 package com.example.mingkhparser.models.hotwatersupplysystem;
 
+import com.example.mingkhparser.models.IEnum;
 import lombok.Getter;
 
 @Getter
-public enum NetworkMaterial {
+public enum NetworkMaterial implements IEnum {
     NONE("Нет"),
     METALPOLYMER("Металлополимер"),
     CASTIRON("Чугун"),

@@ -1,9 +1,10 @@
 package com.example.mingkhparser.models.windows;
 
+import com.example.mingkhparser.models.IEnum;
 import lombok.Getter;
 
 @Getter
-public enum WindowsType {
+public enum WindowsType implements IEnum {
     PLASTIC("Пластиковые"),
     WOODEN("Деревянные"),
     NONE("нет");

@@ -1,9 +1,10 @@
 package com.example.mingkhparser.models.foundation;
 
+import com.example.mingkhparser.models.IEnum;
 import lombok.Getter;
 
 @Getter
-public enum FoundationMaterial {
+public enum FoundationMaterial implements IEnum {
     REINFORCEDCONCRETEBLOCKS("Железобетонные блоки"),
     CERAMICBRICK("Кирпич керамический"),
     REINFORCEDCONCRETESMONOLITHIC("Монолитный железобетон"),

@@ -1,9 +1,10 @@
 package com.example.mingkhparser.models.facade;
 
+import com.example.mingkhparser.models.IEnum;
 import lombok.Getter;
 
 @Getter
-public enum FacadeFinishingMaterial {
+public enum FacadeFinishingMaterial implements IEnum {
     WITHOUTFINISHING("без отделки"),
     PAINTING("окраска"),
     OTHER("Иной"),

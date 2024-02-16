@@ -1,9 +1,10 @@
 package com.example.mingkhparser.models.heatingsystemrisers;
 
+import com.example.mingkhparser.models.IEnum;
 import lombok.Getter;
 
 @Getter
-public enum MaterialType {
+public enum MaterialType implements IEnum {
     GALVANIZEDSTEEL("Сталь оцинкованная"),
     POLYMER("Полимер"),
     STEEL("Сталь"),

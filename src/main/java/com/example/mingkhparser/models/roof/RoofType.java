@@ -1,9 +1,10 @@
 package com.example.mingkhparser.models.roof;
 
+import com.example.mingkhparser.models.IEnum;
 import lombok.Getter;
 
 @Getter
-public enum RoofType {
+public enum RoofType implements IEnum {
     ROLL("Рулонная"),
     CORRUGATEDSHEETS("Волнистые листы"),
     SLATE("Шиферная"),

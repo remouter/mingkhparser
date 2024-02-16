@@ -1,9 +1,10 @@
 package com.example.mingkhparser.models.facade;
 
+import com.example.mingkhparser.models.IEnum;
 import lombok.Getter;
 
 @Getter
-public enum ExternalInsulationType {
+public enum ExternalInsulationType implements IEnum {
     NONE("Нет"),
     INSULATIONWITHAPROTECTIVEPLASTERLAYER("Утепление с защитным штукатурным слоем"),
     MINERALWOOL("Минвата"),

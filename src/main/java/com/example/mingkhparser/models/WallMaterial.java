@@ -1,6 +1,6 @@
 package com.example.mingkhparser.models;
 
-public enum WallMaterial {
+public enum WallMaterial implements IEnum{
     BRICK("Стены кирпичные"),
     WOODENFRAME("Стены деревянные каркасные"),
     LOGSTIMBER("Стены рубленные из бревен и брусчатые"),

@@ -1,9 +1,10 @@
 package com.example.mingkhparser.models.heatingdevices;
 
+import com.example.mingkhparser.models.IEnum;
 import lombok.Getter;
 
 @Getter
-public enum HeatingDevicesType {
+public enum HeatingDevicesType implements IEnum {
     RADIATOR("Радиатор"),
     REGISTER("Регистр"),
     NONE("Нет"),

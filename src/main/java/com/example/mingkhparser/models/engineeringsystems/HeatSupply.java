@@ -1,9 +1,10 @@
 package com.example.mingkhparser.models.engineeringsystems;
 
+import com.example.mingkhparser.models.IEnum;
 import lombok.Getter;
 
 @Getter
-public enum HeatSupply {
+public enum HeatSupply implements IEnum {
     CENTRAL("Центральное"),
     NONE("Нет"),
     BOILER("Квартирное отопление (квартирный котел)"),

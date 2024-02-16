@@ -4,39 +4,25 @@ import com.example.mingkhparser.models.*;
 import com.example.mingkhparser.models.coldwatersupplysystemrisers.ColdWaterSupplySystemRisers;
 import com.example.mingkhparser.models.coldwatersystem.ColdWaterSystem;
 import com.example.mingkhparser.models.constructionelements.ConstructionElements;
-import com.example.mingkhparser.models.constructionelements.FloorType;
 import com.example.mingkhparser.models.doors.Doors;
 import com.example.mingkhparser.models.drainagesystem.DrainageSystem;
-import com.example.mingkhparser.models.drainagesystem.DrainageSystemType;
 import com.example.mingkhparser.models.electricitysupplysystem.ElectricitySupplySystem;
-import com.example.mingkhparser.models.engineeringsystems.*;
-import com.example.mingkhparser.models.facade.ExternalInsulationType;
+import com.example.mingkhparser.models.engineeringsystems.EngineeringSystems;
 import com.example.mingkhparser.models.facade.Facade;
-import com.example.mingkhparser.models.facade.FacadeFinishingMaterial;
 import com.example.mingkhparser.models.floors.Floors;
 import com.example.mingkhparser.models.foundation.Foundation;
-import com.example.mingkhparser.models.foundation.FoundationMaterial;
-import com.example.mingkhparser.models.foundation.FoundationType;
 import com.example.mingkhparser.models.gassupplysystem.GasSupplySystem;
-import com.example.mingkhparser.models.gassupplysystem.GasSupplySystemType;
-import com.example.mingkhparser.models.generalinfo.EnergyEfficiencyClass;
 import com.example.mingkhparser.models.generalinfo.GeneralInfo;
-import com.example.mingkhparser.models.generalinfo.MaterialType;
-import com.example.mingkhparser.models.generalinfo.RepairFormation;
 import com.example.mingkhparser.models.heatingdevices.HeatingDevices;
-import com.example.mingkhparser.models.heatingdevices.HeatingDevicesType;
 import com.example.mingkhparser.models.heatingsystem.HeatingSystem;
-import com.example.mingkhparser.models.heatingsystem.ThermalInsulationMaterial;
-import com.example.mingkhparser.models.heatingsystemrisers.ApartmentWiringType;
 import com.example.mingkhparser.models.heatingsystemrisers.HeatingSystemRisers;
-import com.example.mingkhparser.models.hotwatersupplysystem.*;
+import com.example.mingkhparser.models.hotwatersupplysystem.HotWaterSupplySystem;
 import com.example.mingkhparser.models.hotwatersupplysystemrisers.HotWaterSupplySystemRisers;
-import com.example.mingkhparser.models.roof.*;
+import com.example.mingkhparser.models.roof.Roof;
 import com.example.mingkhparser.models.shutoffvalves.coldwater.ShutoffValvesColdWaterSupplySystem;
 import com.example.mingkhparser.models.shutoffvalves.heating.ShutoffValvesHeatingSystem;
 import com.example.mingkhparser.models.shutoffvalves.hotwater.ShutoffValvesHotWaterSupplySystem;
 import com.example.mingkhparser.models.windows.Windows;
-import com.example.mingkhparser.models.windows.WindowsType;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFFont;
@@ -47,8 +33,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
+
+import static com.example.mingkhparser.utils.NullCheckUtils.*;
 
 @Service
 @Slf4j
@@ -1000,10 +987,7 @@ public class XlsExportService implements ExportService {
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        Integer year = houseInfo.getYear();
-        if (year != null) {
-            cell.setCellValue(year); //Год постройки
-        }
+        setIntegerAndSet(houseInfo.getYear(), cell); //Год постройки
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
@@ -1015,10 +999,7 @@ public class XlsExportService implements ExportService {
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        Integer apartmentsCount = houseInfo.getApartmentsCount();
-        if (apartmentsCount != null) {
-            cell.setCellValue(apartmentsCount); //Жилых помещений
-        }
+        setIntegerAndSet(houseInfo.getApartmentsCount(), cell); //Жилых помещений
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
@@ -1026,12 +1007,7 @@ public class XlsExportService implements ExportService {
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        String value = houseInfo
-                .getMaterialTypes()
-                .stream()
-                .map(MaterialType::getName)
-                .collect(Collectors.joining(", "));
-        cell.setCellValue(value); //Серия, тип постройки
+        setCheckAndJoin(houseInfo.getMaterialTypes(), cell); //Серия, тип постройки
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
@@ -1039,7 +1015,7 @@ public class XlsExportService implements ExportService {
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        value = houseInfo
+        String value = houseInfo
                 .getWallMaterials()
                 .stream()
                 .map(WallMaterial::getName)
@@ -1048,10 +1024,7 @@ public class XlsExportService implements ExportService {
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        Boolean garbageChute = houseInfo.getGarbageChute();
-        if (garbageChute != null) {
-            cell.setCellValue(garbageChute); //Тип мусоропровода
-        }
+        setBooleanAndSet(houseInfo.getGarbageChute(), cell); //Тип мусоропровода
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
@@ -1077,10 +1050,7 @@ public class XlsExportService implements ExportService {
 //        ****************Основные сведения
         GeneralInfo generalInfo = houseInfo.getGeneralInfo();
         cell = row.createCell(cellRowIndex++);
-        Integer year1 = generalInfo.getYear();
-        if (year1 != null) {
-            cell.setCellValue(year1); //Год ввода в эксплуатацию
-        }
+        setIntegerAndSet(generalInfo.getYear(), cell); //Год ввода в эксплуатацию
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
@@ -1092,87 +1062,51 @@ public class XlsExportService implements ExportService {
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        Integer apartmentsCount1 = generalInfo.getApartmentsCount();
-        if (apartmentsCount1 != null) {
-            cell.setCellValue(apartmentsCount1); //Количество квартир
-        }
+        setIntegerAndSet(generalInfo.getApartmentsCount(), cell); //Количество квартир
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        Integer nonResidentialPremises = generalInfo.getNonResidentialPremises();
-        if (nonResidentialPremises != null) {
-            cell.setCellValue(nonResidentialPremises); //Количество нежилых помещений
-        }
+        setIntegerAndSet(generalInfo.getNonResidentialPremises(), cell); //Количество нежилых помещений
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        Integer loggiasNumber = generalInfo.getLoggiasNumber();
-        if (loggiasNumber != null) {
-            cell.setCellValue(loggiasNumber); //Количество лоджий
-        }
+        setIntegerAndSet(generalInfo.getLoggiasNumber(), cell); //Количество лоджий
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        Integer balconyNumber = generalInfo.getBalconyNumber();
-        if (balconyNumber != null) {
-            cell.setCellValue(balconyNumber); //Количество балконов
-        }
+        setIntegerAndSet(generalInfo.getBalconyNumber(), cell); //Количество балконов
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        EnergyEfficiencyClass energyEfficiencyClass = generalInfo.getEnergyEfficiencyClass();
-        if (energyEfficiencyClass != null) {
-            cell.setCellValue(energyEfficiencyClass.getName()); //Класс энергетической эффективности
-        }
+        enumCheckAndSet(generalInfo.getEnergyEfficiencyClass(), cell); //Класс энергетической эффективности
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        Integer numberOfEntrances = generalInfo.getNumberOfEntrances();
-        if (numberOfEntrances != null) {
-            cell.setCellValue(numberOfEntrances); //Количество подъездов
-        }
+        setIntegerAndSet(generalInfo.getNumberOfEntrances(), cell); //Количество подъездов
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        Integer elevatorsNumber = generalInfo.getElevatorsNumber();
-        if (elevatorsNumber != null) {
-            cell.setCellValue(elevatorsNumber); //Количество лифтов
-        }
+        setIntegerAndSet(generalInfo.getElevatorsNumber(), cell); //Количество лифтов
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        Integer maxFloor = generalInfo.getMaxFloor();
-        if (maxFloor != null) {
-            cell.setCellValue(maxFloor); //Наибольшее количество этажей
-        }
+        setIntegerAndSet(generalInfo.getMaxFloor(), cell); //Наибольшее количество этажей
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        Integer minFloor = generalInfo.getMinFloor();
-        if (minFloor != null) {
-            cell.setCellValue(minFloor); //Наименьшее количество этажей
-        }
+        setIntegerAndSet(generalInfo.getMinFloor(), cell); //Наименьшее количество этажей
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        Integer undergroundFloors = generalInfo.getUndergroundFloors();
-        if (undergroundFloors != null) {
-            cell.setCellValue(undergroundFloors); //Подземных этажей
-        }
+        setIntegerAndSet(generalInfo.getUndergroundFloors(), cell); //Подземных этажей
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        RepairFormation repairFormation = generalInfo.getRepairFormation();
-        if (repairFormation != null) {
-            cell.setCellValue(repairFormation.getName()); //Формирование фонда кап. ремонта
-        }
+        enumCheckAndSet(generalInfo.getRepairFormation(), cell); //Формирование фонда кап. ремонта
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        Double parkingArea = generalInfo.getParkingArea();
-        if (parkingArea != null) {
-            cell.setCellValue(parkingArea); //Площадь парковки м2
-        }
+        setDoubleAndSet(generalInfo.getParkingArea(), cell); //Площадь парковки м2
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
@@ -1184,7 +1118,7 @@ public class XlsExportService implements ExportService {
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        cell.setCellValue(generalInfo.getEmergencyDate()); //Дата документа о признании дома аварийным
+        setLocalDateAndSet(generalInfo.getEmergencyDate(), cell); //Дата документа о признании дома аварийным
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
@@ -1192,10 +1126,7 @@ public class XlsExportService implements ExportService {
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        Double wearOfBuilding = generalInfo.getWearOfBuilding();
-        if (wearOfBuilding != null) {
-            cell.setCellValue(wearOfBuilding); //Износ здания, %
-        }
+        setDoubleAndSet(generalInfo.getWearOfBuilding(), cell); //Износ здания, %
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
@@ -1219,26 +1150,15 @@ public class XlsExportService implements ExportService {
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        Double buildingCommonPropertySquare = generalInfo.getBuildingCommonPropertySquare();
-        if (buildingCommonPropertySquare != null) {
-            cell.setCellValue(buildingCommonPropertySquare); //Площадь помещений общего имущества м2
-        }
+        setDoubleAndSet(generalInfo.getBuildingCommonPropertySquare(), cell); //Площадь помещений общего имущества м2
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        Double landCommonPropertySquare = generalInfo.getLandCommonPropertySquare();
-        if (landCommonPropertySquare != null) {
-            cell.setCellValue(landCommonPropertySquare); //Площадь зем. участка общего имущества м2
-        }
+        setDoubleAndSet(generalInfo.getLandCommonPropertySquare(), cell); //Площадь зем. участка общего имущества м2
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        String materialTYpes = generalInfo
-                .getMaterialTypes()
-                .stream()
-                .map(MaterialType::getName)
-                .collect(Collectors.joining(", "));
-        cell.setCellValue(materialTYpes); //Серия, тип постройки здания
+        setCheckAndJoin(generalInfo.getMaterialTypes(), cell); //Серия, тип постройки здания
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
@@ -1248,93 +1168,53 @@ public class XlsExportService implements ExportService {
         //Инженерные системы
         EngineeringSystems engineeringSystems = houseInfo.getEngineeringSystems();
         cell = row.createCell(cellRowIndex++);
-        Ventilation ventilation = engineeringSystems.getVentilation();
-        if (ventilation != null) {
-            cell.setCellValue(ventilation.getName()); //Вентиляция
-        }
+        enumCheckAndSet(engineeringSystems.getVentilation(), cell); //Вентиляция
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        WaterDisposal waterDisposal = engineeringSystems.getWaterDisposal();
-        if (waterDisposal != null) {
-            cell.setCellValue(waterDisposal.getName()); //Водоотведение
-        }
+        enumCheckAndSet(engineeringSystems.getWaterDisposal(), cell); //Водоотведение
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        GuttersSystem guttersSystem = engineeringSystems.getGuttersSystem();
-        if (guttersSystem != null) {
-            cell.setCellValue(guttersSystem.getName()); //Система водостоков
-        }
+        enumCheckAndSet(engineeringSystems.getGuttersSystem(), cell); //Система водостоков
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        GasSupply gasSupply = engineeringSystems.getGasSupply();
-        if (gasSupply != null) {
-            cell.setCellValue(gasSupply.getName()); //Газоснабжение
-        }
+        enumCheckAndSet(engineeringSystems.getGasSupply(), cell); //Газоснабжение
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        Set<HotWaterSystemType> hotWaterSystemTypes2 = engineeringSystems.getHotWaterSystemTypes();
-        if (hotWaterSystemTypes2 != null) {
-            String hotWaterSystemTypes = hotWaterSystemTypes2
-                    .stream()
-                    .map(HotWaterSystemType::getName)
-                    .collect(Collectors.joining(", "));
-            cell.setCellValue(hotWaterSystemTypes); //Горячее водоснабжение
-        }
+        setCheckAndJoin(engineeringSystems.getHotWaterSystemTypes(), cell); //Горячее водоснабжение
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        Boolean fireExtinguishingSystem = engineeringSystems.getFireExtinguishingSystem();
-        if (fireExtinguishingSystem != null) {
-            cell.setCellValue(fireExtinguishingSystem ? "Да" : "Нет"); //Система пожаротушения
-        }
+        setBooleanAndSet(engineeringSystems.getFireExtinguishingSystem(), cell); //Система пожаротушения
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        HeatSupply heatSupply = engineeringSystems.getHeatSupply();
-        if (heatSupply != null) {
-            cell.setCellValue(heatSupply.getName()); //Теплоснабжение
-        }
+        enumCheckAndSet(engineeringSystems.getHeatSupply(), cell); //Теплоснабжение
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        ColdWaterSupply coldWaterSupply = engineeringSystems.getColdWaterSupply();
-        if (coldWaterSupply != null) {
-            cell.setCellValue(coldWaterSupply.getName()); //Холодное водоснабжение
-        }
+        enumCheckAndSet(engineeringSystems.getColdWaterSupply(), cell); //Холодное водоснабжение
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        ElectricitySupply electricitySupply = engineeringSystems.getElectricitySupply();
-        if (electricitySupply != null) {
-            cell.setCellValue(electricitySupply.getName()); //Электроснабжение
-        }
+        enumCheckAndSet(engineeringSystems.getElectricitySupply(), cell); //Электроснабжение
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        Integer numberOfEntriesIntoHouse = engineeringSystems.getNumberOfEntriesIntoHouse();
-        if (numberOfEntriesIntoHouse != null) {
-            cell.setCellValue(numberOfEntriesIntoHouse); //Количество вводов в дом, ед.
-        }
+        setIntegerAndSet(engineeringSystems.getNumberOfEntriesIntoHouse(), cell); //Количество вводов в дом, ед.
         cell.setCellStyle(style);
 
         //********************************Конструктивные элементы
         ConstructionElements constructionElements = houseInfo.getConstructionElements();
         cell = row.createCell(cellRowIndex++);
-        Boolean garbageChute1 = constructionElements.getGarbageChute();
-        if (garbageChute1 != null) {
-            cell.setCellValue(garbageChute1 ? "Да" : "Нет"); //Мусоропровод
-        }
+        setBooleanAndSet(constructionElements.getGarbageChute(), cell); //Мусоропровод
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        Integer garbageChuteNumber = constructionElements.getGarbageChuteNumber();
-        if (garbageChuteNumber != null) {
-            cell.setCellValue(garbageChuteNumber); //Количество мусоропроводов, ед.
-        }
+        setIntegerAndSet(constructionElements.getGarbageChuteNumber(), cell); //Количество мусоропроводов, ед.
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
@@ -1347,10 +1227,7 @@ public class XlsExportService implements ExportService {
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        Double basementArea = constructionElements.getBasementArea();
-        if (basementArea != null) {
-            cell.setCellValue(basementArea); //Площадь подвала, кв.м
-        }
+        setDoubleAndSet(constructionElements.getBasementArea(), cell); //Площадь подвала, кв.м
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
@@ -1372,493 +1249,263 @@ public class XlsExportService implements ExportService {
         //******************************Cистема горячего водоснабжения******************************
         HotWaterSupplySystem hotWaterSupplySystem = houseInfo.getHotWaterSupplySystem();
         cell = row.createCell(cellRowIndex++);
-        Set<HotWaterSystemType> hotWaterSystemTypes = hotWaterSupplySystem.getHotWaterSystemTypes();
-        if (hotWaterSystemTypes != null) {
-            String hotWaterSystemTypes1 = hotWaterSystemTypes.stream()
-                    .map(HotWaterSystemType::getName)
-                    .collect(Collectors.joining(", "));
-            cell.setCellValue(hotWaterSystemTypes1); //Тип системы горячего водоснабжения
-        }
+        setCheckAndJoin(hotWaterSupplySystem.getHotWaterSystemTypes(), cell); //Тип системы горячего водоснабжения
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        Double physicalDeterioration = hotWaterSupplySystem.getPhysicalDeterioration();
-        if (physicalDeterioration != null) {
-            cell.setCellValue(physicalDeterioration); //Физический износ
-        }
+        setDoubleAndSet(hotWaterSupplySystem.getPhysicalDeterioration(), cell); //Физический износ
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        Set<NetworkMaterial> networkMaterials5 = hotWaterSupplySystem.getNetworkMaterials();
-        if (networkMaterials5 != null) {
-            String networkMaterials = networkMaterials5
-                    .stream()
-                    .map(NetworkMaterial::getName)
-                    .collect(Collectors.joining(", "));
-            cell.setCellValue(networkMaterials); //Материал сети
-        }
+        setCheckAndJoin(hotWaterSupplySystem.getNetworkMaterials(), cell); //Материал сети
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        NetworkThermalInsulationMaterial networkThermalInsulationMaterial = hotWaterSupplySystem.getNetworkThermalInsulationMaterial();
-        if (networkThermalInsulationMaterial != null) {
-            cell.setCellValue(networkThermalInsulationMaterial.getName()); //Материал теплоизоляции сети
-        }
+        enumCheckAndSet(hotWaterSupplySystem.getNetworkThermalInsulationMaterial(), cell); //Материал теплоизоляции сети
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        Set<RisersMaterial> risersMaterials1 = hotWaterSupplySystem.getRisersMaterials();
-        if (risersMaterials1 != null) {
-            String risersMaterials = risersMaterials1
-                    .stream().map(RisersMaterial::getName)
-                    .collect(Collectors.joining(", "));
-            cell.setCellValue(risersMaterials); //Материал стояков
-        }
+        setCheckAndJoin(hotWaterSupplySystem.getRisersMaterials(), cell); //Материал стояков
         cell.setCellStyle(style);
 
         //******************************Система водоотведения******************************
         DrainageSystem drainageSystem = houseInfo.getDrainageSystem();
         cell = row.createCell(cellRowIndex++);
-        Integer physicalDeterioration2 = drainageSystem.getPhysicalDeterioration();
-        if (physicalDeterioration2 != null) {
-            cell.setCellValue(physicalDeterioration2); //Физический износ
-        }
+        setIntegerAndSet(drainageSystem.getPhysicalDeterioration(), cell); //Физический износ
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        Integer lastOverhaulYear = drainageSystem.getLastOverhaulYear();
-        if (lastOverhaulYear != null) {
-            cell.setCellValue(lastOverhaulYear); //Год проведения последнего капитального ремонта
-        }
+        setIntegerAndSet(drainageSystem.getLastOverhaulYear(), cell); //Год проведения последнего капитального ремонта
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        DrainageSystemType drainageSystemType = drainageSystem.getDrainageSystemType();
-        if (drainageSystemType != null) {
-            cell.setCellValue(drainageSystemType.getName()); //Тип системы водоотведения
-        }
+        enumCheckAndSet(drainageSystem.getDrainageSystemType(), cell); //Тип системы водоотведения
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        Set<com.example.mingkhparser.models.drainagesystem.NetworkMaterial> networkMaterials = drainageSystem.getNetworkMaterials();
-        if (networkMaterials != null) {
-            String networkMaterials1 = networkMaterials
-                    .stream()
-                    .map(com.example.mingkhparser.models.drainagesystem.NetworkMaterial::getName)
-                    .collect(Collectors.joining(", "));
-            cell.setCellValue(networkMaterials1); //Материал сети
-        }
+        setCheckAndJoin(drainageSystem.getNetworkMaterials(), cell); //Материал сети
         cell.setCellStyle(style);
 
         //******************************Система газоснабжения******************************
         GasSupplySystem gasSupplySystem = houseInfo.getGasSupplySystem();
         cell = row.createCell(cellRowIndex++);
-        Integer lastOverhaulYear1 = gasSupplySystem.getLastOverhaulYear();
-        if (lastOverhaulYear1 != null) {
-            cell.setCellValue(lastOverhaulYear1); //Год проведения последнего капитального ремонта
-        }
+        setIntegerAndSet(gasSupplySystem.getLastOverhaulYear(), cell); //Год проведения последнего капитального ремонта
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        GasSupplySystemType gasSupplySystemType = gasSupplySystem.getGasSupplySystemType();
-        if (gasSupplySystemType != null) {
-            cell.setCellValue(gasSupplySystemType.getName()); //Тип системы газоснабжения
-        }
+        enumCheckAndSet(gasSupplySystem.getGasSupplySystemType(), cell); //Тип системы газоснабжения
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        Integer gasSupplySystemInletsNumber = gasSupplySystem.getGasSupplySystemInletsNumber();
-        if (gasSupplySystemInletsNumber != null) {
-            cell.setCellValue(gasSupplySystemInletsNumber); //Количество вводов системы газоснабжения
-        }
+        setIntegerAndSet(gasSupplySystem.getGasSupplySystemInletsNumber(), cell); //Количество вводов системы газоснабжения
         cell.setCellStyle(style);
 
         //******************************Система электроснабжения******************************
         ElectricitySupplySystem electricitySupplySystem = houseInfo.getElectricitySupplySystem();
         cell = row.createCell(cellRowIndex++);
-        Integer physicalDeterioration11 = electricitySupplySystem.getPhysicalDeterioration();
-        if (physicalDeterioration11 != null) {
-            cell.setCellValue(physicalDeterioration11); //Физический износ
-        }
+        setIntegerAndSet(electricitySupplySystem.getPhysicalDeterioration(), cell); //Физический износ
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        Integer lastOverhaulYear2 = electricitySupplySystem.getLastOverhaulYear();
-        if (lastOverhaulYear2 != null) {
-            cell.setCellValue(lastOverhaulYear2); //Год проведения последнего капитального ремонта
-        }
+        setIntegerAndSet(electricitySupplySystem.getLastOverhaulYear(), cell); //Год проведения последнего капитального ремонта
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        Integer powerSupplyInputNumbers = electricitySupplySystem.getPowerSupplyInputNumbers();
-        if (powerSupplyInputNumbers != null) {
-            cell.setCellValue(powerSupplyInputNumbers); //Количество вводов системы электроснабжения
-        }
+        setIntegerAndSet(electricitySupplySystem.getPowerSupplyInputNumbers(), cell); //Количество вводов системы электроснабжения
         cell.setCellStyle(style);
 
         //******************************Фундамент******************************
         Foundation foundation = houseInfo.getFoundation();
         cell = row.createCell(cellRowIndex++);
-        FoundationType foundationType = foundation.getFoundationType();
-        if (foundationType != null) {
-            cell.setCellValue(foundationType.getName()); //Тип фундамента
-        }
+        enumCheckAndSet(foundation.getFoundationType(), cell); //Тип фундамента
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        FoundationMaterial foundationMaterial = foundation.getFoundationMaterial();
-        if (foundationMaterial != null) {
-            cell.setCellValue(foundationMaterial.getName()); //Материал фундамента
-        }
+        enumCheckAndSet(foundation.getFoundationMaterial(), cell); //Материал фундамента
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        Double blindArea = foundation.getBlindArea();
-        if (blindArea != null) {
-            cell.setCellValue(blindArea); //Площадь отмостки
-        }
+        setDoubleAndSet(foundation.getBlindArea(), cell); //Площадь отмостки
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        Double physicalDeterioration12 = foundation.getPhysicalDeterioration();
-        if (physicalDeterioration12 != null) {
-            cell.setCellValue(physicalDeterioration12); //Физический износ
-        }
+        setDoubleAndSet(foundation.getPhysicalDeterioration(), cell); //Физический износ
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        Integer lastOverhaulYear3 = foundation.getLastOverhaulYear();
-        if (lastOverhaulYear3 != null) {
-            cell.setCellValue(lastOverhaulYear3); //Год проведения последнего капитального ремонта
-        }
+        setIntegerAndSet(foundation.getLastOverhaulYear(), cell); //Год проведения последнего капитального ремонта
         cell.setCellStyle(style);
 
         //******************************Внутренние стены******************************
         InnerWalls innerWalls = houseInfo.getInnerWalls();
         cell = row.createCell(cellRowIndex++);
-        Set<WallMaterial> wallMaterials1 = innerWalls.getWallMaterials();
-        if (wallMaterials1 != null) {
-            String wallMaterials = wallMaterials1
-                    .stream()
-                    .map(WallMaterial::getName)
-                    .collect(Collectors.joining(", "));
-            cell.setCellValue(wallMaterials); //Тип внутренних стен
-        }
+        setCheckAndJoin(innerWalls.getWallMaterials(), cell); //Тип внутренних стен
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        Double physicalDeterioration13 = innerWalls.getPhysicalDeterioration();
-        if (physicalDeterioration13 != null) {
-            cell.setCellValue(physicalDeterioration13); //Физический износ
-        }
+        setDoubleAndSet(innerWalls.getPhysicalDeterioration(), cell); //Физический износ
         cell.setCellStyle(style);
 
         //******************************Фасад******************************
         Facade facade = houseInfo.getFacade();
         cell = row.createCell(cellRowIndex++);
-        Set<WallMaterial> outerWallsMaterials1 = facade.getOuterWallsMaterials();
-        if (outerWallsMaterials1 != null) {
-            String outerWallsMaterials = outerWallsMaterials1
-                    .stream()
-                    .map(WallMaterial::getName)
-                    .collect(Collectors.joining(", "));
-            cell.setCellValue(outerWallsMaterials); //Тип наружных стен
-        }
+        setCheckAndJoin(facade.getOuterWallsMaterials(), cell); //Тип наружных стен
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        ExternalInsulationType externalInsulationType = facade.getExternalInsulationType();
-        if (externalInsulationType != null) {
-            cell.setCellValue(externalInsulationType.getName()); //Тип наружного утепления фасада
-        }
+        enumCheckAndSet(facade.getExternalInsulationType(), cell); //Тип наружного утепления фасада
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        Set<FacadeFinishingMaterial> facadeFinishingMaterials1 = facade.getFacadeFinishingMaterials();
-        if (facadeFinishingMaterials1 != null) {
-            String facadeFinishingMaterials = facadeFinishingMaterials1
-                    .stream()
-                    .map(FacadeFinishingMaterial::getName)
-                    .collect(Collectors.joining(", "));
-            cell.setCellValue(facadeFinishingMaterials); //Материал отделки фасада
-        }
+        setCheckAndJoin(facade.getFacadeFinishingMaterials(), cell); //Материал отделки фасада
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        Double physicalDeterioration14 = facade.getPhysicalDeterioration();
-        if (physicalDeterioration14 != null) {
-            cell.setCellValue(physicalDeterioration14); //Физический износ
-        }
+        setDoubleAndSet(facade.getPhysicalDeterioration(), cell); //Физический износ
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        Integer lastOverhaulYear4 = facade.getLastOverhaulYear();
-        if (lastOverhaulYear4 != null) {
-            cell.setCellValue(lastOverhaulYear4); //Год проведения последнего капитального ремонта
-        }
+        setIntegerAndSet(facade.getLastOverhaulYear(), cell); //Год проведения последнего капитального ремонта
         cell.setCellStyle(style);
 
         //******************************Перекрытия******************************
         Floors floors = houseInfo.getFloors();
         cell = row.createCell(cellRowIndex++);
-        FloorType floorType = floors.getFloorType();
-        if (floorType != null) {
-            cell.setCellValue(floorType.getName()); //Тип перекрытия
-        }
+        enumCheckAndSet(floors.getFloorType(), cell); //Тип перекрытия
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        Double physicalDeterioration15 = floors.getPhysicalDeterioration();
-        if (physicalDeterioration15 != null) {
-            cell.setCellValue(physicalDeterioration15); //Физический износ
-        }
+        setDoubleAndSet(floors.getPhysicalDeterioration(), cell); //Физический износ
         cell.setCellStyle(style);
 
         //******************************Крыша******************************
         Roof roof = houseInfo.getRoof();
         cell = row.createCell(cellRowIndex++);
-        RoofShape roofShape = roof.getRoofShape();
-        if (roofShape != null) {
-            cell.setCellValue(roofShape.getName()); //Форма крыши
-        }
+        enumCheckAndSet(roof.getRoofShape(), cell); //Форма крыши
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        Set<InsulatingLayers> insulatingLayers1 = roof.getInsulatingLayers();
-        if (insulatingLayers1 != null) {
-            String insulatingLayers = insulatingLayers1
-                    .stream()
-                    .map(InsulatingLayers::getName)
-                    .collect(Collectors.joining(", "));
-            cell.setCellValue(insulatingLayers); //Утепляющие слои чердачных перекрытий
-        }
+        setCheckAndJoin(roof.getInsulatingLayers(), cell); //Утепляющие слои чердачных перекрытий
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        Set<BearingType> bearingTypes1 = roof.getBearingTypes();
-        if (bearingTypes1 != null) {
-            String bearingTypes = bearingTypes1
-                    .stream()
-                    .map(BearingType::getName)
-                    .collect(Collectors.joining(", "));
-            cell.setCellValue(bearingTypes); //Вид несущей части
-        }
+        setCheckAndJoin(roof.getBearingTypes(), cell); //Вид несущей части
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        Set<RoofType> roofTypes1 = roof.getRoofTypes();
-        if (roofTypes1 != null) {
-            String roofTypes = roofTypes1
-                    .stream()
-                    .map(RoofType::getName)
-                    .collect(Collectors.joining(", "));
-            cell.setCellValue(roofTypes); //Тип кровли
-        }
+        setCheckAndJoin(roof.getRoofTypes(), cell); //Тип кровли
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        Integer physicalDeterioration16 = roof.getPhysicalDeterioration();
-        if (physicalDeterioration16 != null) {
-            cell.setCellValue(physicalDeterioration16); //Физический износ кровли
-        }
+        setIntegerAndSet(roof.getPhysicalDeterioration(), cell); //Физический износ кровли
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        Integer lastOverhaulYear5 = roof.getLastOverhaulYear();
-        if (lastOverhaulYear5 != null) {
-            cell.setCellValue(lastOverhaulYear5); //Год проведения последнего капитального ремонта кровли
-        }
+        setIntegerAndSet(roof.getLastOverhaulYear(), cell); //Год проведения последнего капитального ремонта кровли
         cell.setCellStyle(style);
 
         //******************************Окна******************************
         Windows windows = houseInfo.getWindows();
         cell = row.createCell(cellRowIndex++);
-        Double physicalDeterioration17 = windows.getPhysicalDeterioration();
-        if (physicalDeterioration17 != null) {
-            cell.setCellValue(physicalDeterioration17); //Физический износ
-        }
+        setDoubleAndSet(windows.getPhysicalDeterioration(), cell); //Физический износ
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        Set<WindowsType> windowsTypes1 = windows.getWindowsTypes();
-        if (windowsTypes1 != null) {
-            String windowsTypes = windowsTypes1
-                    .stream()
-                    .map(WindowsType::getName)
-                    .collect(Collectors.joining(", "));
-            cell.setCellValue(windowsTypes); //Материал окон
-        }
+        setCheckAndJoin(windows.getWindowsTypes(), cell); //Материал окон
         cell.setCellStyle(style);
 
         //******************************Двери******************************
         Doors doors = houseInfo.getDoors();
         cell = row.createCell(cellRowIndex++);
-        Double physicalDeterioration18 = doors.getPhysicalDeterioration();
-        if (physicalDeterioration18 != null) {
-            cell.setCellValue(physicalDeterioration18); //Физический износ
-        }
+        setDoubleAndSet(doors.getPhysicalDeterioration(), cell); //Физический износ
         cell.setCellStyle(style);
 
         //******************************Отделочные покрытия помещений общего пользования******************************
         CommonAreasFinishingCoatings commonAreasFinishingCoatings = houseInfo.getCommonAreasFinishingCoatings();
         cell = row.createCell(cellRowIndex++);
-        Double physicalDeterioration19 = commonAreasFinishingCoatings.getPhysicalDeterioration();
-        if (physicalDeterioration19 != null) {
-            cell.setCellValue(physicalDeterioration19); //Физический износ
-        }
+        setDoubleAndSet(commonAreasFinishingCoatings.getPhysicalDeterioration(), cell); //Физический износ
         cell.setCellStyle(style);
 
         //******************************Система отопления******************************
         HeatingSystem heatingSystem = houseInfo.getHeatingSystem();
         cell = row.createCell(cellRowIndex++);
-        Double physicalDeterioration3 = heatingSystem.getPhysicalDeterioration();
-        if (physicalDeterioration3 != null) {
-            cell.setCellValue(physicalDeterioration3); //Физический износ
-        }
+        setDoubleAndSet(heatingSystem.getPhysicalDeterioration(), cell); //Физический износ
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        Set<com.example.mingkhparser.models.heatingsystem.NetworkMaterial> networkMaterials1 = heatingSystem.getNetworkMaterials();
-        if (networkMaterials1 != null) {
-            String networkMaterials2 = networkMaterials1
-                    .stream()
-                    .map(com.example.mingkhparser.models.heatingsystem.NetworkMaterial::getName)
-                    .collect(Collectors.joining(", "));
-            cell.setCellValue(networkMaterials2); //Материал сети
-        }
+        setCheckAndJoin(heatingSystem.getNetworkMaterials(), cell); //Материал сети
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        Set<ThermalInsulationMaterial> thermalInsulationMaterials1 = heatingSystem.getThermalInsulationMaterials();
-        if (thermalInsulationMaterials1 != null) {
-            String thermalInsulationMaterials = thermalInsulationMaterials1
-                    .stream()
-                    .map(ThermalInsulationMaterial::getName)
-                    .collect(Collectors.joining(", "));
-            cell.setCellValue(thermalInsulationMaterials); //Материал теплоизоляции сети
-        }
+        setCheckAndJoin(heatingSystem.getThermalInsulationMaterials(), cell); //Материал теплоизоляции сети
         cell.setCellStyle(style);
 
         //******************************Стояки системы отопления******************************
         HeatingSystemRisers heatingSystemRisers = houseInfo.getHeatingSystemRisers();
         cell = row.createCell(cellRowIndex++);
-        Integer physicalDeterioration4 = heatingSystemRisers.getPhysicalDeterioration();
-        if (physicalDeterioration4 != null) {
-            cell.setCellValue(physicalDeterioration4); //Физический износ
-        }
+        setIntegerAndSet(heatingSystemRisers.getPhysicalDeterioration(), cell); //Физический износ
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        ApartmentWiringType apartmentWiringType = heatingSystemRisers.getApartmentWiringType();
-        if (apartmentWiringType != null) {
-            cell.setCellValue(apartmentWiringType.getName()); //Тип поквартирной разводки внутридомовой системы отопления
-        }
+        enumCheckAndSet(heatingSystemRisers.getApartmentWiringType(), cell); //Тип поквартирной разводки внутридомовой системы отопления
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        Set<com.example.mingkhparser.models.heatingsystemrisers.MaterialType> materialTypes = heatingSystemRisers.getMaterialTypes();
-        if (materialTypes != null) {
-            String networkMaterials3 = materialTypes
-                    .stream()
-                    .map(com.example.mingkhparser.models.heatingsystemrisers.MaterialType::getName)
-                    .collect(Collectors.joining(", "));
-            cell.setCellValue(networkMaterials3); //Материал
-        }
+        setCheckAndJoin(heatingSystemRisers.getMaterialTypes(), cell); //Материал
         cell.setCellStyle(style);
 
         //******************************Запорная арматура системы отопления******************************
         ShutoffValvesHeatingSystem shutoffValvesHeatingSystem = houseInfo.getShutoffValvesHeatingSystem();
         cell = row.createCell(cellRowIndex++);
-        Integer physicalDeterioration5 = shutoffValvesHeatingSystem.getPhysicalDeterioration();
-        if (physicalDeterioration5 != null) {
-            cell.setCellValue(physicalDeterioration5); //Физический износ
-        }
+        setIntegerAndSet(shutoffValvesHeatingSystem.getPhysicalDeterioration(), cell); //Физический износ
         cell.setCellStyle(style);
 
         //******************************Отопительные приборы******************************
         HeatingDevices heatingDevices = houseInfo.getHeatingDevices();
         cell = row.createCell(cellRowIndex++);
-        Integer physicalDeterioration6 = heatingDevices.getPhysicalDeterioration();
-        if (physicalDeterioration6 != null) {
-            cell.setCellValue(physicalDeterioration6); //Физический износ
-        }
+        setIntegerAndSet(heatingDevices.getPhysicalDeterioration(), cell); //Физический износ
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        Set<HeatingDevicesType> heatingDevicesTypes1 = heatingDevices.getHeatingDevicesTypes();
-        if (heatingDevicesTypes1 != null) {
-            String heatingDevicesTypes = heatingDevicesTypes1
-                    .stream()
-                    .map(HeatingDevicesType::getName)
-                    .collect(Collectors.joining(", "));
-            cell.setCellValue(heatingDevicesTypes); //Тип отопительных приборов
-        }
+        setCheckAndJoin(heatingDevices.getHeatingDevicesTypes(), cell); //Тип отопительных приборов
         cell.setCellStyle(style);
 
         //******************************Система холодного водоснабжения******************************
         ColdWaterSystem coldWaterSystem = houseInfo.getColdWaterSystem();
         cell = row.createCell(cellRowIndex++);
-        Double physicalDeterioration7 = coldWaterSystem.getPhysicalDeterioration();
-        if (physicalDeterioration7 != null) {
-            cell.setCellValue(physicalDeterioration7); //Физический износ
-        }
+        setDoubleAndSet(coldWaterSystem.getPhysicalDeterioration(), cell); //Физический износ
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        Set<com.example.mingkhparser.models.coldwatersystem.NetworkMaterial> networkMaterials2 = coldWaterSystem.getNetworkMaterials();
-        if (networkMaterials2 != null) {
-            String networkMaterial = networkMaterials2
-                    .stream().map(com.example.mingkhparser.models.coldwatersystem.NetworkMaterial::getName)
-                    .collect(Collectors.joining(", "));
-            cell.setCellValue(networkMaterial); //Материал сети
-        }
+        setCheckAndJoin(coldWaterSystem.getNetworkMaterials(), cell); //Материал сети
         cell.setCellStyle(style);
 
         //******************************Стояки системы холодного водоснабжения******************************
         ColdWaterSupplySystemRisers coldWaterSupplySystemRisers = houseInfo.getColdWaterSupplySystemRisers();
         cell = row.createCell(cellRowIndex++);
-        Integer physicalDeterioration8 = coldWaterSupplySystemRisers.getPhysicalDeterioration();
-        if (physicalDeterioration8 != null) {
-            cell.setCellValue(physicalDeterioration8); //Физический износ
-        }
+        setIntegerAndSet(coldWaterSupplySystemRisers.getPhysicalDeterioration(), cell); //Физический износ
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        Set<com.example.mingkhparser.models.coldwatersupplysystemrisers.NetworkMaterial> networkMaterials3 = coldWaterSupplySystemRisers.getNetworkMaterials();
-        if (networkMaterials3 != null) {
-            String networkMaterials4 = networkMaterials3
-                    .stream()
-                    .map(com.example.mingkhparser.models.coldwatersupplysystemrisers.NetworkMaterial::getName)
-                    .collect(Collectors.joining(", "));
-            cell.setCellValue(networkMaterials4); //Материал сети
-        }
+        setCheckAndJoin(coldWaterSupplySystemRisers.getNetworkMaterials(), cell); //Материал сети
         cell.setCellStyle(style);
 
         //******************************Запорная арматура системы холодного водоснабжения******************************
         ShutoffValvesColdWaterSupplySystem shutoffValvesColdWaterSupplySystem = houseInfo.getShutoffValvesColdWaterSupplySystem();
         cell = row.createCell(cellRowIndex++);
-        Integer physicalDeterioration9 = shutoffValvesColdWaterSupplySystem.getPhysicalDeterioration();
-        if (physicalDeterioration9 != null) {
-            cell.setCellValue(physicalDeterioration9); //Физический износ
-        }
+        setIntegerAndSet(shutoffValvesColdWaterSupplySystem.getPhysicalDeterioration(), cell); //Физический износ
         cell.setCellStyle(style);
 
         //******************************Стояки системы горячего водоснабжения******************************
         HotWaterSupplySystemRisers hotWaterSupplySystemRisers = houseInfo.getHotWaterSupplySystemRisers();
         cell = row.createCell(cellRowIndex++);
-        Integer physicalDeterioration1 = hotWaterSupplySystemRisers.getPhysicalDeterioration();
-        if (physicalDeterioration1 != null) {
-            cell.setCellValue(physicalDeterioration1); //Физический износ
-        }
+        setIntegerAndSet(hotWaterSupplySystemRisers.getPhysicalDeterioration(), cell); //Физический износ
         cell.setCellStyle(style);
 
         //******************************Запорная арматура системы горячего водоснабжения******************************
         ShutoffValvesHotWaterSupplySystem shutoffValvesHotWaterSupplySystem = houseInfo.getShutoffValvesHotWaterSupplySystem();
         cell = row.createCell(cellRowIndex++);
-        Integer physicalDeterioration10 = shutoffValvesHotWaterSupplySystem.getPhysicalDeterioration();
-        if (physicalDeterioration10 != null) {
-            cell.setCellValue(physicalDeterioration10); //Физический износ
-        }
+        setIntegerAndSet(shutoffValvesHotWaterSupplySystem.getPhysicalDeterioration(), cell); //Физический износ
         cell.setCellStyle(style);
     }
 

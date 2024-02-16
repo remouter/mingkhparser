@@ -1,9 +1,10 @@
 package com.example.mingkhparser.models.engineeringsystems;
 
+import com.example.mingkhparser.models.IEnum;
 import lombok.Getter;
 
 @Getter
-public enum WaterDisposal {
+public enum WaterDisposal implements IEnum {
     CENTRAL("Центральное"),
     NONE("Отсутствует"),
     CESSPOOL("Выгребная яма"),

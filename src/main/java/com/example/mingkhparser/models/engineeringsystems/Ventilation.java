@@ -1,9 +1,10 @@
 package com.example.mingkhparser.models.engineeringsystems;
 
+import com.example.mingkhparser.models.IEnum;
 import lombok.Getter;
 
 @Getter
-public enum Ventilation {
+public enum Ventilation implements IEnum {
     SUPPLYANDEXHAUSTVENTILATION("Приточно-вытяжная вентиляция"),
     EXHAUSTVENTILATION("Вытяжная вентиляция"),
     NONE("Отсутствует");
