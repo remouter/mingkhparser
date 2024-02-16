@@ -1,5 +1,6 @@
 package com.example.mingkhparser;
 
+import com.example.mingkhparser.models.HouseInfo;
 import com.example.mingkhparser.service.Parser;
 import com.example.mingkhparser.service.export.XlsExportService;
 import lombok.extern.slf4j.Slf4j;
@@ -32,8 +33,8 @@ public class Application implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        List<String> addresses = parser.getHouses("https://dom.mingkh.ru/ivanovskaya-oblast/furmanov/");
-//        List<String> addresses = Arrays.asList("https://dom.mingkh.ru/ivanovskaya-oblast/furmanov/1267290");
+//        List<String> addresses = parser.getHouses("https://dom.mingkh.ru/ivanovskaya-oblast/furmanov/");
+        List<String> addresses = List.of("https://dom.mingkh.ru/ivanovskaya-oblast/furmanov/1267290");
 //        addresses = processNext(addresses);
 
         Long startTime = System.currentTimeMillis();
@@ -41,11 +42,11 @@ public class Application implements CommandLineRunner {
 //        addresses.stream().parallel().forEach(a -> parser.process(a)); //takes 63532 / 63.532 sec
 //        executorService(addresses);
 
-//        Long endTime = System.currentTimeMillis();
-//        List<HouseInfo> result = parser.getResult();
-//        log.info("result: {}", result);
-//        exportService.test(result);
-//        log.trace("process takes: {}", endTime - startTime);
+        Long endTime = System.currentTimeMillis();
+        List<HouseInfo> result = parser.getResult();
+        log.info("result: {}", result);
+        exportService.test(result);
+        log.trace("process takes: {}", endTime - startTime);
     }
 
     private List<String> processNext(final List<String> addresses) {

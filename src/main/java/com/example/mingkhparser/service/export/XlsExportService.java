@@ -1144,7 +1144,10 @@ public class XlsExportService implements ExportService {
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        cell.setCellValue(hotWaterSupplySystem.getPhysicalDeterioration()); //Физический износ
+        Double physicalDeterioration = hotWaterSupplySystem.getPhysicalDeterioration();
+        if (physicalDeterioration != null) {
+            cell.setCellValue(physicalDeterioration); //Физический износ
+        }
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
@@ -1174,7 +1177,10 @@ public class XlsExportService implements ExportService {
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        cell.setCellValue(drainageSystem.getLastOverhaulYear()); //Год проведения последнего капитального ремонта
+        Integer lastOverhaulYear = drainageSystem.getLastOverhaulYear();
+        if (lastOverhaulYear != null) {
+            cell.setCellValue(lastOverhaulYear); //Год проведения последнего капитального ремонта
+        }
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
@@ -1192,7 +1198,10 @@ public class XlsExportService implements ExportService {
         //******************************Система газоснабжения******************************
         GasSupplySystem gasSupplySystem = houseInfo.getGasSupplySystem();
         cell = row.createCell(cellRowIndex++);
-        cell.setCellValue(gasSupplySystem.getLastOverhaulYear()); //Год проведения последнего капитального ремонта
+        Integer lastOverhaulYear1 = gasSupplySystem.getLastOverhaulYear();
+        if (lastOverhaulYear1 != null) {
+            cell.setCellValue(lastOverhaulYear1); //Год проведения последнего капитального ремонта
+        }
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
@@ -1210,7 +1219,10 @@ public class XlsExportService implements ExportService {
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        cell.setCellValue(electricitySupplySystem.getLastOverhaulYear()); //Год проведения последнего капитального ремонта
+        Integer lastOverhaulYear2 = electricitySupplySystem.getLastOverhaulYear();
+        if (lastOverhaulYear2 != null) {
+            cell.setCellValue(lastOverhaulYear2); //Год проведения последнего капитального ремонта
+        }
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
@@ -1236,7 +1248,10 @@ public class XlsExportService implements ExportService {
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        cell.setCellValue(foundation.getLastOverhaulYear()); //Год проведения последнего капитального ремонта
+        Integer lastOverhaulYear3 = foundation.getLastOverhaulYear();
+        if (lastOverhaulYear3 != null) {
+            cell.setCellValue(lastOverhaulYear3); //Год проведения последнего капитального ремонта
+        }
         cell.setCellStyle(style);
 
         //******************************Внутренние стены******************************
@@ -1281,7 +1296,10 @@ public class XlsExportService implements ExportService {
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        cell.setCellValue(facade.getLastOverhaulYear()); //Год проведения последнего капитального ремонта
+        Integer lastOverhaulYear4 = facade.getLastOverhaulYear();
+        if (lastOverhaulYear4 != null) {
+            cell.setCellValue(lastOverhaulYear4); //Год проведения последнего капитального ремонта
+        }
         cell.setCellStyle(style);
 
         //******************************Перекрытия******************************
@@ -1329,7 +1347,10 @@ public class XlsExportService implements ExportService {
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        cell.setCellValue(roof.getLastOverhaulYear()); //Год проведения последнего капитального ремонта кровли
+        Integer lastOverhaulYear5 = roof.getLastOverhaulYear();
+        if (lastOverhaulYear5 != null) {
+            cell.setCellValue(lastOverhaulYear5); //Год проведения последнего капитального ремонта кровли
+        }
         cell.setCellStyle(style);
 
         //******************************Окна******************************
@@ -1454,7 +1475,10 @@ public class XlsExportService implements ExportService {
         //******************************Стояки системы горячего водоснабжения******************************
         HotWaterSupplySystemRisers hotWaterSupplySystemRisers = houseInfo.getHotWaterSupplySystemRisers();
         cell = row.createCell(cellRowIndex++);
-        cell.setCellValue(hotWaterSupplySystemRisers.getPhysicalDeterioration()); //Физический износ
+        Integer physicalDeterioration1 = hotWaterSupplySystemRisers.getPhysicalDeterioration();
+        if (physicalDeterioration1 != null) {
+            cell.setCellValue(physicalDeterioration1); //Физический износ
+        }
         cell.setCellStyle(style);
 
         //******************************Запорная арматура системы горячего водоснабжения******************************

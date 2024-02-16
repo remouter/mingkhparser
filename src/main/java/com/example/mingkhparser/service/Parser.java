@@ -368,20 +368,12 @@ public class Parser {
                 heatingSystemRisers.setPhysicalDeterioration(SplitConvertUtils.stringToInteger(value));
                 break;
             case "Тип поквартирной разводки внутридомовой системы отопления":
-                ApartmentWiringType apartmentWiringType;
-                switch (value) {
-                    case "Вертикальная":
-                        apartmentWiringType = ApartmentWiringType.VERTICAL;
-                        break;
-                    case "Горизонтальная":
-                        apartmentWiringType = ApartmentWiringType.HORIZONTAL;
-                        break;
-                    case "Нет":
-                        apartmentWiringType = ApartmentWiringType.NONE;
-                        break;
-                    default:
-                        throw new IllegalArgumentException(value);
-                }
+                ApartmentWiringType apartmentWiringType = switch (value) {
+                    case "Вертикальная" -> ApartmentWiringType.VERTICAL;
+                    case "Горизонтальная" -> ApartmentWiringType.HORIZONTAL;
+                    case "Нет" -> ApartmentWiringType.NONE;
+                    default -> throw new IllegalArgumentException(value);
+                };
                 heatingSystemRisers.setApartmentWiringType(apartmentWiringType);
                 break;
             case "Материал":
@@ -552,36 +544,17 @@ public class Parser {
     private void setRoof(String tag, String value, Roof roof) {
         switch (tag) {
             case "Форма крыши":
-                RoofShape roofShape;
-                switch (value) {
-                    case "Плоская":
-                        roofShape = RoofShape.FLAT;
-                        break;
-                    case "Скатная":
-                    case "Односкатная":
-                        roofShape = RoofShape.SLOPING;
-                        break;
-                    case "Двускатная":
-                        roofShape = RoofShape.GABLE;
-                        break;
-                    case "Вальмовая":
-                        roofShape = RoofShape.HIP;
-                        break;
-                    case "Вальмовая сложной формы":
-                        roofShape = RoofShape.HIPCOMPLEXSHAPE;
-                        break;
-                    case "Полувальмовая":
-                        roofShape = RoofShape.HALFHIP;
-                        break;
-                    case "Шатровая":
-                        roofShape = RoofShape.TENT;
-                        break;
-                    case "Нет":
-                        roofShape = RoofShape.NONE;
-                        break;
-                    default:
-                        throw new IllegalArgumentException(value);
-                }
+                RoofShape roofShape = switch (value) {
+                    case "Плоская" -> RoofShape.FLAT;
+                    case "Скатная", "Односкатная" -> RoofShape.SLOPING;
+                    case "Двускатная" -> RoofShape.GABLE;
+                    case "Вальмовая" -> RoofShape.HIP;
+                    case "Вальмовая сложной формы" -> RoofShape.HIPCOMPLEXSHAPE;
+                    case "Полувальмовая" -> RoofShape.HALFHIP;
+                    case "Шатровая" -> RoofShape.TENT;
+                    case "Нет" -> RoofShape.NONE;
+                    default -> throw new IllegalArgumentException(value);
+                };
                 roof.setRoofShape(roofShape);
                 break;
             case "Утепляющие слои чердачных перекрытий":
@@ -705,38 +678,19 @@ public class Parser {
     private void setFloors(String tag, String value, Floors floors) {
         switch (tag) {
             case "Тип перекрытия":
-                FloorType floorType;
-                switch (value) {
-                    case "Перекрытия из железобетонных плит":
-                    case "Перекрытия железобетонные":
-                    case "Железобетон":
-                    case "Плоские железобетонные плиты":
-                        floorType = FloorType.REINFORCEDCONCRETESLABS;
-                        break;
-                    case "Перекрытия деревянные неоштукатуренные":
-                        floorType = FloorType.WOODENUNPLASTERED;
-                        break;
-                    case "Перекрытия деревянные оштукатуренные":
-                        floorType = FloorType.WOODENPLASTERED;
-                        break;
-                    case "Деревянные отепленные":
-                        floorType = FloorType.WOODENHEATED;
-                        break;
-                    case "Иные":
-                        floorType = FloorType.OTHER;
-                        break;
-                    case "Перекрытия из сборного железобетонного настила":
-                        floorType = FloorType.PRECASTCONCRETESLABS;
-                        break;
-                    case "Перекрытия из сборных и монолитных сплошных плит":
-                        floorType = FloorType.PREFABRICATEDANDMONOLITHICSOLIDSLABS;
-                        break;
-                    case "Нет":
-                        floorType = FloorType.NONE;
-                        break;
-                    default:
-                        throw new IllegalArgumentException(value);
-                }
+                FloorType floorType = switch (value) {
+                    case "Перекрытия из железобетонных плит", "Перекрытия железобетонные", "Железобетон", "Плоские железобетонные плиты" ->
+                            FloorType.REINFORCEDCONCRETESLABS;
+                    case "Перекрытия деревянные неоштукатуренные" -> FloorType.WOODENUNPLASTERED;
+                    case "Перекрытия деревянные оштукатуренные" -> FloorType.WOODENPLASTERED;
+                    case "Деревянные отепленные" -> FloorType.WOODENHEATED;
+                    case "Иные" -> FloorType.OTHER;
+                    case "Перекрытия из сборного железобетонного настила" -> FloorType.PRECASTCONCRETESLABS;
+                    case "Перекрытия из сборных и монолитных сплошных плит" ->
+                            FloorType.PREFABRICATEDANDMONOLITHICSOLIDSLABS;
+                    case "Нет" -> FloorType.NONE;
+                    default -> throw new IllegalArgumentException(value);
+                };
                 floors.setFloorType(floorType);
                 break;
             case "Физический износ":
@@ -867,24 +821,14 @@ public class Parser {
                 facade.setOuterWallsMaterials(wallMaterials);
                 break;
             case "Тип наружного утепления фасада":
-                ExternalInsulationType externalInsulationType;
-                switch (value) {
-                    case "Нет":
-                        externalInsulationType = ExternalInsulationType.NONE;
-                        break;
-                    case "Утепление с защитным штукатурным слоем":
-                        externalInsulationType = ExternalInsulationType.INSULATIONWITHAPROTECTIVEPLASTERLAYER;
-                        break;
-                    case "Минвата":
-                    case "Слой из минеральных плит":
-                        externalInsulationType = ExternalInsulationType.MINERALWOOL;
-                        break;
-                    case "Навесной вентилируемый фасад":
-                        externalInsulationType = ExternalInsulationType.HINGEDVENTILATEDFACADE;
-                        break;
-                    default:
-                        throw new IllegalArgumentException(value);
-                }
+                ExternalInsulationType externalInsulationType = switch (value) {
+                    case "Нет" -> ExternalInsulationType.NONE;
+                    case "Утепление с защитным штукатурным слоем" ->
+                            ExternalInsulationType.INSULATIONWITHAPROTECTIVEPLASTERLAYER;
+                    case "Минвата", "Слой из минеральных плит" -> ExternalInsulationType.MINERALWOOL;
+                    case "Навесной вентилируемый фасад" -> ExternalInsulationType.HINGEDVENTILATEDFACADE;
+                    default -> throw new IllegalArgumentException(value);
+                };
                 facade.setExternalInsulationType(externalInsulationType);
                 break;
             case "Материал отделки фасада":
@@ -1017,65 +961,31 @@ public class Parser {
     private void setFoundation(String tag, String value, com.example.mingkhparser.models.foundation.Foundation foundation) {
         switch (tag) {
             case "Тип фундамента":
-                FoundationType foundationType;
-                switch (value) {
-                    case "Ленточный":
-                        foundationType = FoundationType.TAPE;
-                        break;
-                    case "Ж/б крупноблочный":
-                    case "Ж/б":
-                        foundationType = FoundationType.REINFORCEDCONCRETELARGEBLOCK;
-                        break;
-                    case "Монолитный ленточный железобетонный и столбчатый ростверк по свайному основанию":
-                        foundationType = FoundationType.MONOLITHICSTRIPREINFORCEDCONCRETEANDCOLUMNARGRILLAGEONAPILE;
-                        break;
-                    case "Столбчатый (столбовой)":
-                        foundationType = FoundationType.COLUMNARPILLAR;
-                        break;
-                    case "Нет":
-                        foundationType = FoundationType.NONE;
-                        break;
-                    default:
-                        throw new IllegalArgumentException(value);
-                }
+                FoundationType foundationType = switch (value) {
+                    case "Ленточный" -> FoundationType.TAPE;
+                    case "Ж/б крупноблочный", "Ж/б" -> FoundationType.REINFORCEDCONCRETELARGEBLOCK;
+                    case "Монолитный ленточный железобетонный и столбчатый ростверк по свайному основанию" ->
+                            FoundationType.MONOLITHICSTRIPREINFORCEDCONCRETEANDCOLUMNARGRILLAGEONAPILE;
+                    case "Столбчатый (столбовой)" -> FoundationType.COLUMNARPILLAR;
+                    case "Нет" -> FoundationType.NONE;
+                    default -> throw new IllegalArgumentException(value);
+                };
                 foundation.setFoundationType(foundationType);
                 break;
             case "Материал фундамента":
-                FoundationMaterial foundationMaterial;
-                switch (value) {
-                    case "Железобетонные блоки":
-                        foundationMaterial = FoundationMaterial.REINFORCEDCONCRETEBLOCKS;
-                        break;
-                    case "Кирпич керамический":
-                        foundationMaterial = FoundationMaterial.CERAMICBRICK;
-                        break;
-                    case "Монолитный железобетон":
-                        foundationMaterial = FoundationMaterial.REINFORCEDCONCRETESMONOLITHIC;
-                        break;
-                    case "Сборный железобетон":
-                        foundationMaterial = FoundationMaterial.PRECASTREINFORCEDCONCRETE;
-                        break;
-                    case "Нет":
-                        foundationMaterial = FoundationMaterial.NONE;
-                        break;
-                    case "Железобетон":
-                        foundationMaterial = FoundationMaterial.REINFORCEDCONCRETE;
-                        break;
-                    case "Кирпич":
-                        foundationMaterial = FoundationMaterial.BRICK;
-                        break;
-                    case "Бутобетон":
-                        foundationMaterial = FoundationMaterial.RUBBLECONCRETE;
-                        break;
-                    case "Бутовый камень":
-                        foundationMaterial = FoundationMaterial.RUBBLESTONE;
-                        break;
-                    case "Бетон":
-                        foundationMaterial = FoundationMaterial.CONCRETE;
-                        break;
-                    default:
-                        throw new IllegalArgumentException(value);
-                }
+                FoundationMaterial foundationMaterial = switch (value) {
+                    case "Железобетонные блоки" -> FoundationMaterial.REINFORCEDCONCRETEBLOCKS;
+                    case "Кирпич керамический" -> FoundationMaterial.CERAMICBRICK;
+                    case "Монолитный железобетон" -> FoundationMaterial.REINFORCEDCONCRETESMONOLITHIC;
+                    case "Сборный железобетон" -> FoundationMaterial.PRECASTREINFORCEDCONCRETE;
+                    case "Нет" -> FoundationMaterial.NONE;
+                    case "Железобетон" -> FoundationMaterial.REINFORCEDCONCRETE;
+                    case "Кирпич" -> FoundationMaterial.BRICK;
+                    case "Бутобетон" -> FoundationMaterial.RUBBLECONCRETE;
+                    case "Бутовый камень" -> FoundationMaterial.RUBBLESTONE;
+                    case "Бетон" -> FoundationMaterial.CONCRETE;
+                    default -> throw new IllegalArgumentException(value);
+                };
                 foundation.setFoundationMaterial(foundationMaterial);
                 break;
             case "Площадь отмостки":
@@ -1114,23 +1024,14 @@ public class Parser {
                 gasSupplySystem.setLastOverhaulYear(Integer.valueOf(value));
                 break;
             case "Тип системы газоснабжения":
-                GasSupplySystemType gasSupplySystemType;
-                switch (value) {
-                    case "центральное":
-                        gasSupplySystemType = GasSupplySystemType.CENTRAL;
-                        break;
-                    case "нет":
-                        gasSupplySystemType = GasSupplySystemType.NONE;
-                        break;
-                    case "Газопровод низкого давления – подача природного газа в крышную котельную":
-                        gasSupplySystemType = GasSupplySystemType.LOWPRESSUREGASPIPELINEROOFBOILERROOM;
-                        break;
-                    case "баллонный газ":
-                        gasSupplySystemType = GasSupplySystemType.BOTTLEDGAS;
-                        break;
-                    default:
-                        throw new IllegalArgumentException(value);
-                }
+                GasSupplySystemType gasSupplySystemType = switch (value) {
+                    case "центральное" -> GasSupplySystemType.CENTRAL;
+                    case "нет" -> GasSupplySystemType.NONE;
+                    case "Газопровод низкого давления – подача природного газа в крышную котельную" ->
+                            GasSupplySystemType.LOWPRESSUREGASPIPELINEROOFBOILERROOM;
+                    case "баллонный газ" -> GasSupplySystemType.BOTTLEDGAS;
+                    default -> throw new IllegalArgumentException(value);
+                };
                 gasSupplySystem.setGasSupplySystemType(gasSupplySystemType);
                 break;
             case "Количество вводов системы газоснабжения":
@@ -1151,23 +1052,13 @@ public class Parser {
                 drainageSystem.setLastOverhaulYear(Integer.valueOf(value));
                 break;
             case "Тип системы водоотведения":
-                DrainageSystemType drainageSystemType;
-                switch (value) {
-                    case "Централизованная канализация":
-                        drainageSystemType = DrainageSystemType.CENTRALIZEDSEWERAGE;
-                        break;
-                    case "Нет":
-                        drainageSystemType = DrainageSystemType.NONE;
-                        break;
-                    case "Выгребная яма":
-                        drainageSystemType = DrainageSystemType.CESSPOOL;
-                        break;
-                    case "Локальная канализация (септик)":
-                        drainageSystemType = DrainageSystemType.LOCALSEWERAGESEPTIC;
-                        break;
-                    default:
-                        throw new IllegalArgumentException(value);
-                }
+                DrainageSystemType drainageSystemType = switch (value) {
+                    case "Централизованная канализация" -> DrainageSystemType.CENTRALIZEDSEWERAGE;
+                    case "Нет" -> DrainageSystemType.NONE;
+                    case "Выгребная яма" -> DrainageSystemType.CESSPOOL;
+                    case "Локальная канализация (септик)" -> DrainageSystemType.LOCALSEWERAGESEPTIC;
+                    default -> throw new IllegalArgumentException(value);
+                };
                 drainageSystem.setDrainageSystemType(drainageSystemType);
                 break;
             case "Материал сети":
@@ -1277,23 +1168,14 @@ public class Parser {
                 hotWaterSupplySystem.setNetworkMaterials(networkMaterials);
                 break;
             case "Материал теплоизоляции сети":
-                NetworkThermalInsulationMaterial networkThermalInsulationMaterial;
-                switch (value) {
-                    case "Нет":
-                        networkThermalInsulationMaterial = NetworkThermalInsulationMaterial.NONE;
-                        break;
-                    case "Минеральная вата с покрытием из алюминиевой фольги":
-                        networkThermalInsulationMaterial = NetworkThermalInsulationMaterial.MINERALWOOLCOATEDWITHALUMINUMFOIL;
-                        break;
-                    case "Вспененный полиэтилен (энергофлекс)":
-                        networkThermalInsulationMaterial = NetworkThermalInsulationMaterial.FOAMEDPOLYETHYLENE;
-                        break;
-                    case "Минеральная вата с покрытием":
-                        networkThermalInsulationMaterial = NetworkThermalInsulationMaterial.MINERALWOOLCOATED;
-                        break;
-                    default:
-                        throw new IllegalArgumentException(value);
-                }
+                NetworkThermalInsulationMaterial networkThermalInsulationMaterial = switch (value) {
+                    case "Нет" -> NetworkThermalInsulationMaterial.NONE;
+                    case "Минеральная вата с покрытием из алюминиевой фольги" ->
+                            NetworkThermalInsulationMaterial.MINERALWOOLCOATEDWITHALUMINUMFOIL;
+                    case "Вспененный полиэтилен (энергофлекс)" -> NetworkThermalInsulationMaterial.FOAMEDPOLYETHYLENE;
+                    case "Минеральная вата с покрытием" -> NetworkThermalInsulationMaterial.MINERALWOOLCOATED;
+                    default -> throw new IllegalArgumentException(value);
+                };
                 hotWaterSupplySystem.setNetworkThermalInsulationMaterial(networkThermalInsulationMaterial);
                 break;
             case "Материал стояков":
@@ -1357,17 +1239,11 @@ public class Parser {
                         }
                         break;
                     case "Состояние дома":
-                        HouseCondition houseCondition;
-                        switch (value) {
-                            case "Исправный":
-                                houseCondition = HouseCondition.SERVICEABLE;
-                                break;
-                            case "Аварийный":
-                                houseCondition = HouseCondition.EMERGENCY;
-                                break;
-                            default:
-                                throw new IllegalArgumentException(value);
-                        }
+                        HouseCondition houseCondition = switch (value) {
+                            case "Исправный" -> HouseCondition.SERVICEABLE;
+                            case "Аварийный" -> HouseCondition.EMERGENCY;
+                            default -> throw new IllegalArgumentException(value);
+                        };
                         generalInfo.setHouseCondition(houseCondition);
                         break;
                     case "Количество квартир":
@@ -1383,15 +1259,10 @@ public class Parser {
                         generalInfo.setBalconyNumber(Integer.valueOf(value));
                         break;
                     case "Класс энергетической эффективности":
-                        EnergyEfficiencyClass energyEfficiencyClass;
-                        switch (value) {
-                            case "Не присвоен":
-                            case "Нет":
-                                energyEfficiencyClass = EnergyEfficiencyClass.NOTASSIGNED;
-                                break;
-                            default:
-                                throw new IllegalArgumentException(value);
-                        }
+                        EnergyEfficiencyClass energyEfficiencyClass = switch (value) {
+                            case "Не присвоен", "Нет" -> EnergyEfficiencyClass.NOTASSIGNED;
+                            default -> throw new IllegalArgumentException(value);
+                        };
                         generalInfo.setEnergyEfficiencyClass(energyEfficiencyClass);
                         break;
                     case "Количество подъездов":
@@ -1410,21 +1281,13 @@ public class Parser {
                         generalInfo.setUndergroundFloors(Integer.valueOf(value));
                         break;
                     case "Формирование фонда кап. ремонта":
-                        RepairFormation repairFormation;
-                        switch (value) {
-                            case "На счете регионального оператора":
-                            case "На специальном счете у регионального оператора":
-                                repairFormation = RepairFormation.REGIONALOPERATORACCOUNT;
-                                break;
-                            case "На специальном счете организации":
-                                repairFormation = RepairFormation.ORGANIZATIONSPECIALACCOUNT;
-                                break;
-                            case "Не определен":
-                                repairFormation = RepairFormation.INDEFINED;
-                                break;
-                            default:
-                                throw new IllegalArgumentException(value);
-                        }
+                        RepairFormation repairFormation = switch (value) {
+                            case "На счете регионального оператора", "На специальном счете у регионального оператора" ->
+                                    RepairFormation.REGIONALOPERATORACCOUNT;
+                            case "На специальном счете организации" -> RepairFormation.ORGANIZATIONSPECIALACCOUNT;
+                            case "Не определен" -> RepairFormation.INDEFINED;
+                            default -> throw new IllegalArgumentException(value);
+                        };
                         generalInfo.setRepairFormation(repairFormation);
                         break;
                     case "Площадь парковки м2":
@@ -1444,12 +1307,10 @@ public class Parser {
                         break;
                     case "Тип дома":
                         HouseType houseType;
-                        switch (value) {
-                            case "Многоквартирный дом":
-                                houseType = HouseType.MANYAPPARTMENTS;
-                                break;
-                            default:
-                                throw new IllegalArgumentException(value);
+                        if (value.equals("Многоквартирный дом")) {
+                            houseType = HouseType.MANYAPPARTMENTS;
+                        } else {
+                            throw new IllegalArgumentException(value);
                         }
                         generalInfo.setHouseType(houseType);
                         break;
@@ -1554,46 +1415,24 @@ public class Parser {
                         break;
 //Инженерные системы
                     case "Вентиляция":
-                        Ventilation ventilation;
-                        switch (value) {
-                            case "Приточно-вытяжная вентиляция":
-                            case "Приточная вентиляция":
-                                ventilation = Ventilation.SUPPLYANDEXHAUSTVENTILATION;
-                                break;
-                            case "Вытяжная вентиляция":
-                                ventilation = Ventilation.EXHAUSTVENTILATION;
-                                break;
-                            case "Отсутствует":
-                                ventilation = Ventilation.NONE;
-                                break;
-                            default:
-                                throw new IllegalArgumentException(value);
-                        }
+                        Ventilation ventilation = switch (value) {
+                            case "Приточно-вытяжная вентиляция", "Приточная вентиляция" ->
+                                    Ventilation.SUPPLYANDEXHAUSTVENTILATION;
+                            case "Вытяжная вентиляция" -> Ventilation.EXHAUSTVENTILATION;
+                            case "Отсутствует" -> Ventilation.NONE;
+                            default -> throw new IllegalArgumentException(value);
+                        };
                         engineeringSystems.setVentilation(ventilation);
                         break;
                     case "Водоотведение":
-                        WaterDisposal waterDisposal;
-                        switch (value) {
-                            case "Центральное":
-                            case "Централизованная канализация":
-                                waterDisposal = WaterDisposal.CENTRAL;
-                                break;
-                            case "Нет":
-                            case "Отсутствует":
-                                waterDisposal = WaterDisposal.NONE;
-                                break;
-                            case "Выгребная яма":
-                                waterDisposal = WaterDisposal.CESSPOOL;
-                                break;
-                            case "Автономное":
-                                waterDisposal = WaterDisposal.AUTONOMOUS;
-                                break;
-                            case "Локальная канализация (септик)":
-                                waterDisposal = WaterDisposal.LOCALSEWERAGESEPTIC;
-                                break;
-                            default:
-                                throw new IllegalArgumentException(value);
-                        }
+                        WaterDisposal waterDisposal = switch (value) {
+                            case "Центральное", "Централизованная канализация" -> WaterDisposal.CENTRAL;
+                            case "Нет", "Отсутствует" -> WaterDisposal.NONE;
+                            case "Выгребная яма" -> WaterDisposal.CESSPOOL;
+                            case "Автономное" -> WaterDisposal.AUTONOMOUS;
+                            case "Локальная канализация (септик)" -> WaterDisposal.LOCALSEWERAGESEPTIC;
+                            default -> throw new IllegalArgumentException(value);
+                        };
                         engineeringSystems.setWaterDisposal(waterDisposal);
                         break;
                     case "Система водостоков":
@@ -1612,28 +1451,15 @@ public class Parser {
                         }
                         break;
                     case "Газоснабжение":
-                        GasSupply gasSupply;
-                        switch (value) {
-                            case "Центральное":
-                            case "центральное":
-                                gasSupply = GasSupply.CENTRAL;
-                                break;
-                            case "нет":
-                            case "Отсутствует":
-                                gasSupply = GasSupply.NONE;
-                                break;
-                            case "Газопровод низкого давления – подача природного газа в крышную котельную":
-                                gasSupply = GasSupply.LOWPRESSUREGASPIPELINEROOFBOILERROOM;
-                                break;
-                            case "баллонный газ":
-                                gasSupply = GasSupply.BOTTLEDGAS;
-                                break;
-                            case "Автономное":
-                                gasSupply = GasSupply.AUTONOMOUS;
-                                break;
-                            default:
-                                throw new IllegalArgumentException(value);
-                        }
+                        GasSupply gasSupply = switch (value) {
+                            case "Центральное", "центральное" -> GasSupply.CENTRAL;
+                            case "нет", "Отсутствует" -> GasSupply.NONE;
+                            case "Газопровод низкого давления – подача природного газа в крышную котельную" ->
+                                    GasSupply.LOWPRESSUREGASPIPELINEROOFBOILERROOM;
+                            case "баллонный газ" -> GasSupply.BOTTLEDGAS;
+                            case "Автономное" -> GasSupply.AUTONOMOUS;
+                            default -> throw new IllegalArgumentException(value);
+                        };
                         engineeringSystems.setGasSupply(gasSupply);
                         break;
                     case "Горячее водоснабжение":
@@ -1687,64 +1513,34 @@ public class Parser {
                         }
                         break;
                     case "Теплоснабжение":
-                        HeatSupply heatSupply;
-                        switch (value) {
-                            case "Центральная":
-                            case "Центральное":
-                                heatSupply = HeatSupply.CENTRAL;
-                                break;
-                            case "Нет":
-                                heatSupply = HeatSupply.NONE;
-                                break;
-                            case "Квартирное отопление (котел)":
-                            case "Квартирное отопление (квартирный котел)":
-                                heatSupply = HeatSupply.BOILER;
-                                break;
-                            case "Домовая котельная":
-                                heatSupply = HeatSupply.HOUSEBOILER;
-                                break;
-                            case "Печная":
-                            case "Печное":
-                                heatSupply = HeatSupply.STOVE;
-                                break;
-                            case "Газовая колонка":
-                                heatSupply = HeatSupply.GEYSER;
-                                break;
-                            default:
-                                throw new IllegalArgumentException(value);
-                        }
+                        HeatSupply heatSupply = switch (value) {
+                            case "Центральная", "Центральное" -> HeatSupply.CENTRAL;
+                            case "Нет" -> HeatSupply.NONE;
+                            case "Квартирное отопление (котел)", "Квартирное отопление (квартирный котел)" ->
+                                    HeatSupply.BOILER;
+                            case "Домовая котельная" -> HeatSupply.HOUSEBOILER;
+                            case "Печная", "Печное" -> HeatSupply.STOVE;
+                            case "Газовая колонка" -> HeatSupply.GEYSER;
+                            default -> throw new IllegalArgumentException(value);
+                        };
                         engineeringSystems.setHeatSupply(heatSupply);
                         break;
                     case "Холодное водоснабжение":
-                        ColdWaterSupply coldWaterSupply;
-                        switch (value) {
-                            case "Тупиковая":
-                                coldWaterSupply = ColdWaterSupply.DEADEND;
-                                break;
-                            case "Центральное":
-                            case "Централизованная (от городской сети)":
-                                coldWaterSupply = ColdWaterSupply.CENTRAL;
-                                break;
-                            case "Нет":
-                            case "Отсутствует":
-                                coldWaterSupply = ColdWaterSupply.NONE;
-                                break;
-                            case "Автономное":
-                                coldWaterSupply = ColdWaterSupply.AUTONOMOUS;
-                                break;
-                            default:
-                                throw new IllegalArgumentException(value);
-                        }
+                        ColdWaterSupply coldWaterSupply = switch (value) {
+                            case "Тупиковая" -> ColdWaterSupply.DEADEND;
+                            case "Центральное", "Централизованная (от городской сети)" -> ColdWaterSupply.CENTRAL;
+                            case "Нет", "Отсутствует" -> ColdWaterSupply.NONE;
+                            case "Автономное" -> ColdWaterSupply.AUTONOMOUS;
+                            default -> throw new IllegalArgumentException(value);
+                        };
                         engineeringSystems.setColdWaterSupply(coldWaterSupply);
                         break;
                     case "Электроснабжение":
                         ElectricitySupply electricitySupply;
-                        switch (value) {
-                            case "Центральное":
-                                electricitySupply = ElectricitySupply.CENTRAL;
-                                break;
-                            default:
-                                throw new IllegalArgumentException(value);
+                        if (value.equals("Центральное")) {
+                            electricitySupply = ElectricitySupply.CENTRAL;
+                        } else {
+                            throw new IllegalArgumentException(value);
                         }
                         engineeringSystems.setElectricitySupply(electricitySupply);
                         break;
@@ -1819,74 +1615,35 @@ public class Parser {
                         constructionElements.setBasementArea(Double.valueOf(value));
                         break;
                     case "Фундамент":
-                        Foundation foundation;
-                        switch (value) {
-                            case "Ленточный":
-                                foundation = Foundation.TAPE;
-                                break;
-                            case "Нет":
-                                foundation = Foundation.NONE;
-                                break;
-                            case "Ж/б крупноблочный":
-                            case "Ж/б":
-                                foundation = Foundation.REINFORCEDCONCRETELARGEBLOCK;
-                                break;
-                            case "Монолитный ленточный железобетонный и столбчатый ростверк по свайному основанию":
-                                foundation = Foundation.MONOLITHICSTRIPREINFORCEDCONCRETEANDCOLUMNARGRILLAGEONAPILE;
-                                break;
-                            case "Столбчатый (столбовой)":
-                                foundation = Foundation.COLUMNARPILLAR;
-                                break;
-                            case "Иной":
-                                foundation = Foundation.OTHER;
-                                break;
-                            default:
-                                throw new IllegalArgumentException(value);
-                        }
+                        Foundation foundation = switch (value) {
+                            case "Ленточный" -> Foundation.TAPE;
+                            case "Нет" -> Foundation.NONE;
+                            case "Ж/б крупноблочный", "Ж/б" -> Foundation.REINFORCEDCONCRETELARGEBLOCK;
+                            case "Монолитный ленточный железобетонный и столбчатый ростверк по свайному основанию" ->
+                                    Foundation.MONOLITHICSTRIPREINFORCEDCONCRETEANDCOLUMNARGRILLAGEONAPILE;
+                            case "Столбчатый (столбовой)" -> Foundation.COLUMNARPILLAR;
+                            case "Иной" -> Foundation.OTHER;
+                            default -> throw new IllegalArgumentException(value);
+                        };
                         constructionElements.setFoundation(foundation);
                         break;
                     case "Перекрытия":
-                        FloorType floorType;
-                        switch (value) {
-                            case "Перекрытия из железобетонных плит":
-                            case "Перекрытия железобетонные":
-                            case "Железобетонные":
-                            case "Железобетон":
-                                floorType = FloorType.REINFORCEDCONCRETESLABS;
-                                break;
-                            case "Перекрытия деревянные неоштукатуренные":
-                                floorType = FloorType.WOODENUNPLASTERED;
-                                break;
-                            case "Перекрытия деревянные оштукатуренные":
-                                floorType = FloorType.WOODENPLASTERED;
-                                break;
-                            case "Деревянные отепленные":
-                                floorType = FloorType.WOODENHEATED;
-                                break;
-                            case "Деревянные":
-                                floorType = FloorType.WOODEN;
-                                break;
-                            case "Иные":
-                                floorType = FloorType.OTHER;
-                                break;
-                            case "Перекрытия из сборного железобетонного настила":
-                                floorType = FloorType.PRECASTCONCRETESLABS;
-                                break;
-                            case "Перекрытия из сборных и монолитных сплошных плит":
-                                floorType = FloorType.PREFABRICATEDANDMONOLITHICSOLIDSLABS;
-                                break;
-                            case "Плоские железобетонные плиты":
-                                floorType = FloorType.FLATREINFORCEDCONCRETE;
-                                break;
-                            case "Нет":
-                                floorType = FloorType.NONE;
-                                break;
-                            case "Смешанные":
-                                floorType = FloorType.MIXED;
-                                break;
-                            default:
-                                throw new IllegalArgumentException(value);
-                        }
+                        FloorType floorType = switch (value) {
+                            case "Перекрытия из железобетонных плит", "Перекрытия железобетонные", "Железобетонные", "Железобетон" ->
+                                    FloorType.REINFORCEDCONCRETESLABS;
+                            case "Перекрытия деревянные неоштукатуренные" -> FloorType.WOODENUNPLASTERED;
+                            case "Перекрытия деревянные оштукатуренные" -> FloorType.WOODENPLASTERED;
+                            case "Деревянные отепленные" -> FloorType.WOODENHEATED;
+                            case "Деревянные" -> FloorType.WOODEN;
+                            case "Иные" -> FloorType.OTHER;
+                            case "Перекрытия из сборного железобетонного настила" -> FloorType.PRECASTCONCRETESLABS;
+                            case "Перекрытия из сборных и монолитных сплошных плит" ->
+                                    FloorType.PREFABRICATEDANDMONOLITHICSOLIDSLABS;
+                            case "Плоские железобетонные плиты" -> FloorType.FLATREINFORCEDCONCRETE;
+                            case "Нет" -> FloorType.NONE;
+                            case "Смешанные" -> FloorType.MIXED;
+                            default -> throw new IllegalArgumentException(value);
+                        };
                         constructionElements.setFloorType(floorType);
                         break;
                     case "Вид услуги (работы)":
@@ -1909,7 +1666,7 @@ public class Parser {
         for (Element element : doc.select(".col-md-7").get(1).select("dl").get(0).children()) {
             Elements dt = element.getElementsByTag("dt");
             index += 1;
-            if (dt.size() > 0) {
+            if (!dt.isEmpty()) {
                 String tag = ((TextNode) dt
                         .get(0)
                         .getElementsByTag("dt")
@@ -1968,7 +1725,7 @@ public class Parser {
                                     .get(0)
                                     .children()
                                     .get(index))
-                            .filter(v -> v.childNodes().size() > 0)
+                            .filter(v -> !v.childNodes().isEmpty())
                             .map(Element::childNodes)
                             .map(v -> v.get(0))
                             .orElse(null);
@@ -1992,14 +1749,10 @@ public class Parser {
                         houseInfo.setFloor(Integer.valueOf(value));
                         break;
                     case "Тип дома":
-                        HouseType houseType;
-                        switch (value) {
-                            case "Многоквартирный дом":
-                                houseType = HouseType.MANYAPPARTMENTS;
-                                break;
-                            default:
-                                throw new IllegalArgumentException(value);
-                        }
+                        HouseType houseType = switch (value) {
+                            case "Многоквартирный дом" -> HouseType.MANYAPPARTMENTS;
+                            default -> throw new IllegalArgumentException(value);
+                        };
                         houseInfo.setHouseType(houseType);
                         break;
                     case "Жилых помещений":
