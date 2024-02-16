@@ -875,7 +875,7 @@ public class XlsExportService implements ExportService {
         int cellRowIndex = 0;
 
         Cell cell = row.createCell(cellRowIndex++);
-        cell.setCellValue(1); //todo counter
+        cell.setCellValue(row.getRowNum() - 1);
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
