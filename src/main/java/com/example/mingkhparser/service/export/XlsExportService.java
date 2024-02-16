@@ -114,10 +114,11 @@ public class XlsExportService implements ExportService {
             Sheet sheet = workbook.createSheet("Houses");
             setColumnsWidth(sheet);
 
-            Row header = sheet.createRow(0);
-            createHeader(workbook, header);
+            Row header0 = sheet.createRow(0);
+            Row header1 = sheet.createRow(1);
+            createHeader(workbook, header0, header1);
 
-            Row row = sheet.createRow(1); //todo counter
+            Row row = sheet.createRow(2); //todo counter
             createInfoBlock(workbook, row, houseInfo);
 
             saveFile(workbook);
@@ -147,7 +148,7 @@ public class XlsExportService implements ExportService {
         sheet.setColumnWidth(columnWidthCount++, 4000);
     }
 
-    private void createHeader(final XSSFWorkbook workbook, final Row header) {
+    private void createHeader(final XSSFWorkbook workbook, final Row header0, final Row header1) {
         XSSFFont font = workbook.createFont();
         font.setFontName("Arial Narrow");
         font.setFontHeightInPoints((short) 16);
@@ -159,68 +160,100 @@ public class XlsExportService implements ExportService {
         headerStyle.setFont(font);
 
         int headerRowIndex = 0;
-        Cell headerCell = header.createCell(headerRowIndex++);
+        Cell headerCell0 = header0.createCell(headerRowIndex);
+        Cell headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("№");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Адрес");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Год постройки");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Количество этажей");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Тип дома");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Жилых помещений");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Капитальный ремонт");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Серия, тип постройки");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Тип перекрытий");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Материал несущих стен");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Тип мусоропровода");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Дом признан аварийным");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Выписка из ЕГРН");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Кадастровый номер");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Код ОКТМО");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Управляющая компания");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
         //********************************Основные сведения**************************************
@@ -229,120 +262,179 @@ public class XlsExportService implements ExportService {
         headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
         headerStyle.setFont(font);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
+        headerCell0.setCellValue("Основные сведения");
         headerCell.setCellValue("Год ввода в эксплуатацию");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Дом признан аварийным");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Состояние дома");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Количество квартир");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Количество нежилых помещений");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Количество лоджий");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Количество балконов");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Класс энергетической эффективности");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Количество подъездов");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Количество лифтов");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Наибольшее количество этажей");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Наименьшее количество этажей");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Подземных этажей");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Формирование фонда кап. ремонта");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Площадь парковки м2");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Наличие в подъездах приспособлений для нужд маломобильных групп населения");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Тип дома");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Дата документа о признании дома аварийным");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Номер документа о признании дома аварийным");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Износ здания, %");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Дата, на которую установлен износ здания");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Основание признания дома аварийным");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Площадь многоквартирного дома, кв.м");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Площадь жилых помещений м2");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Площадь нежилых помещений м2");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Площадь помещений общего имущества м2");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Площадь зем. участка общего имущества м2");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Серия, тип постройки здания");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Статус объекта культурного наследия");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
         //**********************Инженерные системы**********************
@@ -351,44 +443,65 @@ public class XlsExportService implements ExportService {
         headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
         headerStyle.setFont(font);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
+        headerCell0.setCellValue("Инженерные системы");
         headerCell.setCellValue("Вентиляция");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Водоотведение");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Система водостоков");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Газоснабжение");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Горячее водоснабжение");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Система пожаротушения");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Теплоснабжение");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Холодное водоснабжение");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Электроснабжение");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Количество вводов в дом, ед.");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
         //******************************Конструктивные элементы***********************
@@ -397,36 +510,53 @@ public class XlsExportService implements ExportService {
         headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
         headerStyle.setFont(font);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
+        headerCell0.setCellValue("Конструктивные элементы");
         headerCell.setCellValue("Мусоропровод");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Количество мусоропроводов, ед.");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Несущие стены");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Площадь подвала, кв.м");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Фундамент");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Перекрытия");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Вид услуги (работы)");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Подъезд");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
         //******************************Cистема горячего водоснабжения******************************
@@ -435,24 +565,35 @@ public class XlsExportService implements ExportService {
         headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
         headerStyle.setFont(font);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
+        headerCell0.setCellValue("Cистема горячего водоснабжения");
         headerCell.setCellValue("Тип системы горячего водоснабжения");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Физический износ");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Материал сети");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Материал теплоизоляции сети");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Материал стояков");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
         //******************************Система водоотведения******************************
@@ -461,20 +602,29 @@ public class XlsExportService implements ExportService {
         headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
         headerStyle.setFont(font);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
+        headerCell0.setCellValue("Система водоотведения");
         headerCell.setCellValue("Физический износ");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Год проведения последнего капитального ремонта");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Тип системы водоотведения");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Материал сети");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
         //******************************Система газоснабжения******************************
@@ -483,16 +633,23 @@ public class XlsExportService implements ExportService {
         headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
         headerStyle.setFont(font);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
+        headerCell0.setCellValue("Система газоснабжения");
         headerCell.setCellValue("Год проведения последнего капитального ремонта");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Тип системы газоснабжения");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Количество вводов системы газоснабжения");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
         //******************************Система электроснабжения******************************
@@ -501,16 +658,23 @@ public class XlsExportService implements ExportService {
         headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
         headerStyle.setFont(font);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
+        headerCell0.setCellValue("Система электроснабжения");
         headerCell.setCellValue("Физический износ");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Год проведения последнего капитального ремонта");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Количество вводов системы электроснабжения");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
         //******************************Фундамент******************************
@@ -519,24 +683,35 @@ public class XlsExportService implements ExportService {
         headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
         headerStyle.setFont(font);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
+        headerCell0.setCellValue("Фундамент");
         headerCell.setCellValue("Тип фундамента");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Материал фундамента");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Площадь отмостки");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Физический износ");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Год проведения последнего капитального ремонта");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
         //******************************Внутренние стены******************************
@@ -545,12 +720,17 @@ public class XlsExportService implements ExportService {
         headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
         headerStyle.setFont(font);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
+        headerCell0.setCellValue("Внутренние стены");
         headerCell.setCellValue("Тип внутренних стен");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Физический износ");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
         //******************************Фасад******************************
@@ -559,24 +739,35 @@ public class XlsExportService implements ExportService {
         headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
         headerStyle.setFont(font);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
+        headerCell0.setCellValue("Фасад");
         headerCell.setCellValue("Тип наружных стен");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Тип наружного утепления фасада");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Материал отделки фасада");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Физический износ");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Год проведения последнего капитального ремонта");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
         //******************************Перекрытия******************************
@@ -585,12 +776,17 @@ public class XlsExportService implements ExportService {
         headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
         headerStyle.setFont(font);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
+        headerCell0.setCellValue("Перекрытия");
         headerCell.setCellValue("Тип перекрытия");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Физический износ");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
         //******************************Крыша******************************
@@ -599,28 +795,41 @@ public class XlsExportService implements ExportService {
         headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
         headerStyle.setFont(font);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
+        headerCell0.setCellValue("Крыша");
         headerCell.setCellValue("Форма крыши");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Утепляющие слои чердачных перекрытий");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Вид несущей части");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Тип кровли");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Физический износ кровли");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Год проведения последнего капитального ремонта кровли");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
         //******************************Окна******************************
@@ -629,12 +838,17 @@ public class XlsExportService implements ExportService {
         headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
         headerStyle.setFont(font);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
+        headerCell0.setCellValue("Окна");
         headerCell.setCellValue("Физический износ");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Материал окон");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
         //******************************Двери******************************
@@ -643,8 +857,11 @@ public class XlsExportService implements ExportService {
         headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
         headerStyle.setFont(font);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
+        headerCell0.setCellValue("Двери");
         headerCell.setCellValue("Физический износ");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
         //******************************Отделочные покрытия помещений общего пользования******************************
@@ -653,8 +870,11 @@ public class XlsExportService implements ExportService {
         headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
         headerStyle.setFont(font);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
+        headerCell0.setCellValue("Отделочные покрытия помещений общего пользования");
         headerCell.setCellValue("Физический износ");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
         //******************************Система отопления******************************
@@ -663,16 +883,23 @@ public class XlsExportService implements ExportService {
         headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
         headerStyle.setFont(font);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
+        headerCell0.setCellValue("Система отопления");
         headerCell.setCellValue("Физический износ");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Материал сети");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Материал теплоизоляции сети");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
         //******************************Стояки системы отопления******************************
@@ -681,16 +908,23 @@ public class XlsExportService implements ExportService {
         headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
         headerStyle.setFont(font);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
+        headerCell0.setCellValue("Стояки системы отопления");
         headerCell.setCellValue("Физический износ");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Тип поквартирной разводки внутридомовой системы отопления");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Материал");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
         //******************************Запорная арматура системы отопления******************************
@@ -699,8 +933,11 @@ public class XlsExportService implements ExportService {
         headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
         headerStyle.setFont(font);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
+        headerCell0.setCellValue("Запорная арматура системы отопления");
         headerCell.setCellValue("Физический износ");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
         //******************************Отопительные приборы******************************
@@ -709,12 +946,17 @@ public class XlsExportService implements ExportService {
         headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
         headerStyle.setFont(font);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
+        headerCell0.setCellValue("Отопительные приборы");
         headerCell.setCellValue("Физический износ");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Тип отопительных приборов");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
         //******************************Система холодного водоснабжения******************************
@@ -723,12 +965,17 @@ public class XlsExportService implements ExportService {
         headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
         headerStyle.setFont(font);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
+        headerCell0.setCellValue("Система холодного водоснабжения");
         headerCell.setCellValue("Физический износ");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Материал сети");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
         //******************************Стояки системы холодного водоснабжения******************************
@@ -737,12 +984,17 @@ public class XlsExportService implements ExportService {
         headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
         headerStyle.setFont(font);
 
-        headerCell = header.createCell(headerRowIndex++);
-        headerCell.setCellValue("Физический износ");
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
+        headerCell0.setCellValue("Система холодного водоснабжения");
+        headerCell.setCellValue("Стояки системы холодного водоснабжения");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Материал сети");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
         //******************************Запорная арматура системы холодного водоснабжения******************************
@@ -751,8 +1003,11 @@ public class XlsExportService implements ExportService {
         headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
         headerStyle.setFont(font);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
+        headerCell0.setCellValue("Стояки системы холодного водоснабжения");
         headerCell.setCellValue("Физический износ");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
         //******************************Стояки системы горячего водоснабжения******************************
@@ -761,8 +1016,11 @@ public class XlsExportService implements ExportService {
         headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
         headerStyle.setFont(font);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
+        headerCell0.setCellValue("Стояки системы горячего водоснабжения");
         headerCell.setCellValue("Физический износ");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
 
         //******************************Запорная арматура системы горячего водоснабжения******************************
@@ -771,8 +1029,11 @@ public class XlsExportService implements ExportService {
         headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
         headerStyle.setFont(font);
 
-        headerCell = header.createCell(headerRowIndex++);
+        headerCell0 = header0.createCell(headerRowIndex);
+        headerCell = header1.createCell(headerRowIndex++);
+        headerCell0.setCellValue("Запорная арматура системы горячего водоснабжения");
         headerCell.setCellValue("Физический износ");
+        headerCell0.setCellStyle(headerStyle);
         headerCell.setCellStyle(headerStyle);
     }
 
