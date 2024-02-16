@@ -29,6 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -41,6 +42,9 @@ import static com.example.mingkhparser.utils.NullCheckUtils.*;
 @Service
 @Slf4j
 public class XlsExportService implements ExportService {
+    @Value("${insertUrl:false}")
+    private Boolean insertUrl;
+
     @Override
     public void export(List<HouseInfo> source) {
         log.debug("Start export method");
@@ -113,6 +117,14 @@ public class XlsExportService implements ExportService {
         headerCell.setCellValue("№");
         headerCell0.setCellStyle(headerStyleGrey);
         headerCell.setCellStyle(headerStyleGrey);
+
+        if (insertUrl) {
+            headerCell0 = header0.createCell(headerRowIndex);
+            headerCell = header1.createCell(headerRowIndex++);
+            headerCell.setCellValue("URL");
+            headerCell0.setCellStyle(headerStyleGrey);
+            headerCell.setCellStyle(headerStyleGrey);
+        }
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
@@ -877,6 +889,12 @@ public class XlsExportService implements ExportService {
         Cell cell = row.createCell(cellRowIndex++);
         cell.setCellValue(row.getRowNum() - 1);
         cell.setCellStyle(style);
+
+        if (insertUrl) {
+            cell = row.createCell(cellRowIndex++);
+            cell.setCellValue(houseInfo.getUrl()); //URL
+            cell.setCellStyle(style);
+        }
 
         cell = row.createCell(cellRowIndex++);
         cell.setCellValue(houseInfo.getAddress()); //Адрес
