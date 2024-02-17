@@ -87,25 +87,6 @@ public class XlsExportService implements ExportService {
     }
 
     private void setColumnsWidth(final Sheet sheet) {
-        int columnWidthCount = 0;
-//        sheet.setColumnWidth(columnWidthCount++, 4000);
-//        sheet.autoSizeColumn(1);
-//        sheet.setColumnWidth(columnWidthCount++, 4000);
-//        sheet.setColumnWidth(columnWidthCount++, 4000);
-//        sheet.setColumnWidth(columnWidthCount++, 4000);
-//        sheet.setColumnWidth(columnWidthCount++, 4000);
-//        sheet.setColumnWidth(columnWidthCount++, 4000);
-//        sheet.setColumnWidth(columnWidthCount++, 4000);
-//        sheet.setColumnWidth(columnWidthCount++, 4000);
-//        sheet.setColumnWidth(columnWidthCount++, 4000);
-//        sheet.setColumnWidth(columnWidthCount++, 4000);
-//        sheet.setColumnWidth(columnWidthCount++, 4000);
-//        sheet.setColumnWidth(columnWidthCount++, 4000);
-//        sheet.setColumnWidth(columnWidthCount++, 4000);
-//        sheet.setColumnWidth(columnWidthCount++, 4000);
-//        sheet.setColumnWidth(columnWidthCount++, 4000);
-//        sheet.setColumnWidth(columnWidthCount++, 4000);
-//        IntStream.of(118).forEach(sheet::autoSizeColumn);
         for (int i = 0; i < 120; i++) {
             sheet.autoSizeColumn(i);
         }

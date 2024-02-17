@@ -15,7 +15,7 @@ import java.util.concurrent.Executors;
 @SpringBootApplication
 @Slf4j
 public class Application implements CommandLineRunner {
-    private String nextUrl = "https://dom.mingkh.ru/ivanovskaya-oblast/furmanov/168433";
+    private final String NEXT_URL = "https://dom.mingkh.ru/ivanovskaya-oblast/furmanov/168433";
     /*
         dom.mingkh.ru parser
      */
@@ -53,7 +53,7 @@ public class Application implements CommandLineRunner {
     private List<String> processNext(final List<String> addresses) {
         int index = addresses.size();
         for (int i = 0; i < addresses.size(); i++) {
-            if (addresses.get(i).equals(nextUrl)) {
+            if (addresses.get(i).equals(NEXT_URL)) {
                 log.info("processed {}", i);
                 index = i;
                 break;
