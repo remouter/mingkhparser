@@ -393,8 +393,8 @@ public class XlsExportService implements ExportService {
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
         headerCell.setCellValue("Статус объекта культурного наследия");
-        headerCell0.setCellStyle(headerStyleGrey);
-        headerCell.setCellStyle(headerStyleGrey);
+        headerCell0.setCellStyle(headerStyleGreen);
+        headerCell.setCellStyle(headerStyleGreen);
 
         //**********************Инженерные системы**********************
         headerCell0 = header0.createCell(headerRowIndex);

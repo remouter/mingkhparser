@@ -99,18 +99,24 @@ public class Parser {
         setInfo(houseInfo, doc);
         setGeneralInfoEngineeringSystemsConstructionElements(houseInfo, doc);
         setDetailedInfo(houseInfo, doc);
-        setDetailedInfo2(houseInfo, doc);
         result.add(houseInfo);
         log.debug("houseInfo: {}", houseInfo);
     }
 
-    private void setDetailedInfo2(HouseInfo houseInfo, Document doc) {
-        Floors floors = houseInfo.getFloors() == null ? new Floors() : houseInfo.getFloors();
-        Roof roof = houseInfo.getRoof() == null ? new Roof() : houseInfo.getRoof();
-        Windows windows = houseInfo.getWindows() == null ? new Windows() : houseInfo.getWindows();
+    private void setDetailedInfo(HouseInfo houseInfo, Document doc) {
+        HotWaterSupplySystem hotWaterSupplySystem = new HotWaterSupplySystem();
+        DrainageSystem drainageSystem = new DrainageSystem();
+        GasSupplySystem gasSupplySystem = new GasSupplySystem();
+        ElectricitySupplySystem electricitySupplySystem = new ElectricitySupplySystem();
+        com.example.mingkhparser.models.foundation.Foundation foundation = new com.example.mingkhparser.models.foundation.Foundation();
+        InnerWalls innerWalls = new InnerWalls();
+        Facade facade = new Facade();
+        Floors floors = new Floors();
+        Roof roof = new Roof();
+        HeatingSystem heatingSystem = new HeatingSystem();
+        Windows windows = new Windows();
         Doors doors = new Doors();
         CommonAreasFinishingCoatings commonAreasFinishingCoatings = new CommonAreasFinishingCoatings();
-        HeatingSystem heatingSystem = houseInfo.getHeatingSystem() == null ? new HeatingSystem() : houseInfo.getHeatingSystem();
         HeatingSystemRisers heatingSystemRisers = new HeatingSystemRisers();
         ShutoffValvesHeatingSystem shutoffValvesHeatingSystem = new ShutoffValvesHeatingSystem();
         HeatingDevices heatingDevices = new HeatingDevices();
@@ -119,10 +125,9 @@ public class Parser {
         ShutoffValvesColdWaterSupplySystem shutoffValvesColdWaterSupplySystem = new ShutoffValvesColdWaterSupplySystem();
         HotWaterSupplySystemRisers hotWaterSupplySystemRisers = new HotWaterSupplySystemRisers();
         ShutoffValvesHotWaterSupplySystem shutoffValvesHotWaterSupplySystem = new ShutoffValvesHotWaterSupplySystem();
-        HotWaterSupplySystem hotWaterSupplySystem = houseInfo.getHotWaterSupplySystem() == null ? new HotWaterSupplySystem() : houseInfo.getHotWaterSupplySystem();
 
         Elements table = doc.select("body .outer .main-block .container .margin-bottom-20");
-        for (int i = 12; i < table.size(); i++) {
+        for (int i = 4; i < table.size(); i++) {
             Element element = table.get(i);
             element.children();
             for (int j = 0; j < element.select(".col-md-6").size(); j++) {
@@ -131,6 +136,27 @@ public class Parser {
                 String value = element.select(".col-md-6").get(++j).text().trim();
 
                 switch (partition) {
+                    case "Cистема горячего водоснабжения":
+                        setHotWaterSupplySystem(tag, value, hotWaterSupplySystem);
+                        break;
+                    case "Система водоотведения":
+                        setDrainageSystem(tag, value, drainageSystem);
+                        break;
+                    case "Система газоснабжения":
+                        setGasSupplySystem(tag, value, gasSupplySystem);
+                        break;
+                    case "Система электроснабжения":
+                        setElectricitySupplySystem(tag, value, electricitySupplySystem);
+                        break;
+                    case "Фундамент":
+                        setFoundation(tag, value, foundation);
+                        break;
+                    case "Внутренние стены":
+                        setInnerWalls(tag, value, innerWalls);
+                        break;
+                    case "Фасад":
+                        setFacade(tag, value, facade);
+                        break;
                     case "Перекрытия":
                         setFloors(tag, value, floors);
                         break;
@@ -173,21 +199,25 @@ public class Parser {
                     case "Запорная арматура системы горячего водоснабжения":
                         setShutoffValvesHotWaterSupplySystem(tag, value, shutoffValvesHotWaterSupplySystem);
                         break;
-                    case "Cистема горячего водоснабжения":
-                        setHotWaterSupplySystem(tag, value, hotWaterSupplySystem);
-                        break;
                     default:
                         throw new IllegalArgumentException(partition);
                 }
             }
         }
 
+        houseInfo.setHotWaterSupplySystem(hotWaterSupplySystem);
+        houseInfo.setDrainageSystem(drainageSystem);
+        houseInfo.setGasSupplySystem(gasSupplySystem);
+        houseInfo.setElectricitySupplySystem(electricitySupplySystem);
+        houseInfo.setFoundation(foundation);
+        houseInfo.setInnerWalls(innerWalls);
+        houseInfo.setFacade(facade);
         houseInfo.setFloors(floors);
         houseInfo.setRoof(roof);
+        houseInfo.setHeatingSystem(heatingSystem);
         houseInfo.setWindows(windows);
         houseInfo.setDoors(doors);
         houseInfo.setCommonAreasFinishingCoatings(commonAreasFinishingCoatings);
-        houseInfo.setHeatingSystem(heatingSystem);
         houseInfo.setHeatingSystemRisers(heatingSystemRisers);
         houseInfo.setShutoffValvesHeatingSystem(shutoffValvesHeatingSystem);
         houseInfo.setHeatingDevices(heatingDevices);
@@ -196,7 +226,6 @@ public class Parser {
         houseInfo.setShutoffValvesColdWaterSupplySystem(shutoffValvesColdWaterSupplySystem);
         houseInfo.setHotWaterSupplySystemRisers(hotWaterSupplySystemRisers);
         houseInfo.setShutoffValvesHotWaterSupplySystem(shutoffValvesHotWaterSupplySystem);
-        houseInfo.setHotWaterSupplySystem(hotWaterSupplySystem);
     }
 
     private void setShutoffValvesHotWaterSupplySystem(String tag, String value, ShutoffValvesHotWaterSupplySystem shutoffValvesHotWaterSupplySystem) {
@@ -699,78 +728,6 @@ public class Parser {
             default:
                 throw new IllegalArgumentException(tag);
         }
-    }
-
-    private void setDetailedInfo(HouseInfo houseInfo, Document doc) {
-        HotWaterSupplySystem hotWaterSupplySystem = new HotWaterSupplySystem();
-        DrainageSystem drainageSystem = new DrainageSystem();
-        GasSupplySystem gasSupplySystem = new GasSupplySystem();
-        ElectricitySupplySystem electricitySupplySystem = new ElectricitySupplySystem();
-        com.example.mingkhparser.models.foundation.Foundation foundation = new com.example.mingkhparser.models.foundation.Foundation();
-        InnerWalls innerWalls = new InnerWalls();
-        Facade facade = new Facade();
-        Floors floors = new Floors();
-        Roof roof = new Roof();
-        HeatingSystem heatingSystem = new HeatingSystem();
-        Windows windows = new Windows();
-
-        for (Element element : doc.select("body .outer .main-block .container .row").get(7).children().get(0).children()) {
-            for (int i = 0; i < element.select(".col-md-6").size(); i++) {
-                String tag = element.select(".col-md-6").get(i).text().trim();
-                String value = element.select(".col-md-6").get(++i).text().trim();
-                String partition = element.select(".col-md-12").get(0).text().trim();
-
-                switch (partition) {
-                    case "Cистема горячего водоснабжения":
-                        setHotWaterSupplySystem(tag, value, hotWaterSupplySystem);
-                        break;
-                    case "Система водоотведения":
-                        setDrainageSystem(tag, value, drainageSystem);
-                        break;
-                    case "Система газоснабжения":
-                        setGasSupplySystem(tag, value, gasSupplySystem);
-                        break;
-                    case "Система электроснабжения":
-                        setElectricitySupplySystem(tag, value, electricitySupplySystem);
-                        break;
-                    case "Фундамент":
-                        setFoundation(tag, value, foundation);
-                        break;
-                    case "Внутренние стены":
-                        setInnerWalls(tag, value, innerWalls);
-                        break;
-                    case "Фасад":
-                        setFacade(tag, value, facade);
-                        break;
-                    case "Перекрытия":
-                        setFloors(tag, value, floors);
-                        break;
-                    case "Крыша":
-                        setRoof(tag, value, roof);
-                        break;
-                    case "Система отопления":
-                        setHeatingSystem(tag, value, heatingSystem);
-                        break;
-                    case "Окна":
-                        setWindows(tag, value, windows);
-                        break;
-                    default:
-                        throw new IllegalArgumentException(partition);
-                }
-            }
-        }
-
-        houseInfo.setHotWaterSupplySystem(hotWaterSupplySystem);
-        houseInfo.setDrainageSystem(drainageSystem);
-        houseInfo.setGasSupplySystem(gasSupplySystem);
-        houseInfo.setElectricitySupplySystem(electricitySupplySystem);
-        houseInfo.setFoundation(foundation);
-        houseInfo.setInnerWalls(innerWalls);
-        houseInfo.setFacade(facade);
-        houseInfo.setFloors(floors);
-        houseInfo.setRoof(roof);
-        houseInfo.setHeatingSystem(heatingSystem);
-        houseInfo.setWindows(windows);
     }
 
     private void setFacade(String tag, String value, Facade facade) {
