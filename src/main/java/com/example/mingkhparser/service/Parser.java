@@ -1648,8 +1648,7 @@ public class Parser {
                         break;
                     case "Вид услуги (работы)":
                     case "Подъезд":
-                        //todo skip - https://dom.mingkh.ru/ivanovskaya-oblast/furmanov/92788
-                        //todo skip - https://dom.mingkh.ru/ivanovskaya-oblast/furmanov/1148044
+                        //todo - https://dom.mingkh.ru/ivanovskaya-oblast/furmanov/92788, https://dom.mingkh.ru/ivanovskaya-oblast/furmanov/1148044
                         break;
                     default:
                         throw new IllegalArgumentException(tag);

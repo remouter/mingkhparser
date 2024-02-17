@@ -44,6 +44,8 @@ import static com.example.mingkhparser.utils.NullCheckUtils.*;
 public class XlsExportService implements ExportService {
     @Value("${insertUrl:false}")
     private Boolean insertUrl;
+    @Value("${exportUnused:true}")
+    private Boolean exportUnused;
 
     @Override
     public void export(List<HouseInfo> source) {
@@ -192,11 +194,13 @@ public class XlsExportService implements ExportService {
         headerCell0.setCellStyle(headerStyleGrey);
         headerCell.setCellStyle(headerStyleGrey);
 
-        headerCell0 = header0.createCell(headerRowIndex);
-        headerCell = header1.createCell(headerRowIndex++);
-        headerCell.setCellValue("Выписка из ЕГРН");
-        headerCell0.setCellStyle(headerStyleGrey);
-        headerCell.setCellStyle(headerStyleGrey);
+        if (exportUnused) {
+            headerCell0 = header0.createCell(headerRowIndex);
+            headerCell = header1.createCell(headerRowIndex++);
+            headerCell.setCellValue("Выписка из ЕГРН");
+            headerCell0.setCellStyle(headerStyleGrey);
+            headerCell.setCellStyle(headerStyleGrey);
+        }
 
         headerCell0 = header0.createCell(headerRowIndex);
         headerCell = header1.createCell(headerRowIndex++);
@@ -492,17 +496,19 @@ public class XlsExportService implements ExportService {
         headerCell0.setCellStyle(headerStyleGreen);
         headerCell.setCellStyle(headerStyleGreen);
 
-        headerCell0 = header0.createCell(headerRowIndex);
-        headerCell = header1.createCell(headerRowIndex++);
-        headerCell.setCellValue("Вид услуги (работы)");
-        headerCell0.setCellStyle(headerStyleGreen);
-        headerCell.setCellStyle(headerStyleGreen);
+        if (exportUnused) {
+            headerCell0 = header0.createCell(headerRowIndex);
+            headerCell = header1.createCell(headerRowIndex++);
+            headerCell.setCellValue("Вид услуги (работы)");
+            headerCell0.setCellStyle(headerStyleGreen);
+            headerCell.setCellStyle(headerStyleGreen);
 
-        headerCell0 = header0.createCell(headerRowIndex);
-        headerCell = header1.createCell(headerRowIndex++);
-        headerCell.setCellValue("Подъезд");
-        headerCell0.setCellStyle(headerStyleGreen);
-        headerCell.setCellStyle(headerStyleGreen);
+            headerCell0 = header0.createCell(headerRowIndex);
+            headerCell = header1.createCell(headerRowIndex++);
+            headerCell.setCellValue("Подъезд");
+            headerCell0.setCellStyle(headerStyleGreen);
+            headerCell.setCellStyle(headerStyleGreen);
+        }
 
         //******************************Cистема горячего водоснабжения******************************
         headerCell0 = header0.createCell(headerRowIndex);
@@ -940,9 +946,11 @@ public class XlsExportService implements ExportService {
         cell.setCellValue(houseInfo.getIsEmergency() ? "Да" : "Нет"); //Дом признан аварийным
         cell.setCellStyle(style);
 
-        cell = row.createCell(cellRowIndex++);
-        cell.setCellValue(""); //Выписка из ЕГРН //todo remove me
-        cell.setCellStyle(style);
+        if (exportUnused) {
+            cell = row.createCell(cellRowIndex++);
+            cell.setCellValue(""); //Выписка из ЕГРН
+            cell.setCellStyle(style);
+        }
 
         cell = row.createCell(cellRowIndex++);
         cell.setCellValue(houseInfo.getCadastralNumber()); //Кадастровый номер
@@ -1143,13 +1151,15 @@ public class XlsExportService implements ExportService {
         enumCheckAndSet(constructionElements.getFloorType(), cell); //Перекрытия
         cell.setCellStyle(style);
 
-        cell = row.createCell(cellRowIndex++);
-        cell.setCellValue(""); //Вид услуги (работы) //todo remove me
-        cell.setCellStyle(style);
+        if (exportUnused) {
+            cell = row.createCell(cellRowIndex++);
+            cell.setCellValue(""); //Вид услуги (работы)
+            cell.setCellStyle(style);
 
-        cell = row.createCell(cellRowIndex++);
-        cell.setCellValue(""); //Подъезд //todo remove me
-        cell.setCellStyle(style);
+            cell = row.createCell(cellRowIndex++);
+            cell.setCellValue(""); //Подъезд
+            cell.setCellStyle(style);
+        }
 
         //******************************Cистема горячего водоснабжения******************************
         HotWaterSupplySystem hotWaterSupplySystem = houseInfo.getHotWaterSupplySystem();

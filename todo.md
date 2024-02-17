@@ -23,6 +23,7 @@
 Фундамент... - https://dom.mingkh.ru/ivanovskaya-oblast/furmanov/1343465
 +++url insert xls
 +++font size change
++++not export unused fields
 выравнивание по краю
 выровнять ширину
 
