@@ -82,7 +82,7 @@ public class XlsExportService implements ExportService {
             saveFile(workbook);
             log.debug("Finish export method");
         } catch (Exception exception) {
-            exception.printStackTrace();
+            log.error("{}", exception);
         }
     }
 
@@ -1047,7 +1047,7 @@ public class XlsExportService implements ExportService {
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);
-        cell.setCellValue(generalInfo.getWearCalculationDate()); //Дата, на которую установлен износ здания
+        setLocalDateAndSet(generalInfo.getWearCalculationDate(), cell); //Дата, на которую установлен износ здания
         cell.setCellStyle(style);
 
         cell = row.createCell(cellRowIndex++);

@@ -1748,6 +1748,7 @@ public class Parser {
                         houseInfo.setFloor(Integer.valueOf(value));
                         break;
                     case "Тип дома":
+                        assert value != null;
                         HouseType houseType = switch (value) {
                             case "Многоквартирный дом" -> HouseType.MANYAPPARTMENTS;
                             default -> throw new IllegalArgumentException(value);
@@ -1823,50 +1824,28 @@ public class Parser {
                         break;
                     case "Тип перекрытий":
                         FloorType floorType;
-                        switch (value) {
-                            case "Перекрытия из железобетонных плит":
-                            case "Перекрытия железобетонные":
-                            case "Железобетонные":
-                            case "Железобетон":
-                                floorType = FloorType.REINFORCEDCONCRETESLABS;
-                                break;
-                            case "Перекрытия деревянные неоштукатуренные":
-                                floorType = FloorType.WOODENUNPLASTERED;
-                                break;
-                            case "Перекрытия деревянные оштукатуренные":
-                                floorType = FloorType.WOODENPLASTERED;
-                                break;
-                            case "Деревянные отепленные":
-                                floorType = FloorType.WOODENHEATED;
-                                break;
-                            case "Деревянные":
-                                floorType = FloorType.WOODEN;
-                                break;
-                            case "Иные":
-                                floorType = FloorType.OTHER;
-                                break;
-                            case "Перекрытия из сборного железобетонного настила":
-                                floorType = FloorType.PRECASTCONCRETESLABS;
-                                break;
-                            case "Перекрытия из сборных и монолитных сплошных плит":
-                                floorType = FloorType.PREFABRICATEDANDMONOLITHICSOLIDSLABS;
-                                break;
-                            case "Плоские железобетонные плиты":
-                                floorType = FloorType.FLATREINFORCEDCONCRETE;
-                                break;
-                            case "Нет":
-                                floorType = FloorType.NONE;
-                                break;
-                            case "Смешанные":
-                                floorType = FloorType.MIXED;
-                                break;
-                            default:
-                                throw new IllegalArgumentException(value);
+                        switch (Objects.requireNonNull(value)) {
+                            case "Перекрытия из железобетонных плит", "Перекрытия железобетонные", "Железобетонные", "Железобетон" ->
+                                    floorType = FloorType.REINFORCEDCONCRETESLABS;
+                            case "Перекрытия деревянные неоштукатуренные" -> floorType = FloorType.WOODENUNPLASTERED;
+                            case "Перекрытия деревянные оштукатуренные" -> floorType = FloorType.WOODENPLASTERED;
+                            case "Деревянные отепленные" -> floorType = FloorType.WOODENHEATED;
+                            case "Деревянные" -> floorType = FloorType.WOODEN;
+                            case "Иные" -> floorType = FloorType.OTHER;
+                            case "Перекрытия из сборного железобетонного настила" ->
+                                    floorType = FloorType.PRECASTCONCRETESLABS;
+                            case "Перекрытия из сборных и монолитных сплошных плит" ->
+                                    floorType = FloorType.PREFABRICATEDANDMONOLITHICSOLIDSLABS;
+                            case "Плоские железобетонные плиты" -> floorType = FloorType.FLATREINFORCEDCONCRETE;
+                            case "Нет" -> floorType = FloorType.NONE;
+                            case "Смешанные" -> floorType = FloorType.MIXED;
+                            default -> throw new IllegalArgumentException(value);
                         }
                         houseInfo.setFloorType(floorType);
                         break;
                     case "Материал несущих стен":
                         Set<WallMaterial> wallMaterials = new HashSet<>();
+                        assert value != null;
                         String[] values = value.split(", ");
                         for (String str : values) {
                             switch (str) {
@@ -1916,16 +1895,13 @@ public class Parser {
                         houseInfo.setWallMaterials(wallMaterials);
                         break;
                     case "Тип мусоропровода":
-                        switch (value) {
-                            case "Отсутствует":
-                                houseInfo.setGarbageChute(false);
-                                break;
-                            default:
-                                throw new IllegalArgumentException(value);
+                        switch (Objects.requireNonNull(value)) {
+                            case "Отсутствует" -> houseInfo.setGarbageChute(false);
+                            default -> throw new IllegalArgumentException(value);
                         }
                         break;
                     case "Дом признан аварийным":
-                        switch (value) {
+                        switch (Objects.requireNonNull(value)) {
                             case "Нет":
                                 houseInfo.setIsEmergency(false);
                                 break;

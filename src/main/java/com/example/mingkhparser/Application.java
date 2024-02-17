@@ -36,7 +36,7 @@ public class Application implements CommandLineRunner {
     public void run(String... args) {
         List<String> addresses = parser.getHouses("https://dom.mingkh.ru/ivanovskaya-oblast/furmanov/");
 //        List<String> addresses = List.of(nextUrl);
-        addresses = processNext(addresses);
+//        addresses = processNext(addresses);
 
         Long startTime = System.currentTimeMillis();
         addresses.forEach(parser::process); //takes 61285 / 61.285 sec
